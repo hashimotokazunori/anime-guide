@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="気分と配信サービスから、次に観るアニメが見つかるガイド。">
+<title>今夜のアニメ帖</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=M+PLUS+Rounded+1c:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: 夜桜の夜空を背景に、ネオンピンクの検索バーと縦長ポスターの棚。意図的にダーク一色の世界観。 */
+:root{
+  color-scheme:dark;
+  --night:#0B0716; --night2:#1A0E2E; --panel:rgba(20,12,36,.82); --line:rgba(255,120,200,.28);
+  --ink:#F6EEFA; --muted:#B9A8C9; --pink:#FF3EA5; --pink-soft:#FF8CCB; --gold:#FFB21E; --gold2:#FF7A1A;
+  --display:"Dela Gothic One","Hiragino Sans","Yu Gothic",sans-serif;
+  --round:"M PLUS Rounded 1c","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;
+  --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+}
+html{background:var(--night);-webkit-text-size-adjust:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+*,*::before,*::after{box-sizing:border-box}
+/* 広告・アフィリエイト (monetize.js) */
+.prnote{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:-8px 0 14px;font-size:12px;color:var(--muted)}
+.prnote a{color:var(--pink-soft)}
+.prnote .pr,.shop .pr{font-size:10px;font-weight:800;letter-spacing:.1em;border:1px solid var(--muted);color:var(--muted);border-radius:3px;padding:0 6px}
+a.afflink{text-decoration:none;display:inline-block}
+a.afflink .yes{outline:2px solid transparent;transition:outline-color .15s}
+a.afflink:hover .yes{outline-color:var(--gold)}
+a.afflink .sv{box-shadow:0 0 0 1px rgba(255,255,255,.35)}
+.adbox{margin:16px 0;padding:8px;border:1px dashed rgba(255,255,255,.16);border-radius:10px;background:rgba(0,0,0,.25);min-height:100px}
+.adbox.incard{grid-column:1/-1;margin:0}
+.adlabel{display:block;font-size:10px;color:var(--muted);letter-spacing:.12em;margin-bottom:4px}
+.foot-links{margin-top:10px;font-size:12px}
+.foot-links a{color:var(--muted)}
+/* 予告編・アフィリエイト (extras.js) */
+.trailer{position:relative;aspect-ratio:16/9;max-width:100%;border-radius:10px;overflow:hidden;background:#000;border:1px solid var(--line)}
+.trailer iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.trailer button{position:absolute;inset:0;width:100%;border:0;background:radial-gradient(circle,rgba(255,62,165,.25),rgba(0,0,0,.85));color:#fff;font-weight:800;font-family:var(--round);font-size:15px;display:grid;place-items:center;gap:6px;align-content:center}
+.trailer button::before{content:"";width:58px;height:58px;border-radius:50%;background:var(--pink);box-shadow:0 0 24px rgba(255,62,165,.7);clip-path:polygon(38% 28%,38% 72%,74% 50%);background-clip:padding-box;outline:3px solid rgba(255,255,255,.85);outline-offset:-3px}
+.trailer small{display:block;font-weight:500;font-size:11px;color:var(--muted)}
+.shop{display:grid;gap:8px}
+.shop .pr{justify-self:start;font-size:10px;font-weight:800;letter-spacing:.1em;border:1px solid var(--muted);color:var(--muted);border-radius:3px;padding:0 6px}
+.shop .items{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px}
+.shop a{display:grid;gap:4px;text-decoration:none;color:var(--ink);font-size:11px;line-height:1.35;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px}
+.shop a:hover{border-color:var(--pink)}
+.shop img{width:100%;aspect-ratio:3/4;object-fit:contain;background:#fff;border-radius:4px}
+.shop .price{color:var(--gold);font-weight:700}
+.credit{font-size:11px;color:var(--muted)}
+.credit a{color:var(--muted)}
+.poster img.pk{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.poster:has(img.pk) .glyph{display:none}
+.poster:has(img.pk)::before{display:none}
+.ytbadge{position:absolute;left:8px;top:42px;z-index:1;font-size:10px;font-weight:800;color:#fff;background:rgba(220,0,0,.85);border-radius:3px;padding:1px 6px}
+.grid.list .ytbadge{display:none}
+a.mini{flex:none;display:block;width:96px;aspect-ratio:16/9;border-radius:6px;overflow:hidden;border:1px solid var(--line);background:#000;position:relative}
+a.mini img{width:100%;height:100%;object-fit:cover;display:block}
+a.mini::after{content:"▶";position:absolute;right:4px;bottom:2px;font-size:10px;color:#fff;text-shadow:0 0 4px #000}
+a.mini:hover{border-color:var(--pink)}
+td.t[data-pv]{min-width:250px}
+td.t a.mini{float:left;margin:2px 10px 2px 0;width:80px}
+td.t b{display:block;overflow:hidden}
+.trailer img.thumb{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.trailer button{background:radial-gradient(circle,rgba(255,62,165,.2),rgba(0,0,0,.6))}
+body{background:var(--night);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.7;min-height:100%;overflow-x:hidden}
+#sky{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+   radial-gradient(ellipse 60% 50% at 85% 20%,rgba(255,62,165,.35),transparent 70%),
+   radial-gradient(ellipse 50% 40% at 10% 90%,rgba(120,60,255,.28),transparent 70%),
+   linear-gradient(180deg,var(--night2),var(--night) 70%)}
+#petals{position:fixed;inset:0;z-index:0;pointer-events:none;width:100%;height:100%}
+.wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:32px 72px}
+
+header{display:flex;flex-wrap:wrap;gap:14px 28px;align-items:center;margin-bottom:22px}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(40px,7.5vw,76px);line-height:1.02;margin:0;letter-spacing:.01em}
+h1 .a{display:block;background:linear-gradient(180deg,var(--gold),var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(255,140,30,.35))}
+h1 .b{display:block;color:#fff;text-shadow:0 0 22px rgba(255,62,165,.5)}
+.tagline{display:grid;gap:8px;max-width:34ch}
+.ribbon{justify-self:start;background:linear-gradient(90deg,var(--pink),#C21E7E);color:#fff;font-family:var(--round);font-weight:800;font-style:italic;letter-spacing:.08em;font-size:14px;padding:5px 18px;transform:skewX(-12deg);box-shadow:0 0 18px rgba(255,62,165,.55)}
+.ribbon span{display:inline-block;transform:skewX(12deg)}
+.tagline p{margin:0;font-size:13px;color:var(--muted);font-style:italic}
+
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--pink-soft);outline-offset:2px}
+
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px;backdrop-filter:blur(8px);box-shadow:0 0 0 1px rgba(255,62,165,.12),0 0 30px rgba(255,62,165,.15)}
+.search{flex:1 1 240px;min-width:0;display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:0 12px}
+.search svg{flex:none;opacity:.8}
+.search input{flex:1;min-width:0;background:transparent;border:0;padding:10px 0;outline:none}
+.search input::placeholder{color:var(--muted)}
+.sel{position:relative}
+.sel select{appearance:none;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:9px 32px 9px 14px;font-size:13px;font-weight:700;cursor:pointer}
+.sel::after{content:"";position:absolute;right:13px;top:50%;width:6px;height:6px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.sel.on select{background:linear-gradient(180deg,var(--pink),#C21E7E);border-color:var(--pink);box-shadow:0 0 14px rgba(255,62,165,.5)}
+.sel option{background:#1A0E2E;color:var(--ink)}
+.pick{background:linear-gradient(180deg,var(--gold),var(--gold2));color:#2A1300;border:0;border-radius:8px;padding:9px 16px;font-weight:800;font-family:var(--round);white-space:nowrap;box-shadow:0 0 16px rgba(255,150,30,.4)}
+
+.status{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:20px 0 14px}
+.count{font-family:var(--round);font-weight:800;font-size:13px;letter-spacing:.08em}
+.count b{color:var(--pink);font-size:16px}
+.tools{display:flex;align-items:center;gap:10px}
+.tog{display:flex;gap:4px;border-left:1px solid rgba(255,255,255,.18);padding-left:10px}
+.tog button,.favf{background:transparent;border:1px solid transparent;border-radius:6px;width:34px;height:32px;display:grid;place-items:center;color:var(--muted)}
+.tog button[aria-pressed="true"],.favf[aria-pressed="true"]{background:rgba(255,62,165,.22);border-color:var(--pink);color:var(--pink-soft)}
+.favf{width:auto;padding:0 12px;font-size:13px;font-weight:700}
+
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px}
+.card{position:relative;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.14);background:#140B24;cursor:pointer;text-align:left;padding:0;display:block;width:100%;box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.card .poster{aspect-ratio:3/4;max-width:100%;position:relative;overflow:hidden}
+.poster .glyph{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);font-family:var(--display);font-size:clamp(90px,14vw,130px);line-height:1;color:rgba(255,255,255,.88);text-shadow:0 4px 30px rgba(0,0,0,.35)}
+.poster::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(115deg,rgba(255,255,255,.06) 0 2px,transparent 2px 14px)}
+.poster::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(8,4,16,.92))}
+.cap{position:absolute;left:0;right:0;bottom:0;padding:10px 12px;z-index:1}
+.cap h3{margin:0;font-size:14px;line-height:1.35;font-weight:700;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cap .m{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums}
+.fav{position:absolute;top:8px;left:8px;z-index:2;width:28px;height:28px;border-radius:50%;border:2px solid var(--pink);background:rgba(255,255,255,.9);color:var(--pink);font-weight:800;line-height:1;display:grid;place-items:center;font-size:16px;padding:0}
+.fav[aria-pressed="true"]{background:var(--pink);color:#fff}
+.mood{position:absolute;top:8px;right:8px;z-index:2;background:var(--gold2);color:#fff;font-size:11px;font-weight:700;border-radius:999px;padding:1px 9px}
+.card.hl{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold),0 0 30px rgba(255,178,30,.55)}
+.card.hl .mood{background:var(--pink)}
+@media (prefers-reduced-motion:no-preference){.card{transition:transform .18s,box-shadow .18s}.card:hover{transform:translateY(-4px);box-shadow:0 0 0 1px var(--pink),0 0 24px rgba(255,62,165,.45)}}
+
+/* リスト表示 */
+.grid.list{grid-template-columns:1fr;gap:12px}
+.grid.list .card{display:grid;grid-template-columns:110px 1fr;gap:16px;align-items:start}
+.grid.list .poster .glyph{font-size:64px}
+.grid.list .cap,.grid.list .mood{display:none}
+.grid.list .detail{display:grid}
+.detail{display:none;gap:6px;padding:12px 14px 12px 0;min-width:0}
+.detail h3{margin:0;font-size:17px}
+.detail p{margin:0;font-size:14px;color:#E3D6EE}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:12px;border:1px solid var(--line);border-radius:999px;padding:0 10px;color:var(--pink-soft)}
+.meta{font-size:12px;color:var(--muted)}
+
+/* 配信サービス */
+.asof{margin:-4px 0 16px;font-size:12px;color:var(--muted);max-width:90ch}
+.asof b{color:var(--ink)}
+.svcs{display:flex;flex-wrap:wrap;gap:3px;margin-top:4px}
+.sv{font-size:10px;font-weight:700;line-height:1;padding:3px 5px;border-radius:3px;color:#fff;white-space:nowrap}
+.sv.netflix{background:#D90812}.sv.prime{background:#0A8FD0}.sv.unext{background:#3A3A3A;border:1px solid #888}.sv.danime{background:#E8640A}
+.sv.dmm{background:#2E5BD8}.sv.disney{background:#0E2A7A}.sv.hulu{background:#14A35A}.sv.abema{background:#4A4A4A;border:1px solid #9AE34A}
+.q{display:inline-grid;place-items:center;width:16px;height:16px;border-radius:50%;border:1px dashed var(--muted);color:var(--muted);font-size:10px;font-weight:700}
+.tblwrap{grid-column:1/-1;overflow-x:auto;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:13px}
+th,td{padding:9px 10px;border-bottom:1px solid rgba(255,255,255,.08);text-align:center;white-space:nowrap}
+th{position:sticky;top:0;background:#1E1236;font-size:12px}
+td.t,th.t{text-align:left;white-space:normal;min-width:180px}
+td.t button{background:none;border:0;padding:0;text-align:left;font-weight:700;color:var(--ink)}
+td.t button:hover{color:var(--pink-soft)}
+td .yes{display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--pink);box-shadow:0 0 8px rgba(255,62,165,.7)}
+td .no{color:rgba(255,255,255,.25)}
+tbody tr:hover{background:rgba(255,62,165,.08)}
+.src{font-size:12px;color:var(--muted)}
+.src a{color:var(--pink-soft)}
+.offbtn{display:inline-block;border:1px solid var(--pink);color:var(--pink-soft);border-radius:8px;padding:8px 16px;font-weight:700;text-decoration:none;font-family:var(--round)}
+.offbtn:hover{background:rgba(255,62,165,.18)}
+.tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+.tabs button{background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 18px;font-weight:700;font-family:var(--round);color:var(--muted)}
+.tabs button[aria-pressed="true"]{background:linear-gradient(180deg,var(--pink),#C21E7E);border-color:var(--pink);color:#fff;box-shadow:0 0 14px rgba(255,62,165,.5)}
+.alist{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px}
+.arow{display:flex;align-items:center;gap:10px;background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:8px;padding:9px 12px;min-width:0}
+.arow:hover{border-color:var(--line)}
+.arow .at{flex:1;min-width:0;font-weight:700;font-size:14px;overflow-wrap:anywhere;line-height:1.45}
+.arow .as{font-size:11px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.arow a{flex:none;font-size:11px;font-weight:700;color:var(--pink-soft);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:2px 9px;white-space:nowrap}
+.arow a:hover{background:rgba(255,62,165,.18)}
+.arow .star{flex:none;font-size:10px;font-weight:800;background:var(--gold2);color:#fff;border-radius:3px;padding:1px 5px}
+.more{display:block;margin:16px auto 0;background:transparent;cursor:pointer}
+.asof a{color:var(--pink-soft)}
+.empty{grid-column:1/-1;text-align:center;padding:48px 16px;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:12px}
+.cta{margin-top:30px;font-family:var(--round);font-weight:800;font-style:italic;font-size:clamp(20px,3.4vw,28px);color:var(--pink-soft);text-shadow:0 0 16px rgba(255,62,165,.6)}
+.cta::after{content:"";display:block;height:3px;width:min(420px,80%);margin-top:6px;background:linear-gradient(90deg,var(--pink),transparent)}
+footer{margin-top:18px;font-size:12px;color:var(--muted)}
+
+/* 詳細ダイアログ */
+dialog{border:1px solid var(--line);border-radius:14px;background:#160C28;color:var(--ink);padding:0;width:min(560px,calc(100% - 32px));box-shadow:0 0 40px rgba(255,62,165,.35)}
+dialog::backdrop{background:rgba(5,2,12,.7);backdrop-filter:blur(3px)}
+.dlg-top{aspect-ratio:16/7;max-width:100%;position:relative;display:flex;align-items:flex-end;padding:14px 18px;overflow:hidden}
+.dlg-top .glyph{position:absolute;right:10px;top:-10px;font-family:var(--display);font-size:150px;line-height:1;color:rgba(255,255,255,.3)}
+.dlg-top h2{position:relative;margin:0;font-size:22px;line-height:1.3;text-shadow:0 2px 12px rgba(0,0,0,.5)}
+.dlg-body{padding:16px 18px 18px;display:grid;gap:10px}
+.dlg-body p{margin:0}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-radius:8px;overflow:hidden}
+.facts div{background:#1E1236;padding:8px 10px;min-width:0}
+.facts span{display:block;font-size:11px;color:var(--muted)}
+.facts b{font-size:14px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.close{position:absolute;top:10px;right:10px;z-index:2;width:32px;height:32px;border-radius:50%;border:0;background:rgba(0,0,0,.5);color:#fff;font-size:18px}
+@media (max-width:520px){.facts{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:repeat(2,1fr);gap:12px}.grid.list .card{grid-template-columns:84px 1fr;gap:12px}.tools{width:100%;justify-content:space-between}}
+</style>
+<script src="config.js?v=4"></script>
+</head>
+<body>
+
+
+<div id="sky"></div>
+<canvas id="petals" aria-hidden="true"></canvas>
+
+<div class="wrap">
+  <header>
+    <h1><span class="a">今夜の</span><span class="b">アニメ帖</span></h1>
+    <div class="tagline">
+      <div class="ribbon"><span>EXPLORE ANIME GUIDE</span></div>
+      <p>気分・長さ・ジャンル・キーワードで、次に観る一本を見つけよう。</p>
+    </div>
+  </header>
+
+  <nav class="tabs" aria-label="表示する一覧">
+    <button id="tabPick" aria-pressed="true">おすすめ 24作品</button>
+    <button id="tabNow" aria-pressed="false">配信DB</button>
+    <button id="tabAll" aria-pressed="false">シーズン別 全アニメ一覧</button>
+  </nav>
+
+  <section id="nowSec" hidden>
+    <div class="bar" aria-label="配信DBの絞り込み">
+      <label class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="nq" type="search" placeholder="タイトルで検索" aria-label="配信DBをタイトルで検索">
+      </label>
+      <div class="sel on"><select id="nyear" aria-label="放送年"><option value="">全期間</option></select></div>
+      <div class="sel"><select id="nseason" aria-label="放送時期"><option value="">通年</option><option value="1">冬（1月〜）</option><option value="4">春（4月〜）</option><option value="7">夏（7月〜）</option><option value="10">秋（10月〜）</option></select></div>
+      <div class="sel"><select id="nsvc" aria-label="配信サービス"><option value="">配信サービス</option></select></div>
+      <div class="sel"><select id="nsort" aria-label="並び替え"><option value="many">配信数が多い順</option><option value="new">新しい順</option><option value="title">タイトル順</option><option value="few">配信数が少ない順</option></select></div>
+    </div>
+    <div class="status"><div class="count">SHOWING <b id="nn">0</b> 作品 <span class="meta" id="nasof"></span></div><div class="meta" id="nsum"></div></div>
+    <div class="alist" id="nlist" style="grid-template-columns:1fr"><div class="empty">配信DBを読み込んでいます…</div></div>
+    <button class="offbtn more" id="nmore" hidden>さらに表示</button>
+    <p class="asof" id="nnote">2026年10月18日時点の見放題（定額）配信です。U-NEXT・dアニメストア・DMM TVは公式の作品データで1作品ずつ、Netflix・Hulu・Disney+は公式ラインナップと配信まとめ記事の照合、ABEMAは公式ラインナップとプレミアム表示、Prime Videoは公式の月別ラインナップへの掲載で判定しています。レンタル・購入・1話のみ無料・期間限定の全話無料は含みません。配信は入れ替わるので、観る前に各サービスで確認してください。</p>
+  </section>
+
+  <section id="allSec" hidden>
+    <div class="bar" aria-label="全アニメの絞り込み">
+      <label class="search">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="aq" type="search" placeholder="全期間からタイトルを検索" aria-label="全アニメからタイトルを検索">
+      </label>
+      <div class="sel on"><select id="ayear" aria-label="放送年"></select></div>
+      <div class="sel"><select id="aseason" aria-label="放送時期">
+        <option value="">通年</option><option value="1">冬（1月〜）</option><option value="4">春（4月〜）</option><option value="7">夏（7月〜）</option><option value="10">秋（10月〜）</option></select></div>
+      <button class="pick" id="aprev" aria-label="前のシーズン">◀</button>
+      <button class="pick" id="anext" aria-label="次のシーズン">▶</button>
+    </div>
+    <div class="status"><div class="count">SHOWING <b id="an">0</b> 作品 <span class="meta" id="atotal"></span></div></div>
+    <div class="alist" id="alist"><div class="empty">一覧を読み込んでいます…</div></div>
+    <button class="offbtn more" id="amore" hidden>さらに表示</button>
+    <p class="asof">タイトルと放送時期は <a href="https://anime-sommelier.com/anime-list/" target="_blank" rel="noopener">アニメソムリエのシーズン別全アニメ一覧</a> を2026年10月18日に参照しました。「配信を探す」はJustWatch日本版の検索結果を開きます。</p>
+  </section>
+
+  <div id="pickSec">
+  <section class="bar" aria-label="絞り込み">
+    <label class="search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="q" type="search" placeholder="タイトル・スタジオ・キーワード" aria-label="作品を検索">
+    </label>
+    <div class="sel" id="s-mood"><select id="mood" aria-label="気分"><option value="">気分</option></select></div>
+    <div class="sel" id="s-genre"><select id="genre" aria-label="ジャンル"><option value="">ジャンル</option></select></div>
+    <div class="sel" id="s-len"><select id="len" aria-label="長さ">
+      <option value="">長さ</option><option value="s">1クール(〜13話)</option><option value="m">2クール(14〜26話)</option><option value="l">長編(27話〜)</option></select></div>
+    <div class="sel" id="s-era"><select id="era" aria-label="年代">
+      <option value="">年代</option><option value="2020">2020年代</option><option value="2010">2010年代</option><option value="2000">2000年代以前</option></select></div>
+    <div class="sel" id="s-svc"><select id="svc" aria-label="配信サービス"><option value="">配信サービス</option></select></div>
+    <button class="pick" id="pick">おまかせ一本</button>
+  </section>
+
+  <div class="status">
+    <div class="count">SHOWING <b id="n">0</b> 作品</div>
+    <div class="tools">
+      <button class="favf" id="favOnly" aria-pressed="false">♥ お気に入り</button>
+      <div class="sel"><select id="sort" aria-label="並び替え">
+        <option value="pick">おすすめ順</option><option value="new">新しい順</option><option value="old">古い順</option><option value="short">短い順</option></select></div>
+      <div class="tog">
+        <button id="vGrid" aria-pressed="true" aria-label="ポスター表示"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1"/><rect x="9" y="1" width="6" height="6" rx="1"/><rect x="1" y="9" width="6" height="6" rx="1"/><rect x="9" y="9" width="6" height="6" rx="1"/></svg></button>
+        <button id="vList" aria-pressed="false" aria-label="リスト表示"><svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="2" width="3" height="3" rx="1"/><rect x="6" y="2.5" width="9" height="2" rx="1"/><rect x="1" y="7" width="3" height="3" rx="1"/><rect x="6" y="7.5" width="9" height="2" rx="1"/><rect x="1" y="12" width="3" height="3" rx="1"/><rect x="6" y="12.5" width="9" height="2" rx="1"/></svg></button>
+        <button id="vTable" aria-pressed="false" aria-label="配信一覧表"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="1.5" y="1.5" width="13" height="13" rx="1.5"/><path d="M1.5 6h13M1.5 10.5h13M6 1.5v13"/></svg></button>
+      </div>
+    </div>
+  </div>
+
+  <p class="asof">配信情報は <b>2026年10月18日</b> 時点の見放題（定額）配信です。Netflix・Prime Video・U-NEXT・Hulu・Disney+ はJustWatch日本版、dアニメストア・DMM TV・ABEMAは各公式サイトで確認しました。レンタル・購入、第1話だけの無料配信、期間限定の全話無料、Amazonの有料チャンネルは含めていません。配信は入れ替わるので、観る前に各サービスで確認してください。</p>
+  <main class="grid" id="grid"></main>
+  </div>
+  <div class="cta">次に観るアニメを見つけよう！</div>
+  <footer>ポスター画像は各作品の公式YouTubeチャンネルが公開しているPVのサムネイルで、押すとその動画を再生します。PVが見つからない作品は配色と頭文字で描いています。作品紹介はこのサイト用の書き下ろし。お気に入りはこのブラウザにだけ保存されます。<div class="foot-links"><a href="conan/">特集：名探偵コナン（相関図・全話リスト・劇場版）</a>　<a href="privacy.html">プライバシーポリシー・広告について・免責事項</a></div></footer>
+</div>
+
+<dialog id="dlg">
+  <button class="close" id="close" aria-label="閉じる">×</button>
+  <div class="dlg-top" id="dTop"><span class="glyph" id="dGlyph"></span><h2 id="dTitle"></h2></div>
+  <div class="dlg-body">
+    <div class="facts" id="dFacts"></div>
+    <p id="dDesc"></p>
+    <p class="meta" id="dFor"></p>
+    <div class="tags" id="dTags"></div>
+    <div><div class="meta">見放題で観られるサービス（2026年10月18日時点）</div><div class="svcs" id="dSvc"></div></div>
+    <p class="src" id="dSrc"></p>
+    <div id="dTrailer" hidden></div>
+    <div id="dShop" class="shop" hidden></div>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
+      <button class="pick" id="dFav"></button>
+      <a class="offbtn" id="dOff" target="_blank" rel="noopener">公式サイトを見る ↗</a>
+    </div>
+  </div>
+</dialog>
+
+<script>
+const MOODS=["泣ける","笑える","熱い","考えさせる","癒やされる","ゾクッとする"];
+const A=[
+ {t:"葬送のフリーレン",y:2023,ep:28,st:"マッドハウス",g:"ファンタジー",m:["泣ける","癒やされる","考えさせる"],c:["#3E6B5A","#9CC5A1"],d:"魔王を倒した後の世界で、長命のエルフが仲間との旅路をたどり直す。静かな会話の積み重ねが、時間と別れの重さを少しずつ伝える。",f:"余韻の残る物語が好きな人"},
+ {t:"鋼の錬金術師 FULLMETAL ALCHEMIST",y:2009,ep:64,st:"ボンズ",g:"ファンタジー",m:["熱い","泣ける","考えさせる"],c:["#8A2A1E","#D9A441"],d:"失ったものを取り戻すため旅に出た兄弟が、国家を揺るがす陰謀に近づいていく。伏線の回収と最終盤の盛り上がりは長く語られる完成度。",f:"王道の冒険を一気に観たい人"},
+ {t:"STEINS;GATE",y:2011,ep:24,st:"WHITE FOX",g:"SF",m:["考えさせる","泣ける","ゾクッとする"],c:["#2E2A24","#8E7D5B"],d:"秋葉原の小さなラボで偶然生まれた「過去へメールを送る装置」。軽い日常から一転、取り返しのつかない選択の連続になる。",f:"中盤からの怒涛の展開を味わいたい人"},
+ {t:"ぼっち・ざ・ろっく！",y:2022,ep:12,st:"CloverWorks",g:"音楽・青春",m:["笑える","熱い"],c:["#E0567D","#F6C94C"],d:"極度の人見知りのギタリストが、バンドに入って少しずつ外の世界へ出ていく。誇張の効いたギャグと、本気のライブ演奏の落差が気持ちいい。",f:"笑ってから元気をもらいたい人"},
+ {t:"宇宙よりも遠い場所",y:2018,ep:13,st:"マッドハウス",g:"音楽・青春",m:["泣ける","熱い","笑える"],c:["#1F5A8C","#8FD3F0"],d:"4人の女子高生が南極を目指す。何かを始めたいのに踏み出せない気持ちを、旅の勢いがまるごと連れ出してくれる。",f:"1クールで思い切り泣きたい人"},
+ {t:"カウボーイビバップ",y:1998,ep:26,st:"サンライズ",g:"SF",m:["熱い","考えさせる"],c:["#1C2B4A","#D9822B"],d:"宇宙を流れる賞金稼ぎたちの一話完結の物語。ジャズに乗せた乾いた会話と、ふいに顔を出す過去の影が味わい深い。",f:"大人っぽい雰囲気に浸りたい人"},
+ {t:"魔法少女まどか☆マギカ",y:2011,ep:12,st:"シャフト",g:"ダーク",m:["ゾクッとする","考えさせる","泣ける"],c:["#B4467A","#2B2340"],d:"願いを叶える代わりに魔法少女になる契約。かわいらしい絵柄の裏で、物語は容赦なく核心へ進んでいく。",f:"予想を裏切られたい人"},
+ {t:"ヴァイオレット・エヴァーガーデン",y:2018,ep:13,st:"京都アニメーション",g:"ドラマ",m:["泣ける","癒やされる"],c:["#3B5C8C","#E8D6B0"],d:"戦場しか知らなかった少女が、代筆の仕事を通して「愛してる」の意味を学んでいく。一話ごとに届く手紙が胸を打つ。",f:"映像の美しさを楽しみたい人"},
+ {t:"進撃の巨人",y:2013,ep:87,st:"WIT STUDIO / MAPPA",g:"ダーク",m:["熱い","ゾクッとする","考えさせる"],c:["#4A3B2C","#A33B2B"],d:"巨人に囲まれた壁の中の人類。謎が一つ解けるたびに世界の見え方が変わり、最後まで目が離せない。",f:"長編にどっぷりハマりたい人"},
+ {t:"月刊少女野崎くん",y:2014,ep:12,st:"動画工房",g:"コメディ",m:["笑える","癒やされる"],c:["#F08A6C","#FCE3A6"],d:"想いを告げた相手は、少女漫画家だった。勘違いとツッコミのテンポが良く、どの話から観ても笑える。",f:"疲れた日に気楽に笑いたい人"},
+ {t:"PSYCHO-PASS サイコパス",y:2012,ep:22,st:"Production I.G",g:"SF",m:["考えさせる","ゾクッとする"],c:["#0F3A40","#3FD0C9"],d:"心の状態が数値化され、犯罪を犯す前に裁かれる社会。新人監視官の目を通して、正しさとは何かを問いかける。",f:"骨太なSFサスペンスが好きな人"},
+ {t:"コードギアス 反逆のルルーシュ",y:2006,ep:25,st:"サンライズ",g:"SF",m:["熱い","ゾクッとする"],c:["#3A1F5C","#C9A227"],d:"他人を従わせる力を得た少年が、仮面をかぶって帝国に反旗を翻す。毎話のヒキの強さで止めどころが見つからない。",f:"策略と逆転劇が好きな人"},
+ {t:"蟲師",y:2005,ep:26,st:"アートランド",g:"ファンタジー",m:["癒やされる","考えさせる","ゾクッとする"],c:["#3F5A3A","#C2B98A"],d:"山里に現れる不思議な生き物「蟲」と、それに関わる人々を訪ね歩く蟲師の話。静けさと少しの怖さが同居する一話完結。",f:"夜にゆっくり観たい人"},
+ {t:"ゆるキャン△",y:2018,ep:12,st:"C-Station",g:"日常",m:["癒やされる","笑える"],c:["#2F6D8C","#F2B14A"],d:"冬のキャンプ場で出会った女子高生たちの、ゆるいアウトドア生活。焚き火とご飯の描写だけで満たされる。",f:"何も考えずにほっとしたい人"},
+ {t:"メイドインアビス",y:2017,ep:13,st:"キネマシトラス",g:"ダーク",m:["ゾクッとする","泣ける","熱い"],c:["#2B4A6B","#C7744A"],d:"巨大な縦穴「アビス」の底を目指す少女とロボットの少年。可愛らしい絵柄に反して、冒険はどこまでも過酷。",f:"覚悟のある冒険ものを求める人"},
+ {t:"四月は君の嘘",y:2014,ep:22,st:"A-1 Pictures",g:"音楽・青春",m:["泣ける","熱い"],c:["#E78FA6","#F5E1A4"],d:"ピアノが弾けなくなった少年と、自由奔放なヴァイオリニストの少女。演奏シーンに込められた感情が画面からあふれる。",f:"音楽と恋で泣きたい人"},
+ {t:"SPY×FAMILY",y:2022,ep:25,st:"WIT STUDIO / CloverWorks",g:"コメディ",m:["笑える","癒やされる"],c:["#30513F","#E36F5C"],d:"スパイ、殺し屋、心を読む少女。素性を隠した3人が「家族」を演じるうちに、本当の家族に近づいていく。",f:"家族みんなで楽しみたい人"},
+ {t:"呪術廻戦",y:2020,ep:24,st:"MAPPA",g:"バトル",m:["熱い","ゾクッとする"],c:["#1E1E2A","#5B6CD6"],d:"呪いの王の指を飲み込んだ高校生が、呪術師の世界に足を踏み入れる。作画の迫力が段違いのバトルアクション。",f:"派手な戦闘シーンが観たい人"},
+ {t:"モブサイコ100",y:2016,ep:12,st:"ボンズ",g:"バトル",m:["笑える","熱い","考えさせる"],c:["#5C3FA6","#F2D14C"],d:"強すぎる超能力を持ちながら、普通の自分を大事にしたい中学生。爆発的な作画の中に、まっすぐな成長の話がある。",f:"笑えて最後は熱くなりたい人"},
+ {t:"3月のライオン",y:2016,ep:22,st:"シャフト",g:"ドラマ",m:["泣ける","癒やされる","考えさせる"],c:["#2C5A7A","#E6A15C"],d:"孤独なプロ棋士の少年が、下町の三姉妹との食卓で少しずつ心をほどいていく。将棋を知らなくても楽しめる。",f:"じんわり心を温めたい人"},
+ {t:"少女終末旅行",y:2017,ep:12,st:"WHITE FOX",g:"日常",m:["癒やされる","考えさせる"],c:["#5E6466","#C9B79C"],d:"文明が滅んだ後の廃墟を、2人の少女が半装軌車で旅する。のんびりした会話の端々に、生きることへの問いが光る。",f:"静かな世界観に浸りたい人"},
+ {t:"薬屋のひとりごと",y:2023,ep:24,st:"TOHO animation STUDIO / OLM",g:"ミステリー",m:["考えさせる","笑える"],c:["#7A2E3A","#D9B36B"],d:"後宮で働く薬好きの少女が、毒や怪事件を知識で解いていく。謎解きの爽快さと、ずれた恋模様が楽しい。",f:"一話ごとの謎解きが好きな人"},
+ {t:"平家物語",y:2022,ep:11,st:"サイエンスSARU",g:"ドラマ",m:["泣ける","考えさせる"],c:["#5B2A3F","#D8A07A"],d:"未来が見える琵琶法師の少女が、栄華を極めた平家の滅びまでを見届ける。古典をこれほど身近に感じさせる映像はない。",f:"歴史ものに触れてみたい人"},
+ {t:"響け！ユーフォニアム",y:2015,ep:13,st:"京都アニメーション",g:"音楽・青春",m:["熱い","泣ける"],c:["#24518A","#E8C15A"],d:"吹奏楽部で全国を目指す高校生たち。うまくなりたいという気持ちの痛みまで、丁寧な演出で描き切っている。",f:"部活ものの熱さが好きな人"}
+];
+A.forEach((a,i)=>a.rank=i);
+
+/* 見放題配信 (2026-10-18確認)。x=dアニメストア/DMM TV/ABEMAも公式で確認済み。未確認のサービスは「?」で表示 */
+const SVC=[["netflix","Netflix"],["prime","Prime Video"],["unext","U-NEXT"],["hulu","Hulu"],["disney","Disney+"],["danime","dアニメストア"],["dmm","DMM TV"],["abema","ABEMA"]];
+const SVN=Object.fromEntries(SVC);
+const JW="https://www.justwatch.com/jp/テレビ番組/";
+const V=[
+ [["netflix","hulu","unext","danime","dmm","abema"],1,JW+"zang-song-nohuriren"],
+ [["netflix","prime","hulu","unext","danime","dmm","abema"],1,JW+"fullmetal-alchemist-brotherhood"],
+ [["netflix","hulu","unext","danime","dmm"],1,JW+"steins-gate"],
+ [["netflix","prime","hulu","unext","danime","dmm"],1,JW+"botsuchizarotsuku"],
+ [["netflix","hulu","danime","dmm"],1,JW+"yu-zhou-yorimoyuan-ichang-suo"],
+ [["netflix","unext","danime","dmm"],1,JW+"cowboy-bebop"],
+ [["netflix","prime","hulu","unext","danime","dmm","abema"],1,JW+"mo-fa-shao-nu-madokamagika"],
+ [["netflix"],1,JW+"vuaioretsutoevuagaden"],
+ [["netflix","prime","unext","disney","danime","dmm","abema"],1,JW+"jin-ji-noju-ren"],
+ [["unext","danime","dmm"],1,"https://video.unext.jp/title/SID0002571"],
+ [["netflix","unext","hulu","danime","dmm","abema"],1,JW+"psycho-pass"],
+ [["netflix","danime","dmm"],1,JW+"code-geass-lelouch-of-the-rebellion"],
+ [["prime","unext","hulu","danime","dmm"],1,JW+"chong-shi"],
+ [["netflix","prime","unext","hulu","danime","dmm","abema"],1,JW+"yuru-camp"],
+ [["netflix","prime","unext","hulu","danime","dmm","abema"],1,JW+"meidoinabisu"],
+ [["netflix","unext","hulu","danime","dmm","abema"],1,JW+"your-lie-in-april"],
+ [["netflix","prime","hulu","disney","danime","dmm","abema"],1,JW+"spyxfamily"],
+ [["netflix","prime","unext","hulu","disney","danime","dmm","abema"],1,JW+"zhou-shu-hui-zhan"],
+ [["netflix","prime","hulu","danime","dmm","abema"],1,JW+"mob-psycho-100"],
+ [["prime","unext","hulu","danime","dmm"],1,JW+"march-comes-in-like-a-lion"],
+ [["unext","hulu","danime","dmm"],1,JW+"shao-nu-zhong-mo-lu-xing"],
+ [["netflix","prime","unext","hulu","disney","danime","dmm","abema"],1,JW+"yao-wu-nohitorigoto"],
+ [["unext","danime","dmm"],1,JW+"ping-jia-wu-yu"],
+ [["netflix","prime","unext","hulu","danime","dmm","abema"],1,JW+"sound-euphonium"]
+];
+A.forEach((a,i)=>{a.v=V[i][0];a.chk=!!V[i][1];a.src=V[i][2]});
+/* 公式サイト (2026-10-18確認。平家物語は公式サイト閉鎖のためなし) */
+const OFF=["https://frieren-anime.jp/","https://www.hagaren.jp/fa/","https://steinsgate.jp/","https://bocchi.rocks/tv/","https://yorimoi.com/","https://www.cowboy-bebop.net/","https://www.madoka-magica.com/","https://tv.violet-evergarden.jp/",
+ "https://shingeki.tv/final/","https://www.kadokawa.co.jp/product/video2565/","https://psycho-pass.com/","https://geass.jp/","https://www.mushishi-anime.com/","https://yurucamp.jp/","https://miabyss.com/","https://www.kimiuso.jp/",
+ "https://spy-family.net/","https://jujutsukaisen.jp/","https://mobpsycho100.com/","https://3lion-anime.com/","https://girls-last-tour.com/","https://kusuriyanohitorigoto.jp/",null,"https://anime-eupho.com/"];
+A.forEach((a,i)=>a.off=OFF[i]);
+const UNCHK=["danime","dmm","abema"];
+const svState=(a,k)=>a.v.includes(k)?"yes":(!a.chk&&UNCHK.includes(k))?"q":"no";
+const svBadges=a=>SVC.filter(([k])=>a.v.includes(k)).map(([k,n])=>`<span class="sv ${k}">${n}</span>`).join("");
+
+const $=s=>document.querySelector(s);
+const store={get(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+let favs=new Set(store.get("anime-favs",[]));
+const st={q:"",mood:"",genre:"",len:"",era:"",svc:"",sort:"pick",favOnly:false,view:store.get("anime-view","grid")};
+
+MOODS.forEach(m=>$("#mood").add(new Option(m,m)));
+SVC.forEach(([k,n])=>$("#svc").add(new Option(n+" で見放題",k)));
+[...new Set(A.map(a=>a.g))].forEach(g=>$("#genre").add(new Option(g,g)));
+
+const lenKey=ep=>ep<=13?"s":ep<=26?"m":"l";
+const eraKey=y=>y>=2020?"2020":y>=2010?"2010":"2000";
+const hours=ep=>{const min=ep*24,h=Math.floor(min/60),m=min%60;return h?`${h}時間${m?m+"分":""}`:`${m}分`};
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function list(){
+  const q=st.q.toLowerCase();
+  const r=A.filter(a=>(!st.mood||a.m.includes(st.mood))&&(!st.genre||a.g===st.genre)&&(!st.len||lenKey(a.ep)===st.len)&&(!st.era||eraKey(a.y)===st.era)&&(!st.svc||a.v.includes(st.svc))&&(!st.favOnly||favs.has(a.t))
+    &&(!q||[a.t,a.st,a.g,a.d,a.f,...a.m].join(" ").toLowerCase().includes(q)));
+  return r.sort({pick:(a,b)=>a.rank-b.rank,new:(a,b)=>b.y-a.y,old:(a,b)=>a.y-b.y,short:(a,b)=>a.ep-b.ep}[st.sort]);
+}
+function bg(a){return `background:radial-gradient(circle at 70% 20%,${a.c[1]},transparent 60%),linear-gradient(160deg,${a.c[0]},${a.c[1]})`}
+function toggleFav(a){favs.has(a.t)?favs.delete(a.t):favs.add(a.t);store.set("anime-favs",[...favs])}
+
+function render(hl){
+  const r=list(),g=$("#grid");
+  g.className="grid"+(st.view==="list"?" list":"");g.innerHTML="";
+  $("#n").textContent=r.length;
+  ["mood","genre","len","era","svc"].forEach(k=>$("#s-"+k).classList.toggle("on",!!st[k]));
+  if(!r.length){g.innerHTML='<div class="empty">条件に合う作品がありません。絞り込みを1つ外してみてください。</div>';return}
+  if(st.view==="table"){
+    const cell=(a,k)=>{const s=svState(a,k);return `<td>${s==="yes"?`<span class="yes" role="img" aria-label="見放題あり"></span>`:s==="q"?'<span class="q" title="未確認">?</span>':'<span class="no" aria-label="なし">–</span>'}</td>`};
+    g.innerHTML=`<div class="tblwrap"><table><thead><tr><th class="t">作品</th><th>放送</th><th>話数</th>${SVC.map(([k,n])=>`<th><span class="sv ${k}">${n}</span></th>`).join("")}</tr></thead><tbody>${
+      r.map(a=>`<tr${hl===a.t?' style="background:rgba(255,178,30,.15)"':""}><td class="t"><button data-r="${a.rank}">${esc(a.t)}</button></td><td>${a.y}</td><td>${a.ep}</td>${SVC.map(([k])=>cell(a,k)).join("")}</tr>`).join("")
+    }</tbody></table></div>`;
+    g.querySelectorAll("td.t button").forEach(b=>b.onclick=()=>openDlg(A[+b.dataset.r]));
+    return;
+  }
+  r.forEach(a=>{
+    const el=document.createElement("article");el.className="card"+(hl===a.t?" hl":"");el.id="a-"+a.rank;el.tabIndex=0;
+    el.setAttribute("aria-label",a.t+"の詳細を開く");
+    const fav=favs.has(a.t);
+    el.innerHTML=`<div class="poster" style="${bg(a)}"><span class="glyph" aria-hidden="true">${[...a.t][0]}</span>
+      <div class="cap"><h3>${esc(a.t)}</h3><div class="m">${a.y}年 · 全${a.ep}話</div><div class="svcs">${svBadges(a)}</div></div></div>
+      <button class="fav" aria-pressed="${fav}" aria-label="${esc(a.t)}をお気に入り">${fav?"♥":"+"}</button>
+      ${hl===a.t?'<span class="mood">今夜はこれ</span>':`<span class="mood">${a.m[0]}</span>`}
+      <div class="detail"><h3>${esc(a.t)}</h3><div class="meta">${a.y}年 · 全${a.ep}話 · 完走 約${hours(a.ep)} · ${esc(a.st)}</div>
+      <p>${a.d}</p><div class="tags">${a.m.map(m=>`<span class="tag">${m}</span>`).join("")}<span class="tag">${a.g}</span></div><div class="svcs">${svBadges(a)}</div></div>`;
+    el.querySelector(".fav").onclick=e=>{e.stopPropagation();toggleFav(a);render()};
+    el.onclick=()=>openDlg(a);
+    el.onkeydown=e=>{if(e.key==="Enter"&&e.target===el)openDlg(a)};
+    g.append(el);
+  });
+}
+
+const dlg=$("#dlg");let cur=null;
+function openDlg(a){
+  cur=a;$("#dTop").setAttribute("style",bg(a));$("#dGlyph").textContent=[...a.t][0];$("#dTitle").textContent=a.t;
+  $("#dFacts").innerHTML=[["放送",a.y+"年"],["話数","全"+a.ep+"話"],["完走",hours(a.ep)],["制作",a.st]].map(([k,v])=>`<div><span>${k}</span><b>${esc(v)}</b></div>`).join("");
+  $("#dDesc").textContent=a.d;$("#dFor").textContent="こんな人に："+a.f;
+  $("#dTags").innerHTML=a.m.map(m=>`<span class="tag">${m}</span>`).join("")+`<span class="tag">${a.g}</span>`;
+  $("#dSvc").innerHTML=(svBadges(a)||'<span class="meta">確認できた見放題配信はありません</span>')+(a.chk?"":' <span class="meta">（dアニメストア・DMM TV・ABEMAは未確認）</span>');
+  $("#dSrc").innerHTML=`確認元：<a href="${encodeURI(decodeURI(a.src))}" target="_blank" rel="noopener">${a.src.includes("justwatch")?"JustWatch 日本版":"U-NEXT 公式"}</a>`;
+  const off=$("#dOff");off.hidden=!a.off;if(a.off)off.href=a.off;
+  favLabel();
+  if(dlg.showModal)dlg.showModal();else dlg.setAttribute("open","");
+}
+function favLabel(){$("#dFav").textContent=favs.has(cur.t)?"♥ お気に入り済み":"+ お気に入りに追加"}
+$("#dFav").onclick=()=>{toggleFav(cur);favLabel();render()};
+$("#close").onclick=()=>dlg.close();
+dlg.addEventListener("click",e=>{if(e.target===dlg)dlg.close()});
+
+$("#q").oninput=e=>{st.q=e.target.value.trim();render()};
+["mood","genre","len","era","svc","sort"].forEach(k=>$("#"+k).onchange=e=>{st[k]=e.target.value;render()});
+$("#favOnly").onclick=e=>{st.favOnly=!st.favOnly;e.currentTarget.setAttribute("aria-pressed",st.favOnly);render()};
+function setView(v){st.view=v;store.set("anime-view",v);$("#vGrid").setAttribute("aria-pressed",v==="grid");$("#vList").setAttribute("aria-pressed",v==="list");$("#vTable").setAttribute("aria-pressed",v==="table");render()}
+$("#vGrid").onclick=()=>setView("grid");$("#vList").onclick=()=>setView("list");$("#vTable").onclick=()=>setView("table");
+$("#pick").onclick=()=>{
+  let r=list();if(!r.length){["mood","genre","len","era","svc"].forEach(k=>{st[k]="";$("#"+k).value=""});r=list()}
+  const a=r[Math.floor(Math.random()*r.length)];render(a.t);
+  const el=document.getElementById("a-"+a.rank);
+  if(el)el.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"center"});
+};
+setView(["list","table"].includes(st.view)?st.view:"grid");
+
+/* シーズン別 全アニメ一覧 (titles.json: [{id,t,s:YYYYMM}]) */
+(()=>{
+  const SN={1:"冬",4:"春",7:"夏",10:"秋"};
+  const label=s=>`${Math.floor(s/100)}年${SN[s%100]||""}`;
+  const pickT=new Set(A.map(a=>a.t));
+  let ALL=[],shown=0,cur=[];
+  const as={q:"",year:"",season:""};
+  const PAGE=240;
+  function tab(k){
+    ["pick","now","all"].forEach(x=>{$("#"+x+"Sec").hidden=x!==k;$("#tab"+x[0].toUpperCase()+x.slice(1)).setAttribute("aria-pressed",x===k)});
+    store.set("anime-tab",k);if(k==="all"&&!ALL.length)load();if(k==="now")window.loadNow&&window.loadNow();
+  }
+  $("#tabPick").onclick=()=>tab("pick");$("#tabAll").onclick=()=>tab("all");$("#tabNow").onclick=()=>tab("now");
+  async function load(){
+    try{const r=await fetch("titles.json",{cache:"no-cache"});ALL=await r.json()}catch(e){$("#alist").innerHTML='<div class="empty">一覧を読み込めませんでした。ページを再読み込みしてください。</div>';return}
+    const years=[...new Set(ALL.map(x=>Math.floor(x.s/100)))].sort((a,b)=>b-a);
+    const ys=$("#ayear");years.forEach(y=>ys.add(new Option(y+"年",y)));
+    as.year=String(years.includes(2026)?2026:years[0]);ys.value=as.year;
+    $("#atotal").textContent=`/ 全${ALL.length.toLocaleString()}作品（${years[years.length-1]}〜${years[0]}年）`;
+    run();
+  }
+  function run(){
+    const q=as.q.toLowerCase();
+    cur=ALL.filter(x=>q?x.t.toLowerCase().includes(q):(Math.floor(x.s/100)==as.year&&(!as.season||x.s%100==as.season)))
+      .sort((a,b)=>q?b.s-a.s:a.s-b.s);
+    $("#an").textContent=cur.length.toLocaleString();
+    $("#ayear").parentNode.classList.toggle("on",!q);$("#aseason").parentNode.classList.toggle("on",!q&&!!as.season);
+    shown=0;$("#alist").innerHTML="";more();
+  }
+  function more(){
+    const L=$("#alist");
+    if(!cur.length){L.innerHTML='<div class="empty">該当する作品がありません。</div>';$("#amore").hidden=true;return}
+    const frag=document.createDocumentFragment();
+    cur.slice(shown,shown+PAGE).forEach(x=>{
+      const d=document.createElement("div");d.className="arow";
+      d.innerHTML=`${pickT.has(x.t)?'<span class="star">推し</span>':""}<span class="at">${esc(x.t)}</span><span class="as">${label(x.s)}</span><a href="https://www.justwatch.com/jp/%E6%A4%9C%E7%B4%A2?q=${encodeURIComponent(x.t)}" target="_blank" rel="noopener">配信を探す ↗</a>`;
+      frag.append(d)});
+    L.append(frag);shown+=PAGE;$("#amore").hidden=shown>=cur.length;
+  }
+  $("#amore").onclick=more;
+  let tm;$("#aq").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{as.q=e.target.value.trim();run()},150)};
+  $("#ayear").onchange=e=>{as.year=e.target.value;run()};
+  $("#aseason").onchange=e=>{as.season=e.target.value;run()};
+  function step(d){
+    const yrs=[...$("#ayear").options].map(o=>+o.value);let y=+as.year,s=+as.season||(d>0?-2:13);
+    s+=d*3;if(s>10){s=1;y++}if(s<1){s=10;y--}
+    if(!yrs.includes(y))return;as.year=String(y);as.season=String(s);$("#ayear").value=as.year;$("#aseason").value=as.season;$("#aq").value="";as.q="";run();
+  }
+  $("#aprev").onclick=()=>step(-1);$("#anext").onclick=()=>step(1);
+  window.animeTab=tab;
+})();
+
+/* 配信DB (now.json: {asof,checked:[svc],rows:[{t,s,v:[svc],u?:[svc]}]}) */
+(()=>{
+  let D=null,cur=[],shown=0;const PAGE=200;
+  const ns={q:"",year:"",season:"",svc:"",sort:"many"};
+  const SN={1:"冬",4:"春",7:"夏",10:"秋"};
+  SVC.forEach(([k,n])=>$("#nsvc").add(new Option(n+" で見放題",k)));
+  window.loadNow=async()=>{
+    if(D)return;
+    try{D=await (await fetch("now.json",{cache:"no-cache"})).json()}catch(e){$("#nlist").innerHTML='<div class="empty">配信DBを読み込めませんでした。ページを再読み込みしてください。</div>';return}
+    const years=[...new Set(D.rows.map(x=>Math.floor(x.s/100)))].sort((a,b)=>b-a);
+    years.forEach(y=>$("#nyear").add(new Option(y+"年",y)));
+    ns.year=String(years[0]);$("#nyear").value=ns.year;
+    $("#nasof").textContent=D.asof?`（${D.asof.replace(/-/g,"/")} 時点・全${D.rows.length.toLocaleString()}作品）`:"";
+    run();
+  };
+  function run(){
+    const q=ns.q.toLowerCase(),chk=new Set(D.checked);
+    // 検索語があるときは年・季節に関係なく全期間から探す
+    cur=D.rows.filter(x=>(q?x.t.toLowerCase().includes(q):(!ns.year||Math.floor(x.s/100)==ns.year)&&(!ns.season||x.s%100==ns.season))&&(!ns.svc||x.v.includes(ns.svc)));
+    cur.sort(ns.sort==="title"?(a,b)=>a.t.localeCompare(b.t,"ja"):ns.sort==="few"?(a,b)=>a.v.length-b.v.length:ns.sort==="new"?(a,b)=>b.s-a.s:(a,b)=>b.v.length-a.v.length||b.s-a.s);
+    $("#nn").textContent=cur.length.toLocaleString();
+    $("#nyear").parentNode.classList.toggle("on",!q&&!!ns.year);
+    ["season","svc"].forEach(k=>$("#n"+k).parentNode.classList.toggle("on",!!ns[k]));
+    $("#nsum").textContent="見放題の作品数：" + SVC.map(([k,n])=>{
+      const yes=cur.filter(x=>x.v.includes(k)).length, unk=cur.some(x=>(x.u||[]).includes(k));
+      return `${n} ${chk.has(k)?yes.toLocaleString():"調査中"}${unk?"＋未確認":""}`;
+    }).join(" / ");
+    shown=0;
+    if(!cur.length){$("#nlist").innerHTML='<div class="empty">該当する作品がありません。</div>';$("#nmore").hidden=true;return}
+    $("#nlist").innerHTML=`<div class="tblwrap"><table><thead><tr><th class="t">作品</th><th>放送</th><th>配信数</th>${SVC.map(([k,n])=>`<th><span class="sv ${k}">${n}</span></th>`).join("")}<th></th></tr></thead><tbody></tbody></table></div>`;
+    more();
+  }
+  function more(){
+    const chk=new Set(D.checked);
+    const cell=(x,k)=>`<td>${x.v.includes(k)?'<span class="yes" role="img" aria-label="見放題あり"></span>':chk.has(k)&&!(x.u||[]).includes(k)?'<span class="no" aria-label="なし">–</span>':'<span class="q" title="未確認">?</span>'}</td>`;
+    $("#nlist tbody").insertAdjacentHTML("beforeend",cur.slice(shown,shown+PAGE).map(x=>`<tr><td class="t"><b>${esc(x.t)}</b></td><td>${Math.floor(x.s/100)}<br>${SN[x.s%100]||""}</td><td>${x.v.length}</td>${SVC.map(([k])=>cell(x,k)).join("")}<td><a class="tag" style="text-decoration:none" href="https://www.justwatch.com/jp/%E6%A4%9C%E7%B4%A2?q=${encodeURIComponent(x.t)}" target="_blank" rel="noopener">確認 ↗</a></td></tr>`).join(""));
+    shown+=PAGE;$("#nmore").hidden=shown>=cur.length;
+  }
+  $("#nmore").onclick=more;
+  let tm;$("#nq").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{ns.q=e.target.value.trim();D&&run()},150)};
+  ["year","season","svc","sort"].forEach(k=>$("#n"+k).onchange=e=>{ns[k]=e.target.value;D&&run()});
+  const saved=store.get("anime-tab","pick");if(saved==="all"||saved==="now")window.animeTab(saved);
+})();
+
+/* 桜の花びら */
+(()=>{
+  const cv=$("#petals"),cx=cv.getContext("2d");let W,H,P=[];
+  const still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function size(){const d=Math.min(devicePixelRatio||1,2);W=innerWidth;H=innerHeight;cv.width=W*d;cv.height=H*d;cx.setTransform(d,0,0,d,0,0)}
+  size();addEventListener("resize",size);
+  const n=Math.round(Math.min(46,W/28));
+  for(let i=0;i<n;i++)P.push({x:Math.random()*W,y:Math.random()*H,s:5+Math.random()*8,vy:.35+Math.random()*.7,vx:.2+Math.random()*.5,r:Math.random()*6.28,vr:(Math.random()-.5)*.03,ph:Math.random()*6.28,a:.45+Math.random()*.45});
+  function petal(p){cx.save();cx.translate(p.x,p.y);cx.rotate(p.r);cx.scale(1,.6+.4*Math.sin(p.ph));cx.globalAlpha=p.a;
+    const g=cx.createLinearGradient(-p.s,0,p.s,0);g.addColorStop(0,"#FFC7E3");g.addColorStop(1,"#FF5FB4");cx.fillStyle=g;
+    cx.beginPath();cx.moveTo(0,-p.s);cx.bezierCurveTo(p.s,-p.s*.6,p.s*.8,p.s*.7,0,p.s);cx.bezierCurveTo(-p.s*.8,p.s*.7,-p.s,-p.s*.6,0,-p.s);cx.fill();cx.restore()}
+  function stars(){cx.fillStyle="rgba(255,255,255,.55)";for(let i=0;i<70;i++){const x=(i*97.3)%W,y=(i*53.7)%(H*.6);cx.fillRect(x,y,i%5?1:1.6,i%5?1:1.6)}}
+  function frame(){cx.clearRect(0,0,W,H);stars();
+    for(const p of P){p.y+=p.vy;p.x+=p.vx+Math.sin(p.ph)*.4;p.r+=p.vr;p.ph+=.02;if(p.y>H+20){p.y=-20;p.x=Math.random()*W}if(p.x>W+20)p.x=-20;petal(p)}
+    if(!still)requestAnimationFrame(frame)}
+  frame();
+})();
+</script>
+
+<script src="extras.js?v=6"></script>
+<script src="monetize.js?v=1"></script>
+</body>
+</html>

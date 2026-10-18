@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>コナン特集</title>
+<meta name="description" content="名探偵コナンの人物相関図、TVアニメ全話リスト、劇場版の歴代タイトルをまとめた特集。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<style>
+/* Layout: 中央に主人公、周りに勢力ごとの枠。選んだ人物から関係する人物へ線を引く。アニメ帖と同じ夜色の一色の世界観。 */
+:root{
+  color-scheme:dark;
+  --night:#0B0716; --night2:#1A0E2E; --panel:rgba(22,13,40,.86); --line:rgba(255,120,200,.26);
+  --ink:#F6EEFA; --muted:#B9A8C9; --pink:#FF3EA5; --pink-soft:#FF8CCB; --gold:#FFB21E; --spoil:#9A6BFF;
+  --display:"Dela Gothic One","Hiragino Sans","Yu Gothic",sans-serif;
+  --body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic",sans-serif;
+}
+html{background:var(--night)}
+body{background:radial-gradient(ellipse 70% 50% at 80% 0%,rgba(255,62,165,.18),transparent 70%),radial-gradient(ellipse 60% 50% at 0% 100%,rgba(120,60,255,.18),transparent 70%),var(--night);color:var(--ink);font-family:var(--body);font-size:14px;line-height:1.6;min-height:100%}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--pink-soft);outline-offset:2px}
+
+header{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px 24px;margin-bottom:16px}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(28px,5vw,48px);line-height:1.1;margin:0;text-wrap:balance}
+h1 small{display:block;font-family:var(--body);font-size:13px;font-weight:700;color:var(--pink-soft);letter-spacing:.14em;margin-bottom:6px}
+.lede{margin:6px 0 0;color:var(--muted);max-width:56ch}
+.ctrl{display:flex;gap:8px;flex-wrap:wrap}
+.toggle{display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:7px 14px;font-weight:700;font-size:13px}
+.toggle[aria-pressed="true"]{background:linear-gradient(180deg,#7B4BFF,#5524D6);border-color:var(--spoil);box-shadow:0 0 14px rgba(154,107,255,.5)}
+.toggle .dot{width:10px;height:10px;border-radius:50%;background:var(--muted)}
+.toggle[aria-pressed="true"] .dot{background:#fff}
+
+/* 選択中の人物 */
+.focus{position:relative;z-index:5;background:var(--panel);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:16px;display:grid;gap:6px}
+.focus h2{margin:0;font-size:18px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.focus h2 .grp{font-size:11px;font-weight:700;color:var(--night);border-radius:3px;padding:1px 7px}
+.focus p{margin:0;color:#E3D6EE}
+.rels{display:flex;flex-wrap:wrap;gap:6px}
+.rel{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:2px 10px 2px 4px;font-size:12px;display:inline-flex;gap:6px;align-items:center}
+.rel b{background:rgba(255,255,255,.12);border-radius:999px;padding:0 8px}
+.rel:hover{border-color:var(--pink)}
+.rel.sp{border-color:rgba(154,107,255,.6)}
+.secret{color:#D9C8FF}
+.secret::before{content:"ネタバレ ";font-size:10px;font-weight:800;color:var(--spoil);letter-spacing:.06em}
+
+/* 相関図 */
+.board{position:relative}
+#lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2;overflow:visible}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;position:relative;z-index:1}
+.group{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.1);border-top:3px solid var(--c);border-radius:12px;padding:10px;min-width:0}
+.group h3{margin:0 0 8px;font-size:12px;letter-spacing:.1em;color:var(--c);display:flex;justify-content:space-between}
+.group h3 .gh{display:inline-flex;align-items:center;gap:6px}
+.ic{flex:none;vertical-align:-2px}
+.group.center{border-color:rgba(255,62,165,.4);border-top-color:var(--pink);background:rgba(255,62,165,.06)}
+.people{display:flex;flex-wrap:wrap;gap:6px}
+.p{position:relative;z-index:3;background:#1B1030;border:1px solid rgba(255,255,255,.14);border-left:3px solid var(--c);border-radius:8px;padding:6px 10px;text-align:left;display:grid;gap:0;min-width:0;max-width:100%}
+.p .n{font-weight:700;font-size:14px;line-height:1.3}
+.p .r{font-size:10.5px;color:var(--muted);line-height:1.35}
+.p:hover{border-color:var(--pink-soft)}
+.p.sel{background:linear-gradient(180deg,var(--pink),#C21E7E);border-color:var(--pink);box-shadow:0 0 18px rgba(255,62,165,.6)}
+.p.sel .r{color:#FFE3F1}
+.p.rel-on{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.board.dim .p:not(.sel):not(.rel-on){opacity:.42}
+.p .alias{display:block;font-size:10px;color:#D9C8FF}
+
+.lnk{stroke:var(--gold);stroke-width:1.6;fill:none;opacity:.85}
+.lnk.sp{stroke:var(--spoil);stroke-dasharray:5 4}
+.lbl rect{fill:#120A22;stroke:rgba(255,178,30,.6)}
+.lbl.sp rect{stroke:rgba(154,107,255,.8)}
+.lbl text{fill:#FFE7B8;font-size:11px;font-family:var(--body);font-weight:700}
+.lbl.sp text{fill:#E3D6FF}
+
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:14px;font-size:12px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{display:inline-block;width:22px;height:0;border-top:2px solid var(--gold)}
+.legend i.sp{border-top:2px dashed var(--spoil)}
+footer{margin-top:22px;font-size:12px;color:var(--muted)}
+
+/* 重要エピソード */
+.episodes{margin-top:40px}
+.eplist{list-style:none;margin:0;padding:0;display:grid;gap:6px}
+.ep{display:grid;grid-template-columns:76px minmax(0,1fr) auto;gap:4px 12px;align-items:center;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 12px}
+.ep:target{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.epno{font-family:var(--display);color:var(--pink-soft);font-size:15px;font-variant-numeric:tabular-nums}
+.eptt{font-weight:700;overflow-wrap:anywhere}
+.epmeta{display:flex;gap:8px;align-items:center;font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.keytag{font-size:10px;font-weight:800;color:#2A1300;background:var(--gold);border-radius:3px;padding:0 6px}
+.epwho{grid-column:2/-1;display:flex;flex-wrap:wrap;gap:4px}
+.who{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:999px;font-size:11px;padding:0 9px}
+.who:hover{border-color:var(--pink)}
+.eprel{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;font-size:12px}
+.eprl{font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--gold)}
+.eprel a{color:#FFE7B8;text-decoration:none;border-bottom:1px dotted rgba(255,231,184,.5)}
+@media (max-width:560px){.ep{grid-template-columns:60px minmax(0,1fr)}.epmeta{grid-column:2}}
+
+/* 全話リスト */
+.allep{margin-top:40px}
+.aebar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.aebar input,.aebar select{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.16);border-radius:8px;color:var(--ink);font:inherit;padding:8px 12px}
+.aebar input{flex:1 1 240px;min-width:0}
+.aelist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:4px 12px}
+.ae{display:grid;grid-template-columns:64px minmax(0,1fr) auto;gap:8px;align-items:baseline;padding:6px 4px;border-bottom:1px solid rgba(255,255,255,.07)}
+.ae .no{font-variant-numeric:tabular-nums;color:var(--pink-soft);font-weight:700;font-size:13px}
+.ae .t{overflow-wrap:anywhere}
+.ae .d{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+.ae.key .t::after{content:"重要";font-size:9px;font-weight:800;color:#2A1300;background:var(--gold);border-radius:3px;padding:0 5px;margin-left:6px;vertical-align:2px}
+.ae a{color:inherit;text-decoration:none}
+.aemore{margin:12px auto 0;display:flex}
+
+/* 劇場版一覧 */
+.movies{margin-top:40px}
+.mvhead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 18px;margin-bottom:12px}
+.mvhead h2{font-family:var(--display);font-weight:400;font-size:clamp(22px,3.4vw,30px);margin:0}
+.mvhead .lede{margin:0}
+.mvlist{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px}
+.mv{display:grid;grid-template-columns:52px 1fr;gap:10px;align-items:center;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 12px 8px 8px;min-width:0}
+.mv .no{font-family:var(--display);font-size:24px;line-height:1;text-align:center;color:var(--pink-soft);font-variant-numeric:tabular-nums}
+.mv .no small{display:block;font-family:var(--body);font-size:10px;color:var(--muted);font-weight:700;margin-top:2px}
+.mv .tt{font-weight:700;font-size:14.5px;line-height:1.35;overflow-wrap:anywhere}
+.mv .yr{font-size:11px;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.mv .yr a{color:var(--gold);text-decoration:none;font-weight:700}
+.mv .yr a.ytlink{color:#FF6B6B}
+.mv.latest{border-color:var(--pink);background:rgba(255,62,165,.1)}
+.mv.latest .yr::before{content:"最新作";font-size:10px;font-weight:800;color:#fff;background:var(--pink);border-radius:3px;padding:0 6px}
+
+@media (max-width:860px){
+  .grid{grid-template-columns:1fr}
+  #lines{display:none}
+  .focus{position:sticky;top:env(safe-area-inset-top,0px);max-height:42vh;overflow-y:auto}
+  .board.dim .p:not(.sel):not(.rel-on){opacity:1}
+}
+@media (prefers-reduced-motion:no-preference){.p{transition:opacity .15s,box-shadow .15s,background .15s}}
+
+/* ページ間のメニュー */
+.cnav{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 18px}
+.cnav a{text-decoration:none;color:var(--muted);font-weight:700;font-size:13px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 16px}
+.cnav a:hover{color:var(--ink);border-color:var(--pink-soft)}
+.cnav a[aria-current="page"]{color:#fff;background:linear-gradient(180deg,var(--pink),#C21E7E);border-color:var(--pink)}
+.cnav .home{background:transparent;border-color:transparent;padding-left:4px}
+.hub{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px;margin-top:8px}
+.hub a{display:grid;gap:6px;text-decoration:none;color:var(--ink);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-top:3px solid var(--c);border-radius:12px;padding:16px}
+.hub a:hover{border-color:var(--pink-soft);border-top-color:var(--c)}
+.hub b{font-size:18px;display:flex;gap:8px;align-items:center}
+.hub span{color:var(--muted);font-size:13px}
+.hub em{font-style:normal;font-family:var(--display);font-size:28px;color:var(--c)}
+.movies,.episodes,.allep{margin-top:8px}
+
+*,*::before,*::after{box-sizing:border-box}
+body{margin:0}
+[hidden]{display:none!important}
+.goods{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin:-6px 0 16px;display:grid;gap:8px}
+.goods-h{font-size:13px;font-weight:700;display:flex;gap:8px;align-items:center}
+.pr{font-size:10px;font-weight:800;letter-spacing:.1em;border:1px solid var(--muted);color:var(--muted);border-radius:3px;padding:0 6px}
+.goods-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px}
+.goods-list a{display:grid;gap:4px;text-decoration:none;color:var(--ink);font-size:11px;line-height:1.35;background:rgba(0,0,0,.25);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:6px}
+.goods-list a:hover{border-color:var(--pink)}
+.goods-list img{width:100%;aspect-ratio:1;object-fit:contain;background:#fff;border-radius:4px}
+.goods-list span{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.goods-list b{color:var(--gold)}
+.credit{font-size:11px;color:var(--muted)}
+.credit a{color:var(--muted)}
+.mv{grid-template-columns:auto 52px 1fr}
+.mvplay{width:96px;aspect-ratio:16/9;border:1px solid var(--line);border-radius:6px;overflow:hidden;padding:0;background:#000;position:relative}
+.mvplay img{width:100%;height:100%;object-fit:cover;display:block}
+.mvplay span{position:absolute;inset:auto 0 0 0;font-size:10px;font-weight:800;background:rgba(0,0,0,.65);color:#fff;padding:1px 0}
+.mvplay:hover{border-color:var(--pink)}
+.mv:not(:has(.mvplay)){grid-template-columns:52px 1fr}
+#mvdlg{border:1px solid var(--line);border-radius:14px;background:#160C28;color:var(--ink);padding:12px;width:min(860px,calc(100% - 32px))}
+#mvdlg::backdrop{background:rgba(5,2,12,.75)}
+#mvdlg .mvbar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:8px;font-weight:700}
+#mvdlg .mvclose{width:32px;height:32px;border-radius:50%;border:0;background:rgba(255,255,255,.1);font-size:18px}
+#mvdlg .mvframe{position:relative;aspect-ratio:16/9;background:#000;border-radius:8px;overflow:hidden}
+#mvdlg iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+/* 相関図の商品画像 (conan-extras.js) */
+.goods-note{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:0 0 10px}
+.with-goods .people{gap:10px}
+.pw{display:grid;gap:4px;justify-items:stretch;width:112px;min-width:0}
+.pw .p{width:100%}
+.pimg{position:relative;display:grid;place-items:center;aspect-ratio:1;width:100%;border-radius:8px;overflow:hidden;background:#fff;border:1px solid rgba(255,255,255,.18);text-decoration:none}
+.pimg img{width:100%;height:100%;object-fit:contain;display:block}
+.pimg .kind{position:absolute;left:0;right:0;bottom:0;font-size:9px;font-weight:800;text-align:center;background:rgba(11,7,22,.72);color:#fff;padding:1px 0}
+.pimg.none{background:rgba(255,255,255,.04);border-style:dashed}
+a.pimg:hover{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold)}
+.board.dim .pw:has(.p:not(.sel):not(.rel-on)) .pimg{opacity:.45}
+.goods-one{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.goods-one > a:first-child{display:grid;grid-template-columns:72px 1fr;gap:4px 10px;align-items:center;text-decoration:none;color:var(--ink);font-size:12px;max-width:520px}
+.goods-one > a:first-child img{grid-row:span 2;width:72px;height:72px;object-fit:contain;background:#fff;border-radius:6px}
+.goods-one b{color:var(--gold)}
+.goods-one .more{color:var(--gold);font-weight:700;font-size:12px;text-decoration:none;border:1px solid rgba(255,178,30,.5);border-radius:999px;padding:4px 12px}
+.none-msg{color:var(--muted);font-size:12px}
+@media (max-width:860px){.pw{width:96px}}
+/* 広告・アフィリエイト (monetize.js) */
+.prnote{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:-8px 0 14px;font-size:12px;color:var(--muted)}
+.prnote a{color:var(--pink-soft)}
+.adbox{margin:16px 0;padding:8px;border:1px dashed rgba(255,255,255,.16);border-radius:10px;background:rgba(0,0,0,.25);min-height:100px}
+.adlabel{display:block;font-size:10px;color:var(--muted);letter-spacing:.12em;margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="cnav" aria-label="コナン特集のページ"><a class="home" href="../">← 今夜のアニメ帖</a><a href="./" aria-current="page">特集トップ</a><a href="chart.html">人物相関図</a><a href="episodes.html">エピソード</a><a href="movies.html">劇場版</a></nav>
+  <header>
+    <div>
+      <h1><small>今夜のアニメ帖 特集</small>名探偵コナン 特集</h1>
+      <p class="lede">人物の関係、物語の重要回、劇場版の順番を、目的ごとのページにまとめました。</p>
+    </div>
+    
+  </header>
+
+    <div class="hub">
+    <a href="chart.html" style="--c:#FF8CCB"><em>49人</em><b>人物相関図</b><span>勢力ごとに人物の関係をたどれる。ネタバレの表示は切り替え式。</span></a>
+    <a href="episodes.html" style="--c:#FFB21E"><em>全話</em><b>エピソード</b><span>重要回の一覧と、TVアニメ全話のサブタイトル・放送日。</span></a>
+    <a href="movies.html" style="--c:#6FA8FF"><em>29作</em><b>劇場版</b><span>公開順の歴代タイトル。第20作以降は公式予告つき。</span></a>
+  </div>
+
+  <footer>キャラクターの名称・設定の権利は原作者および各権利者に帰属します。このページは非公式のファンガイドです。<div style="margin-top:8px"><a href="../privacy.html" style="color:var(--muted)">プライバシーポリシー・広告について</a></div></footer>
+</div>
+<script>
+/* 勢力 (表示順 = 3列×3段の並び。中央が主人公たち) */
+const GROUPS=[
+  {id:"org",   name:"黒の組織",       c:"#9A9AB0"},
+  {id:"koan",  name:"公安警察",       c:"#5FD3C6"},
+  {id:"fbi",   name:"FBI・赤井家",    c:"#6FA8FF"},
+  {id:"police",name:"警視庁",         c:"#7BD88F"},
+  {id:"main",  name:"主人公と毛利家", c:"#FF8CCB", center:true},
+  {id:"kudo",  name:"工藤家・阿笠邸", c:"#FFB21E"},
+  {id:"school",name:"警察学校の同期",c:"#F7A8C8"},
+  {id:"friends",name:"友人・西の探偵",c:"#F08A6C"},
+  {id:"kid",   name:"怪盗キッド",     c:"#E6E6F0"},
+  {id:"dt",    name:"少年探偵団",     c:"#FFD966"},
+];
+/* 勢力のマーク (このページ用のオリジナルの記号) */
+const ICONS={
+  main:'<circle cx="10" cy="10" r="6" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M14.5 14.5 21 21" stroke="currentColor" stroke-width="2.8" stroke-linecap="round"/>',
+  kudo:'<path d="M3 11 12 3l9 8v10h-6v-6H9v6H3z" fill="currentColor"/>',
+  dt:'<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2.2"/><path d="m12 6 1.8 3.8 4.1.5-3 2.8.8 4.1L12 15.2l-3.7 2 .8-4.1-3-2.8 4.1-.5z" fill="currentColor"/>',
+  friends:'<circle cx="9" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="15" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="2.2"/>',
+  kid:'<path d="M7 3h10l4 6-9 12L3 9z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 9h18M9 3l3 18 3-18" fill="none" stroke="currentColor" stroke-width="1.4"/>',
+  police:'<path d="m12 2 2.6 6.2 6.7.5-5.1 4.4 1.6 6.5L12 16.1l-5.8 3.5 1.6-6.5L2.7 8.7l6.7-.5z" fill="currentColor"/>',
+  koan:'<path d="M12 2 20 5v6c0 5.2-3.4 9.4-8 11-4.6-1.6-8-5.8-8-11V5z" fill="currentColor"/>',
+  fbi:'<rect x="3" y="5" width="18" height="14" rx="2" fill="none" stroke="currentColor" stroke-width="2.2"/><circle cx="9" cy="12" r="2.6" fill="currentColor"/><path d="M14 10h4M14 14h4" stroke="currentColor" stroke-width="2"/>',
+  org:'<path d="M6 3h12l-1 6a5 5 0 0 1-10 0z" fill="currentColor"/><path d="M12 14v6M8 21h8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>',
+  school:'<g fill="currentColor"><circle cx="12" cy="6" r="3.4"/><circle cx="17.7" cy="10.2" r="3.4"/><circle cx="15.5" cy="17" r="3.4"/><circle cx="8.5" cy="17" r="3.4"/><circle cx="6.3" cy="10.2" r="3.4"/></g><circle cx="12" cy="12" r="2" fill="#0B0716"/>',
+};
+const icon=(g,size)=>`<svg class="ic" width="${size||14}" height="${size||14}" viewBox="0 0 24 24" aria-hidden="true">${ICONS[g]||""}</svg>`;
+/* 人物: r=ひとこと, secret=ネタバレ (スイッチONで表示) */
+const P=[
+  {id:"conan",g:"main",n:"江戸川コナン",r:"小学1年生の名探偵",d:"高校生探偵・工藤新一が、黒の組織に毒薬を飲まされて子どもの姿になった仮の姿。毛利探偵事務所に居候しながら組織を追う。"},
+  {id:"ran",g:"main",n:"毛利蘭",r:"新一の幼なじみ",d:"帝丹高校2年生で空手の達人。新一の帰りを待ち続けている。コナンの正体には気づいていない。"},
+  {id:"kogoro",g:"main",n:"毛利小五郎",r:"私立探偵・蘭の父",d:"元警視庁の刑事。コナンに麻酔で眠らされ、その間の推理で「眠りの小五郎」として有名になった。"},
+  {id:"eri",g:"main",n:"妃英理",r:"弁護士・蘭の母",d:"負け知らずの敏腕弁護士。小五郎とは別居中だが、互いに気にかけている。"},
+  {id:"haibara",g:"main",n:"灰原哀",r:"元組織の科学者",d:"コナンと同じ薬で幼児化した少女。薬を開発した張本人で、組織を抜けて阿笠博士の家で暮らす。本名は宮野志保。"},
+
+  {id:"agasa",g:"kudo",n:"阿笠博士",r:"発明家",d:"工藤家の隣に住む発明家。コナンの正体を知る最初の協力者で、変声機付き蝶ネクタイなどの道具を作った。"},
+  {id:"yusaku",g:"kudo",n:"工藤優作",r:"推理作家・新一の父",d:"世界的な推理小説家。息子以上の推理力を持つ。"},
+  {id:"yukiko",g:"kudo",n:"工藤有希子",r:"元女優・新一の母",d:"元人気女優で変装の名人。"},
+  {id:"okiya",g:"kudo",n:"沖矢昴",r:"工藤邸の居候",d:"東都大学の大学院生として工藤邸に住んでいる。",secret:"正体はFBIの赤井秀一。死んだことにして変装して暮らしている。"},
+
+  {id:"ayumi",g:"dt",n:"吉田歩美",r:"少年探偵団",d:"コナンのクラスメイト。コナンに好意を寄せている。"},
+  {id:"genta",g:"dt",n:"小嶋元太",r:"少年探偵団",d:"探偵団のリーダーを自称する、うな重好きのガキ大将。"},
+  {id:"mitsuhiko",g:"dt",n:"円谷光彦",r:"少年探偵団",d:"物知りで丁寧な口調の探偵団の頭脳派。"},
+
+  {id:"sonoko",g:"friends",n:"鈴木園子",r:"蘭の親友",d:"鈴木財閥のお嬢様。にぎやかなムードメーカー。"},
+  {id:"kyogoku",g:"friends",n:"京極真",r:"園子の恋人",d:"無敗の空手家。園子を一途に守る。"},
+  {id:"heiji",g:"friends",n:"服部平次",r:"西の高校生探偵",d:"大阪の高校生探偵。コナンの正体を知る数少ない友人でライバル。"},
+  {id:"kazuha",g:"friends",n:"遠山和葉",r:"平次の幼なじみ",d:"合気道の使い手。平次のことを想っている。"},
+
+  {id:"kid",g:"kid",n:"怪盗キッド",r:"月下の奇術師",d:"予告状を出して宝石を狙う怪盗。変装と奇術の達人。正体は高校生の黒羽快斗。"},
+  {id:"toichi",g:"kid",n:"黒羽盗一",r:"初代キッド・快斗の父",d:"世界的マジシャン。初代の怪盗キッド。"},
+  {id:"aoko",g:"kid",n:"中森青子",r:"快斗の幼なじみ",d:"キッドを嫌っている、快斗の幼なじみ。"},
+  {id:"nakamori",g:"kid",n:"中森銀三",r:"キッド担当の警部",d:"警視庁捜査二課でキッドを追い続ける警部。青子の父。"},
+
+  {id:"megure",g:"police",n:"目暮十三",r:"警視庁の警部",d:"捜査一課の警部。小五郎の元上司。"},
+  {id:"takagi",g:"police",n:"高木渉",r:"警視庁の刑事",d:"目暮班の刑事。コナンたちとよく事件に関わる。"},
+  {id:"sato",g:"police",n:"佐藤美和子",r:"警視庁の刑事",d:"捜査一課の女性刑事。高木と交際している。"},
+  {id:"shiratori",g:"police",n:"白鳥任三郎",r:"警視庁の警部",d:"捜査一課の警部。名家の出身。"},
+  {id:"chiba",g:"police",n:"千葉和伸",r:"警視庁の刑事",d:"目暮班の刑事。"},
+  {id:"miike",g:"police",n:"三池苗子",r:"交通課の巡査",d:"千葉の幼なじみ。"},
+
+  {id:"komei",g:"police",n:"諸伏高明",r:"長野県警の警部",d:"「孔明」とあだ名される切れ者の警部。諸伏景光の兄。"},
+
+  {id:"matsuda",g:"school",n:"松田陣平",r:"元・爆発物処理班（故人）",d:"爆弾解体の名手だった刑事。連続爆破事件で殉職した。"},
+  {id:"hagiwara",g:"school",n:"萩原研二",r:"元・爆発物処理班（故人）",d:"松田の親友で、同じく爆発物処理班にいた警察官。爆弾事件で殉職した。"},
+  {id:"hiromitsu",g:"school",n:"諸伏景光",r:"警察官（故人）",d:"降谷零の幼なじみで、警察学校の同期。",secret:"公安の潜入捜査官として、黒の組織にスコッチとして潜り込んでいた。正体が知られ、命を落とした。"},
+  {id:"date",g:"school",n:"伊達航",r:"元・捜査一課（故人）",d:"面倒見のよい刑事で、高木の先輩。事故で亡くなった。"},
+
+  {id:"amuro",g:"koan",n:"安室透",r:"喫茶ポアロの店員",d:"小五郎に弟子入りした私立探偵。毛利探偵事務所の下の喫茶ポアロで働く。",secret:"本名は降谷零。警察庁の公安警察で、黒の組織にはバーボンとして潜入している。"},
+  {id:"kazami",g:"koan",n:"風見裕也",r:"公安の刑事",d:"警視庁公安部の刑事。",secret:"降谷零の部下として動いている。"},
+
+  {id:"akai",g:"fbi",n:"赤井秀一",r:"FBI捜査官",d:"凄腕の狙撃手。かつて組織に潜入していた。",secret:"組織に潜入していたときのコードネームはライ（偽名は諸星大）。組織の前では死んだことになっており、沖矢昴として暮らしている。"},
+  {id:"jodie",g:"fbi",n:"ジョディ・スターリング",r:"FBI捜査官",d:"帝丹高校の英語教師として来日したFBI捜査官。赤井の元恋人。"},
+  {id:"james",g:"fbi",n:"ジェイムズ・ブラック",r:"FBI捜査官",d:"日本で動くFBIチームの責任者。"},
+  {id:"camel",g:"fbi",n:"アンドレ・キャメル",r:"FBI捜査官",d:"赤井を慕うFBI捜査官。"},
+  {id:"sera",g:"fbi",n:"世良真純",r:"女子高生探偵",d:"帝丹高校に転校してきた高校生探偵。",secret:"赤井秀一の妹。"},
+  {id:"shukichi",g:"fbi",n:"羽田秀吉",r:"将棋のタイトル保持者",d:"天才棋士。",secret:"赤井秀一と世良真純のきょうだい（次男）。"},
+  {id:"mary",g:"fbi",n:"メアリー世良",r:"世良の「妹」",d:"世良と行動をともにする少女。",secret:"実は世良たちの母。イギリスの諜報員で、組織の薬で子どもの姿になっている。灰原の母の姉妹で、赤井家と灰原はいとこ同士。"},
+  {id:"akemi",g:"fbi",n:"宮野明美",r:"灰原の姉（故人）",d:"灰原（志保）の姉。組織に命を奪われた。"},
+
+  {id:"gin",g:"org",n:"ジン",r:"組織の幹部",d:"冷酷な組織の実行役。工藤新一に毒薬を飲ませた張本人。"},
+  {id:"vodka",g:"org",n:"ウォッカ",r:"ジンの相棒",d:"いつもジンと行動する組織のメンバー。"},
+  {id:"vermouth",g:"org",n:"ベルモット",r:"組織の幹部",d:"変装の名人で、謎の多い女性幹部。",secret:"正体はハリウッド女優のシャロン・ヴィンヤード。娘のクリスは本人が一人二役で演じていた。蘭とコナンを守ろうとする一面がある。"},
+  {id:"kir",g:"org",n:"キール",r:"組織のメンバー",d:"組織のコードネームを持つメンバー。表の顔は日売テレビのアナウンサー・水無怜奈。",secret:"本名は本堂瑛海。CIAの諜報員として組織に潜入している。"},
+  {id:"chianti",g:"org",n:"キャンティ",r:"組織の狙撃手",d:"気性の荒い組織のスナイパー。"},
+  {id:"korn",g:"org",n:"コルン",r:"組織の狙撃手",d:"キャンティと組む無口なスナイパー。"},
+  {id:"rum",g:"org",n:"ラム",r:"組織のNo.2",d:"組織のナンバー2とされる人物。"},
+  {id:"boss",g:"org",n:"あの方",r:"組織のボス",d:"組織のメンバーがそう呼ぶボス。",secret:"正体は烏丸蓮耶。"},
+];
+/* 関係: [a, b, aから見たbとの関係, ネタバレか] */
+const L=[
+  ["conan","ran","幼なじみ・恋人（新一として）"],
+  ["conan","kogoro","居候先・推理を代行"],
+  ["kogoro","ran","父と娘"],
+  ["eri","ran","母と娘"],
+  ["kogoro","eri","夫婦（別居中）"],
+  ["conan","haibara","同じ薬で幼児化した仲間"],
+  ["conan","agasa","正体を知る協力者"],
+  ["haibara","agasa","一緒に暮らす"],
+  ["yusaku","conan","父と息子"],
+  ["yukiko","conan","母と息子"],
+  ["yusaku","yukiko","夫婦"],
+  ["conan","ayumi","少年探偵団"],["conan","genta","少年探偵団"],["conan","mitsuhiko","少年探偵団"],["haibara","ayumi","少年探偵団"],
+  ["ran","sonoko","親友"],
+  ["sonoko","kyogoku","恋人"],
+  ["conan","heiji","正体を知る親友・ライバル"],
+  ["heiji","kazuha","幼なじみ"],
+  ["ran","kazuha","友人"],
+  ["conan","kid","探偵と怪盗の好敵手"],
+  ["kid","toichi","父（初代キッド）"],
+  ["kid","aoko","幼なじみ"],
+  ["nakamori","aoko","父と娘"],
+  ["nakamori","kid","追う警部"],
+  ["toichi","yukiko","変装を教えた"],
+  ["megure","kogoro","元上司と部下"],
+  ["megure","takagi","上司と部下"],
+  ["takagi","sato","恋人"],
+  ["chiba","miike","幼なじみ"],
+  ["megure","shiratori","同じ捜査一課"],
+  ["amuro","kogoro","弟子入り"],
+  ["amuro","conan","実力を認め合う"],
+  ["okiya","conan","工藤邸に住む協力者"],
+  ["okiya","agasa","お隣さん"],
+  ["akai","jodie","同僚（元恋人）"],
+  ["james","akai","上司と部下"],
+  ["camel","akai","慕う部下"],
+  ["haibara","akemi","姉妹"],
+  ["gin","conan","新一に毒薬を飲ませた"],
+  ["gin","vodka","相棒"],
+  ["gin","haibara","裏切り者として追う"],
+  ["kir","gin","組織の仲間"],
+  ["rum","boss","側近"],
+  ["gin","boss","忠実な部下"],
+  ["vermouth","gin","組織の仲間"],
+  ["jodie","vermouth","因縁の相手"],
+  ["akai","gin","宿敵"],
+  ["komei","hiromitsu","兄と弟"],
+  ["matsuda","hagiwara","親友"],
+  ["matsuda","sato","想いを寄せられていた"],
+  ["date","takagi","先輩と後輩"],
+  ["matsuda","date","警察学校の同期"],
+  ["hiromitsu","matsuda","警察学校の同期"],
+  ["chianti","korn","狙撃手コンビ"],
+  ["gin","chianti","組織の仲間"],
+  /* ネタバレ */
+  ["amuro","hiromitsu","幼なじみ・警察学校の同期",1],
+  ["amuro","matsuda","警察学校の同期",1],
+  ["amuro","hagiwara","警察学校の同期",1],
+  ["amuro","date","警察学校の同期",1],
+  ["hiromitsu","akai","組織潜入時代の因縁",1],
+  ["okiya","akai","同一人物",1],
+  ["amuro","kazami","上司と部下（公安）",1],
+  ["amuro","akai","組織潜入時代からの因縁",1],
+  ["amuro","boss","バーボンとして潜入",1],
+  ["akai","sera","兄と妹",1],
+  ["akai","shukichi","兄と弟",1],
+  ["mary","akai","母と息子",1],
+  ["mary","sera","母と娘",1],
+  ["akai","akemi","恋人だった",1],
+  ["akai","haibara","いとこ",1],
+  ["kir","akai","CIAとして協力",1],
+  ["vermouth","ran","「天使」と呼び守る",1],
+  ["vermouth","conan","正体を知り見逃す",1],
+  ["toichi","vermouth","変装を教えた",1],
+];
+
+const $=s=>document.querySelector(s);
+const byId=Object.fromEntries(P.map(p=>[p.id,p]));
+const gById=Object.fromEntries(GROUPS.map(g=>[g.id,g]));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const store={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:JSON.parse(v)}catch(e){return d}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const st={spoil:store.get("conan-spoil",false),all:false,sel:"conan"};
+
+function build(){
+  $("#grid").innerHTML=GROUPS.map(g=>`<section class="group${g.center?" center":""}" style="--c:${g.c}">
+    <h3><span class="gh">${icon(g.id)}${g.name}</span><span>${P.filter(p=>p.g===g.id).length}人</span></h3>
+    <div class="people">${P.filter(p=>p.g===g.id).map(p=>`<button class="p" data-id="${p.id}" style="--c:${g.c}"><span class="n">${esc(p.n)}</span><span class="r">${esc(p.r)}</span>${p.secret?`<span class="alias" hidden>？正体あり</span>`:""}</button>`).join("")}</div>
+  </section>`).join("");
+  document.querySelectorAll(".p").forEach(b=>b.onclick=()=>select(b.dataset.id,true));
+}
+const visibleLinks=()=>L.filter(l=>st.spoil||!l[3]);
+function relsOf(id){
+  return visibleLinks().filter(l=>l[0]===id||l[1]===id).map(l=>({other:l[0]===id?l[1]:l[0],label:l[2],sp:!!l[3]}));
+}
+function select(id,scroll){
+  st.sel=id;const p=byId[id],g=gById[p.g],rs=relsOf(id);
+  document.querySelectorAll(".p").forEach(b=>{b.classList.toggle("sel",b.dataset.id===id);b.classList.toggle("rel-on",rs.some(r=>r.other===b.dataset.id));});
+  document.querySelectorAll(".p .alias").forEach(a=>a.hidden=!st.spoil);
+  $("#board").classList.add("dim");
+  $("#focus").innerHTML=`<h2><span>${esc(p.n)}</span><span class="grp" style="background:${g.c}">${icon(p.g,12)} ${g.name}</span></h2>
+    <p>${esc(p.d)}</p>${p.secret&&st.spoil?`<p class="secret">${esc(p.secret)}</p>`:""}
+    ${epsOf(id).length?`<div class="eprel"><span class="eprl">関連エピソード</span>${epsOf(id).map(e=>`<a href="${epHref(e[0])}">第${e[0]}話 ${esc(e[1])}</a>`).join("")}</div>`:""}
+    <div class="rels">${rs.map(r=>`<button class="rel${r.sp?" sp":""}" data-id="${r.other}"><b>${esc(byId[r.other].n)}</b>${esc(r.label)}</button>`).join("")||'<span class="r">表示中の関係はありません</span>'}</div>`;
+  document.querySelectorAll("#focus .rel").forEach(b=>b.onclick=()=>{select(b.dataset.id);
+    if(matchMedia("(max-width:860px)").matches)document.querySelector(`.p[data-id="${b.dataset.id}"]`)?.scrollIntoView({block:"center",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});});
+  draw();
+}
+function center(el,box){const r=el.getBoundingClientRect();return {x:r.left-box.left+r.width/2,y:r.top-box.top+r.height/2,w:r.width,h:r.height}}
+function edge(a,b){
+  // 人物ボックスの縁から線を出す
+  const dx=b.x-a.x,dy=b.y-a.y,t=Math.min(Math.abs(a.w/2/(dx||1e-6)),Math.abs(a.h/2/(dy||1e-6)));
+  return {x:a.x+dx*Math.min(t,1),y:a.y+dy*Math.min(t,1)};
+}
+function draw(){
+  const svg=$("#lines");if(!svg)return;svg.innerHTML="";
+  if(matchMedia("(max-width:860px)").matches)return;
+  const box=$("#board").getBoundingClientRect();
+  svg.setAttribute("viewBox",`0 0 ${box.width} ${box.height}`);
+  const links=st.all?visibleLinks():visibleLinks().filter(l=>l[0]===st.sel||l[1]===st.sel);
+  const ns="http://www.w3.org/2000/svg";
+  const labels=[];
+  links.forEach(l=>{
+    const ea=document.querySelector(`.p[data-id="${l[0]}"]`),eb=document.querySelector(`.p[data-id="${l[1]}"]`);
+    if(!ea||!eb)return;
+    const a=center(ea,box),b=center(eb,box),pa=edge(a,b),pb=edge(b,a);
+    const mx=(pa.x+pb.x)/2,my=(pa.y+pb.y)/2,bend=Math.min(60,Math.hypot(pb.x-pa.x,pb.y-pa.y)*.12);
+    const nx=-(pb.y-pa.y),ny=pb.x-pa.x,len=Math.hypot(nx,ny)||1,cx=mx+nx/len*bend,cy=my+ny/len*bend;
+    const path=document.createElementNS(ns,"path");
+    path.setAttribute("d",`M${pa.x},${pa.y} Q${cx},${cy} ${pb.x},${pb.y}`);
+    path.setAttribute("class","lnk"+(l[3]?" sp":""));svg.append(path);
+    // ラベルは曲線の頂点付近 (同じ場所に重なったら少しずらす)
+    let lx=(pa.x+2*cx+pb.x)/4,ly=(pa.y+2*cy+pb.y)/4;
+    while(labels.some(q=>Math.abs(q.x-lx)<70&&Math.abs(q.y-ly)<18))ly+=20;
+    labels.push({x:lx,y:ly,text:l[2],sp:l[3]});
+  });
+  labels.forEach(q=>{
+    const g=document.createElementNS(ns,"g");g.setAttribute("class","lbl"+(q.sp?" sp":""));
+    const t=document.createElementNS(ns,"text");t.textContent=q.text;t.setAttribute("x",q.x);t.setAttribute("y",q.y+4);t.setAttribute("text-anchor","middle");
+    g.append(t);svg.append(g);
+    const bb=t.getBBox(),r=document.createElementNS(ns,"rect");
+    r.setAttribute("x",bb.x-6);r.setAttribute("y",bb.y-2);r.setAttribute("width",bb.width+12);r.setAttribute("height",bb.height+4);r.setAttribute("rx",4);
+    g.insertBefore(r,t);
+  });
+}
+if($("#spoil")){$("#spoil").onclick=e=>{st.spoil=!st.spoil;store.set("conan-spoil",st.spoil);e.currentTarget.setAttribute("aria-pressed",st.spoil);select(st.sel)};
+$("#allLines").onclick=e=>{st.all=!st.all;e.currentTarget.setAttribute("aria-pressed",st.all);draw()};
+$("#spoil").setAttribute("aria-pressed",st.spoil);}
+let rt;addEventListener("resize",()=>{clearTimeout(rt);rt=setTimeout(draw,120)});
+/* 重要エピソード: [話数, サブタイトル, 放送日, 関わる人物id, 重要] */
+const EPISODES=[
+  [1,"ジェットコースター殺人事件","1996-01-08",["conan","ran","gin","vodka"],1],
+  [11,"ピアノソナタ『月光』殺人事件","1996-04-08",["conan","kogoro"],1],
+  [48,"外交官殺人事件（前編）","1997-02-17",["heiji"],1],
+  [76,"コナンVS怪盗キッド","1997-09-22",["kid","nakamori"],1],
+  [96,"追いつめられた名探偵! 連続2大殺人事件","1998-03-23",[],1],
+  [128,"黒の組織10億円強奪事件","1998-12-14",["akemi","gin","vodka"],1],
+  [176,"黒の組織との再会（灰原編）","2000-01-17",["haibara","gin","vodka"],1],
+  [177,"黒の組織との再会（コナン編）","2000-01-24",["haibara","gin","vodka"],1],
+  [178,"黒の組織との再会（解決編）","2000-01-31",["haibara","gin","vodka"],1],
+  [234,"消えなかった証拠（後編）","2001-05-21",[],0],
+  [286,"工藤新一NY（ニューヨーク）の事件（事件編）","2002-07-15",["ran","yukiko","vermouth"],1],
+  [304,"揺れる警視庁 1200万人の人質","2003-01-06",["sato","takagi","megure","matsuda"],1],
+  [305,"見えない容疑者（前編）","2003-01-13",[],1],
+  [345,"黒の組織と真っ向勝負 満月の夜の二元ミステリー","2004-01-05",["vermouth","jodie","akai","haibara"],1],
+  [425,"ブラックインパクト! 組織の手が届く瞬間","2006-01-09",["kir","gin"],1],
+  [426,"蘭へのラブレター","2006-01-16",[],0],
+  [491,"赤と黒のクラッシュ 発端","2008-01-14",["kir","akai","jodie","james","camel","gin"],1],
+  [500,"赤と黒のクラッシュ 遺言","2008-03-17",["kir","akai","jodie","james","camel","gin","chianti","korn"],1],
+  [578,"危機呼ぶ赤い前兆（オーメン）","2010-06-26",[],1],
+  [646,"幽霊ホテルの推理対決（前編）","2012-02-18",[],1],
+  [667,"ウェディングイブ（前編）","2012-09-01",[],1],
+  [701,"漆黒の特急（ミステリートレイン）（発車）","2013-07-13",["haibara","sera","okiya","amuro","vermouth","kid"],1],
+  [702,"漆黒の特急（ミステリートレイン）（隧道）","2013-07-20",["haibara","sera","okiya","amuro","vermouth","kid"],1],
+  [703,"漆黒の特急（ミステリートレイン）（交差）","2013-07-27",["haibara","sera","okiya","amuro","vermouth","kid"],1],
+  [704,"漆黒の特急（ミステリートレイン）（終点）","2013-08-03",["haibara","sera","okiya","amuro","vermouth","kid"],1],
+  [779,"緋色の序章","2015-05-30",["akai","okiya","amuro"],1],
+  [780,"緋色の追求","2015-06-06",["akai","okiya","amuro"],1],
+  [781,"緋色の交錯","2015-06-13",["akai","okiya","amuro"],1],
+  [782,"緋色の帰還","2015-06-20",["akai","okiya","amuro"],1],
+  [783,"緋色の真相","2015-06-27",["akai","okiya","amuro","yusaku","yukiko"],1],
+];
+const epHref=n=>($("#eplist")?"":"episodes.html")+"#ep"+n;
+const epsOf=id=>EPISODES.filter(e=>e[3].includes(id));
+const fmtDate=d=>d.replace(/^(\d{4})-(\d{2})-(\d{2})$/,(m,y,mo,da)=>`${y}.${mo}.${da}`);
+function renderEpisodes(){
+  $("#eplist").innerHTML=EPISODES.map(e=>`<li class="ep${e[4]?" key":""}" id="ep${e[0]}"><span class="epno">第${e[0]}話</span><span class="eptt">${esc(e[1])}</span><span class="epmeta"><time datetime="${e[2]}">${fmtDate(e[2])}</time>${e[4]?'<span class="keytag">重要</span>':""}</span>${e[3].length?`<span class="epwho">${e[3].map(id=>$("#grid")?`<button class="who" data-id="${id}">${esc(byId[id].n)}</button>`:`<a class="who" href="chart.html#${id}">${esc(byId[id].n)}</a>`).join("")}</span>`:""}</li>`).join("");
+  document.querySelectorAll("#eplist .who").forEach(b=>b.onclick=()=>{select(b.dataset.id);$("#focus").scrollIntoView({block:"start",behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"})});
+}
+
+/* 劇場版 (公開年, 副題) */
+const MOVIES=[[1997,"時計じかけの摩天楼"],[1998,"14番目の標的"],[1999,"世紀末の魔術師"],[2000,"瞳の中の暗殺者"],[2001,"天国へのカウントダウン"],[2002,"ベイカー街の亡霊"],[2003,"迷宮の十字路"],[2004,"銀翼の奇術師"],[2005,"水平線上の陰謀"],[2006,"探偵たちの鎮魂歌"],[2007,"紺碧の棺"],[2008,"戦慄の楽譜"],[2009,"漆黒の追跡者"],[2010,"天空の難破船"],[2011,"沈黙の15分"],[2012,"11人目のストライカー"],[2013,"絶海の探偵"],[2014,"異次元の狙撃手"],[2015,"業火の向日葵"],[2016,"純黒の悪夢","ZZ-FzCK9Uq4"],[2017,"から紅の恋歌","d44tuuPbAw8"],[2018,"ゼロの執行人","i1EDdyF109c"],[2019,"紺青の拳","2X-JSRWnH1Y"],[2021,"緋色の弾丸","iGttkujuIVQ"],[2022,"ハロウィンの花嫁","sJwIGd22Cew"],[2023,"黒鉄の魚影","0jIpAPLbpt0"],[2024,"100万ドルの五稜星","_k8-c9Qvrwk"],[2025,"隻眼の残像","D22Ezh_UiVM"],[2026,"ハイウェイの堕天使","CsxkouRl7Yo"]];
+if($("#mvlist"))$("#mvlist").innerHTML=MOVIES.map(([y,t,yt],i)=>{
+  const full=`名探偵コナン ${t}`;
+  return `<li class="mv${i===MOVIES.length-1?" latest":""}"><span class="no">${i+1}<small>作目</small></span><span><span class="tt">${esc(t)}</span><span class="yr"><span>${y}年</span><a href="https://www.justwatch.com/jp/%E6%A4%9C%E7%B4%A2?q=${encodeURIComponent(full)}" target="_blank" rel="noopener">配信を探す ↗</a>${yt?`<a class="ytlink" href="https://www.youtube.com/watch?v=${yt}" target="_blank" rel="noopener" data-yt="${yt}" data-title="${esc(full)}">▶ 公式予告</a>`:""}</span></span></li>`;
+}).join("");
+
+/* 全話リスト (episodes.json: [{no,t,d}]) */
+(async()=>{
+  if(!$("#aelist"))return;
+  let ALL=[],cur=[],shown=0;const PAGE=120,keySet=new Set(EPISODES.filter(e=>e[4]).map(e=>e[0]));
+  const f={q:"",year:"",key:false};
+  try{ALL=await (await fetch("episodes.json")).json()}catch(e){$("#aecount").textContent="全話リストを読み込めませんでした。";return}
+  const years=[...new Set(ALL.map(x=>x.d.slice(0,4)))].sort().reverse();
+  years.forEach(y=>$("#aeyear").add(new Option(y+"年",y)));
+  const last=ALL[ALL.length-1];
+  $("#aecount").textContent=`第1話（1996年1月）から第${last.no}話（${last.d.slice(0,4)}年${+last.d.slice(5,7)}月）まで、全${ALL.length.toLocaleString()}話のサブタイトルと放送日です。`;
+  function run(){
+    const q=f.q.toLowerCase();
+    cur=ALL.filter(x=>(!q||x.t.toLowerCase().includes(q))&&(!f.year||x.d.startsWith(f.year))&&(!f.key||keySet.has(x.no))).slice().reverse();
+    shown=0;$("#aelist").innerHTML="";more();
+  }
+  function more(){
+    $("#aelist").insertAdjacentHTML("beforeend",cur.slice(shown,shown+PAGE).map(x=>`<li class="ae${keySet.has(x.no)?" key":""}"><span class="no">第${x.no}話</span><span class="t">${keySet.has(x.no)?`<a href="${epHref(x.no)}">${esc(x.t)}</a>`:esc(x.t)}</span><span class="d">${fmtDate(x.d)}</span></li>`).join("")||'<li class="ae"><span></span><span class="t">該当する話がありません。</span></li>');
+    shown+=PAGE;$("#aemore").hidden=shown>=cur.length;
+  }
+  $("#aemore").onclick=more;
+  let tm;$("#aeq").oninput=e=>{clearTimeout(tm);tm=setTimeout(()=>{f.q=e.target.value.trim();run()},150)};
+  $("#aeyear").onchange=e=>{f.year=e.target.value;run()};
+  $("#aekey").onclick=e=>{f.key=!f.key;e.currentTarget.setAttribute("aria-pressed",f.key);run()};
+  run();
+})();
+
+if($("#grid")){
+  build();
+  const fromHash=()=>{const h=location.hash.slice(1);return byId[h]?h:null};
+  select(fromHash()||"conan");
+  if(fromHash())setTimeout(()=>$("#focus").scrollIntoView({block:"start"}),50);
+  addEventListener("hashchange",()=>{const h=fromHash();if(h){select(h);$("#focus").scrollIntoView({block:"start"})}});
+}
+if($("#eplist"))renderEpisodes();
+if(document.fonts&&document.fonts.ready)document.fonts.ready.then(draw);
+</script>
+<script src="../config.js?v=4"></script>
+<script src="conan-extras.js?v=3"></script>
+<script src="../monetize.js?v=2"></script>
+</body>
+</html>
