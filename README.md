@@ -121,3 +121,23 @@ python update_now.py --seasons 2026-10 2026-07
 - 変更点は `changes_日付.md` にまとまります。
 - 新しいクールが始まったら `--seasons 2027-01 2026-10 --refresh-titles` のように、新しいシーズンを足してタイトル一覧も取り直します。
 - できた `now.json` をこのフォルダにコピーして、アップロードし直してください。
+
+## 7. 管理人ページ
+
+`https://hashimotokazunori.github.io/anime-guide/admin/` に、データの鮮度・収益化の設定状況・定期作業・確認が必要な作品をまとめた管理人ページがあります。
+
+```
+python build_admin.py
+```
+
+で作り直します（データを更新したあとに実行して、GitHubに送る）。
+
+- 検索エンジンには載せない設定（noindex）で、公開ページからはリンクしていません。
+- ただし URL を知っていれば誰でも開けるので、キーやIDの値は表示せず「設定済み／未設定」だけを出しています。
+- ログインが必要な本当の管理画面にするには、投稿を保存するサーバー（Firebase など）が必要です。
+
+## 8. アクセス解析（閲覧数）
+
+1. Google アナリティクス（https://analytics.google.com/）でプロパティを作り、ウェブの「測定ID」（`G-` から始まる）を確認する。
+2. `config.js` の `analytics.ga4` に入れて GitHub に送る。
+3. 検索の表示回数も見たい場合は Google Search Console（https://search.google.com/search-console）でサイトを登録し、「HTMLタグ」の確認方法で出る `content="..."` の値を `config.js` の `searchConsole` に入れて、`python build_pages.py` を実行してから送る。

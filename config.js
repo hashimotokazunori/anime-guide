@@ -47,6 +47,13 @@ window.SITE_CONFIG = {
     listEvery: 8,           // 一覧の何作品ごとに広告を挟むか
   },
 
+  // ---- アクセス解析 -------------------------------------------------------------
+  analytics: {
+    ga4: "",               // Google アナリティクス 4 の測定ID (例: "G-ABCDE12345")
+  },
+  // Google Search Console の所有権確認用 (HTMLタグの content の値)。python build_pages.py で各ページに入る
+  searchConsole: "",
+
   // 公式YouTube予告編の埋め込み (trailers.json) を使うか
   trailers: true,
 };
