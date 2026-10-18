@@ -2,10 +2,10 @@
 window.SITE_CONFIG = {
   // ---- 楽天アフィリエイト (作品の詳細にBlu-ray・DVDの商品画像) --------------------
   rakuten: {
-    // 楽天ウェブサービス (https://webservice.rakuten.co.jp/) で発行したアプリID
+    // アプリIDとアクセスキーはサイトに置かない (rakuten.env に書いて、スクリプトだけで使う)
     applicationId: "",
     // 楽天アフィリエイトのアフィリエイトID
-    affiliateId: "",
+    affiliateId: "589c5f8e.ab4d569f.589c5f8f.b5b814de",
     // 楽天ブックス DVD・Blu-ray検索API。楽天側でURLが変わったら、ここだけ書き換える
     endpoint: "https://app.rakuten.co.jp/services/api/BooksDVD/Search/20170404",
     // 楽天市場の商品検索API (コナン特集の「関連グッズ」に使う)

@@ -6,7 +6,7 @@
   const ADS = CFG.ads || {};
   const client = /^ca-pub-\d+$/.test(ADS.adsenseClient || "") ? ADS.adsenseClient : "";
   const slots = ADS.slots || {};
-  const rakutenOn = !!(CFG.rakuten && CFG.rakuten.applicationId && CFG.rakuten.affiliateId);
+  const rakutenOn = !!(CFG.rakuten && CFG.rakuten.affiliateId);
   const anyAff = Object.keys(AFF).length > 0;
 
   // このスクリプトの置き場所 = サイトのいちばん上 (サブフォルダのページからでも正しいリンクを作るため)

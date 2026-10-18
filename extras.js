@@ -3,7 +3,7 @@
 (() => {
   const CFG = window.SITE_CONFIG || {};
   const RK = CFG.rakuten || {};
-  const rakutenOn = !!(RK.applicationId && RK.affiliateId);
+  const rakutenOn = !!RK.affiliateId;
 
   /* ---- 予告編 (trailers.json: {"作品名": "YouTube動画ID"}) ---- */
   let TRAILERS = {};
@@ -52,40 +52,23 @@
   }
 
   /* ---- 楽天ブックス DVD・Blu-ray (1秒に1回まで、24時間キャッシュ) ---- */
-  const cacheKey = t => "rk:" + t;
-  const DAY = 864e5;
-  let queue = Promise.resolve();
+  // 楽天への問い合わせはサイトからは行わず、fetch_prices.py が集めた data/prices.json を読む
+  // (新しい楽天APIはアクセスキーが必要で、それをサイトに置かないため)
+  let PRICES = null;
+  const pricesReady = fetch("data/prices.json", { cache: "no-cache" }).then(r => r.ok ? r.json() : {}).then(d => { PRICES = (d && d.items) || {}; }).catch(() => { PRICES = {}; });
   function rakuten(title) {
-    try {
-      const c = JSON.parse(localStorage.getItem(cacheKey(title)) || "null");
-      if (c && Date.now() - c.at < DAY) return Promise.resolve(c.items);
-    } catch (e) {}
-    const kw = title.replace(/[(（][^)）]*[)）]/g, "").split(/[ 　]/)[0];
-    const q = new URLSearchParams({ format: "json", formatVersion: "2", applicationId: RK.applicationId, affiliateId: RK.affiliateId, title: kw, hits: "4", sort: "standard" });
-    const job = queue.then(() => fetch(`${RK.endpoint}?${q}`))
-      .then(r => r.ok ? r.json() : Promise.reject(r.status))
-      .then(d => {
-        const items = (d.Items || []).map(x => x.Item || x)
-          .filter(x => x.largeImageUrl && !/noimage/i.test(x.largeImageUrl))
-          .map(x => ({ title: x.title, img: x.largeImageUrl.replace("?_ex=200x200", "?_ex=300x300"), url: x.affiliateUrl || x.itemUrl, price: x.itemPrice }));
-        try { localStorage.setItem(cacheKey(title), JSON.stringify({ at: Date.now(), items })); } catch (e) {}
-        return items;
-      })
-      .catch(() => []);
-    queue = job.then(() => new Promise(r => setTimeout(r, 1100)));
-    return job;
+    return pricesReady.then(() => (PRICES[title] || []).map(o => ({ title: o.name, img: o.img, url: o.url, price: o.price, shop: o.shop })));
   }
   function showShop(a) {
     const box = $("#dShop");
-    box.hidden = !rakutenOn;
-    if (!rakutenOn) return;
-    box.innerHTML = '<span class="pr">PR</span><div class="meta">楽天ブックスで探しています…</div>';
+    box.hidden = true;
     rakuten(a.t).then(items => {
       if (cur !== a) return;
       if (!items.length) { box.hidden = true; return; }
+      box.hidden = false;
       box.innerHTML = `<span class="pr">PR</span>
-        <div class="items">${items.map(i => `<a href="${esc(i.url)}" target="_blank" rel="sponsored noopener"><img src="${esc(i.img)}" alt="" loading="lazy"><span>${esc(i.title)}</span>${i.price ? `<span class="price">¥${Number(i.price).toLocaleString()}</span>` : ""}</a>`).join("")}</div>
-        <div class="credit">商品情報：<a href="https://webservice.rakuten.co.jp/" target="_blank" rel="noopener">Supported by Rakuten Developers</a>　このリンクから購入されると、サイト運営者に紹介料が入ります。</div>`;
+        <div class="items">${items.map(i => `<a href="${esc(i.url)}" target="_blank" rel="sponsored noopener"><img src="${esc(i.img)}" alt="" loading="lazy"><span>${esc(i.shop ? i.shop + "：" : "")}${esc(i.title)}</span>${i.price ? `<span class="price">¥${Number(i.price).toLocaleString()}</span>` : ""}</a>`).join("")}</div>
+        <div class="credit">価格は時点のものです。商品情報：<a href="https://webservice.rakuten.co.jp/" target="_blank" rel="noopener">Supported by Rakuten Developers</a>　このリンクから購入されると、サイト運営者に紹介料が入ります。</div>`;
     });
   }
 
@@ -96,7 +79,7 @@
   $("#dlg").addEventListener("close", () => { $("#dTrailer").innerHTML = ""; });
 
   // カードのポスター: 楽天の商品画像があればそれ、無ければ公式PVのサムネイル
-  const useRakutenPoster = rakutenOn && RK.posters !== false;
+  const useRakutenPoster = false; // ポスターは公式PVのサムネイルで統一 (商品画像は詳細欄に出す)
   const baseRender = render;
   render = function (hl) {
     baseRender(hl);
