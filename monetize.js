@@ -9,13 +9,23 @@
   const rakutenOn = !!(CFG.rakuten && CFG.rakuten.applicationId && CFG.rakuten.affiliateId);
   const anyAff = Object.keys(AFF).length > 0;
 
+  // このスクリプトの置き場所 = サイトのいちばん上 (サブフォルダのページからでも正しいリンクを作るため)
+  const ROOT = (document.currentScript && document.currentScript.src || location.href).replace(/monetize\.js.*$/, "");
+
   /* ---- PR表記 (広告やアフィリエイトを使うときはページ上部に必ず出す) ---- */
   if (anyAff || rakutenOn || client) {
     const note = document.createElement("p");
     note.className = "prnote";
-    note.innerHTML = `<span class="pr">PR</span>当サイトはアフィリエイト広告${client ? "・Google AdSense による広告" : ""}を利用しています。<a href="privacy.html">広告とプライバシーについて</a>`;
-    document.querySelector("header").after(note);
+    note.innerHTML = `<span class="pr">PR</span>当サイトはアフィリエイト広告${client ? "・Google AdSense による広告" : ""}を利用しています。<a href="${ROOT}privacy.html">広告とプライバシーについて</a>`;
+    const anchor = document.querySelector("header") || document.querySelector(".top") || document.querySelector(".cnav");
+    if (anchor) anchor.after(note); else document.body.prepend(note);
   }
+
+  /* ---- 作品ページ・比較ページの「公式サイト」ボタン: 広告リンクがあれば差し替える ---- */
+  document.querySelectorAll("[data-aff-svc]").forEach(a => {
+    const svc = a.dataset.affSvc;
+    if (AFF[svc]) { a.href = AFF[svc]; a.rel = "sponsored noopener"; a.textContent = a.textContent.replace("公式サイト", "このサービスで観る"); }
+  });
 
   /* ---- 配信サービスのアフィリエイトリンク ---- */
   function affLink(svc, inner, extraClass) {

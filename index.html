@@ -160,6 +160,11 @@ tbody tr:hover{background:rgba(255,62,165,.08)}
 .src a{color:var(--pink-soft)}
 .offbtn{display:inline-block;border:1px solid var(--pink);color:var(--pink-soft);border-radius:8px;padding:8px 16px;font-weight:700;text-decoration:none;font-family:var(--round)}
 .offbtn:hover{background:rgba(255,62,165,.18)}
+a.pglink{color:inherit;text-decoration:none;border-bottom:1px dotted rgba(255,140,203,.6)}
+a.pglink:hover{color:var(--pink-soft)}
+.sitelinks{display:flex;flex-wrap:wrap;gap:6px 14px;margin:-6px 0 12px;font-size:13px;font-weight:700}
+.sitelinks a{color:var(--pink-soft);text-decoration:none}
+.sitelinks a:hover{text-decoration:underline}
 .tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
 .tabs button{background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:8px 18px;font-weight:700;font-family:var(--round);color:var(--muted)}
 .tabs button[aria-pressed="true"]{background:linear-gradient(180deg,var(--pink),#C21E7E);border-color:var(--pink);color:#fff;box-shadow:0 0 14px rgba(255,62,165,.5)}
@@ -210,6 +215,7 @@ dialog::backdrop{background:rgba(5,2,12,.7);backdrop-filter:blur(3px)}
     </div>
   </header>
 
+  <nav class="sitelinks" aria-label="サイト内メニュー"><a href="anime/">作品一覧</a><a href="services.html">配信サービス比較</a><a href="conan/">コナン特集</a></nav>
   <nav class="tabs" aria-label="表示する一覧">
     <button id="tabPick" aria-pressed="true">おすすめ 24作品</button>
     <button id="tabNow" aria-pressed="false">配信DB</button>
@@ -285,7 +291,7 @@ dialog::backdrop{background:rgba(5,2,12,.7);backdrop-filter:blur(3px)}
   <main class="grid" id="grid"></main>
   </div>
   <div class="cta">次に観るアニメを見つけよう！</div>
-  <footer>ポスター画像は各作品の公式YouTubeチャンネルが公開しているPVのサムネイルで、押すとその動画を再生します。PVが見つからない作品は配色と頭文字で描いています。作品紹介はこのサイト用の書き下ろし。お気に入りはこのブラウザにだけ保存されます。<div class="foot-links"><a href="conan/">特集：名探偵コナン（相関図・全話リスト・劇場版）</a>　<a href="privacy.html">プライバシーポリシー・広告について・免責事項</a></div></footer>
+  <footer>ポスター画像は各作品の公式YouTubeチャンネルが公開しているPVのサムネイルで、押すとその動画を再生します。PVが見つからない作品は配色と頭文字で描いています。作品紹介はこのサイト用の書き下ろし。お気に入りはこのブラウザにだけ保存されます。<div class="foot-links"><a href="anime/">作品一覧</a>　<a href="services.html">配信サービス比較</a>　<a href="conan/">特集：名探偵コナン（相関図・全話リスト・劇場版）</a>　<a href="privacy.html">プライバシーポリシー・広告について・免責事項</a></div></footer>
 </div>
 
 <dialog id="dlg">
@@ -303,6 +309,7 @@ dialog::backdrop{background:rgba(5,2,12,.7);backdrop-filter:blur(3px)}
     <div style="display:flex;flex-wrap:wrap;gap:10px;align-items:center">
       <button class="pick" id="dFav"></button>
       <a class="offbtn" id="dOff" target="_blank" rel="noopener">公式サイトを見る ↗</a>
+      <a class="offbtn" id="dPage" hidden>配信比較ページ →</a>
     </div>
   </div>
 </dialog>
@@ -576,7 +583,7 @@ setView(["list","table"].includes(st.view)?st.view:"grid");
 })();
 </script>
 
-<script src="extras.js?v=6"></script>
-<script src="monetize.js?v=1"></script>
+<script src="extras.js?v=7"></script>
+<script src="monetize.js?v=3"></script>
 </body>
 </html>

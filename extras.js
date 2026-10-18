@@ -153,3 +153,33 @@
     });
   });
 })();
+
+/* 作品ページ (anime/〇〇.html) へのリンク。anime/index.json は build_pages.py が作る {作品名: ページID} */
+(() => {
+  fetch("anime/index.json", { cache: "no-cache" }).then(r => r.ok ? r.json() : {}).then(MAP => {
+    const href = t => MAP[t] ? `anime/${MAP[t]}.html` : null;
+    // おすすめ作品の詳細ダイアログ
+    const btn = document.getElementById("dPage");
+    if (btn && typeof openDlg === "function") {
+      const base = openDlg;
+      openDlg = function (a) { base(a); const h = href(a.t); btn.hidden = !h; if (h) btn.href = h; };
+    }
+    // 配信DB・全アニメ一覧の作品名
+    const link = root => {
+      root.querySelectorAll("td.t b:not([data-pg]), .arow .at:not([data-pg])").forEach(el => {
+        el.dataset.pg = "1";
+        const h = href(el.textContent);
+        if (!h) return;
+        const a = document.createElement("a");
+        a.href = h; a.className = "pglink"; a.textContent = el.textContent;
+        el.replaceChildren(a);
+      });
+    };
+    ["#nlist", "#alist"].forEach(sel => {
+      const root = document.querySelector(sel);
+      if (!root) return;
+      link(root);
+      new MutationObserver(() => link(root)).observe(root, { childList: true, subtree: true });
+    });
+  }).catch(() => {});
+})();
