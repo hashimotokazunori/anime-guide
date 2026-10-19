@@ -141,3 +141,8 @@ python build_admin.py
 1. Google アナリティクス（https://analytics.google.com/）でプロパティを作り、ウェブの「測定ID」（`G-` から始まる）を確認する。
 2. `config.js` の `analytics.ga4` に入れて GitHub に送る。
 3. 検索の表示回数も見たい場合は Google Search Console（https://search.google.com/search-console）でサイトを登録し、「HTMLタグ」の確認方法で出る `content="..."` の値を `config.js` の `searchConsole` に入れて、`python build_pages.py` を実行してから送る。
+
+## 9. まとめページ・アイコン・共有用画像
+
+- `python build_pages.py` で、今期と前期の「〇〇年〇アニメ 配信一覧」（`season/YYYYMM.html`）も作られます。作品ページとまとめページには X・LINE の共有ボタンが付きます。
+- サイトのアイコン（`favicon.ico`・`assets/icon-*.png`）と、SNSで共有したときに出る画像（`assets/og.png`）は `python build_images.py` で作り直せます。デザインはサイト用のオリジナルです。
