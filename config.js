@@ -51,6 +51,9 @@ window.SITE_CONFIG = {
   analytics: {
     ga4: "G-RW67PMC3PM",               // Google アナリティクス 4 の測定ID (例: "G-ABCDE12345")
   },
+  // 管理人ページに埋め込む Looker Studio レポートの埋め込みURL (https://lookerstudio.google.com/embed/reporting/...)
+  // レポートは限定公開のままにする (閲覧権限のある Google アカウントでログインしている人にだけ数字が見える)
+  lookerEmbed: "https://datastudio.google.com/embed/reporting/6a43096b-16f3-4ce8-ad3f-3e7c7c542db2/page/E4bBG",
   // Google Search Console の所有権確認用 (HTMLタグの content の値)。python build_pages.py で各ページに入る
   searchConsole: "",
 
