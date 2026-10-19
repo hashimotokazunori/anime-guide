@@ -2,6 +2,7 @@
 (() => {
   const id = ((window.SITE_CONFIG || {}).analytics || {}).ga4 || "";
   if (!/^G-[A-Z0-9]+$/.test(id)) return;
+  if (typeof window.gtag === "function") return; // ページに直接タグが書かれている場合 (トップページ) は二重に計測しない
   const s = document.createElement("script");
   s.async = true;
   s.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;

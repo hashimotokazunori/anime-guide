@@ -49,7 +49,7 @@ window.SITE_CONFIG = {
 
   // ---- アクセス解析 -------------------------------------------------------------
   analytics: {
-    ga4: "",               // Google アナリティクス 4 の測定ID (例: "G-ABCDE12345")
+    ga4: "G-RW67PMC3PM",               // Google アナリティクス 4 の測定ID (例: "G-ABCDE12345")
   },
   // Google Search Console の所有権確認用 (HTMLタグの content の値)。python build_pages.py で各ページに入る
   searchConsole: "",
