@@ -31,6 +31,9 @@ window.SITE_CONFIG = {
       danime: "",
       dmm: "",
       abema: "https://px.a8.net/svt/ejp?a8mat=4BEL1F+4NATRM+4EKC+5YJRM",  // A8.net ABEMAプレミアム (2026-10-20 提携)
+      // 音楽サブスク・楽譜 (アニソンページ)
+      rakutenmusic: "https://px.a8.net/svt/ejp?a8mat=4BEL1F+9CDXKI+5WLM+5YJRM",  // A8.net 楽天ミュージック (2026-10-20 提携)
+      printgakufu: "",  // A8.net ぷりんと楽譜 (審査中)
     },
   },
 
