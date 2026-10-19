@@ -8,7 +8,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'G-RW67PMC3PM');
+  if (location.hostname === 'hashimotokazunori.github.io') gtag('config', 'G-RW67PMC3PM'); // 手元の確認は数えない
 </script>
 
 <meta charset="utf-8">
@@ -596,6 +596,6 @@ setView(["list","table"].includes(st.view)?st.view:"grid");
 
 <script src="extras.js?v=8"></script>
 <script src="monetize.js?v=4"></script>
-<script src="analytics.js?v=2"></script>
+<script src="analytics.js?v=3"></script>
 </body>
 </html>
