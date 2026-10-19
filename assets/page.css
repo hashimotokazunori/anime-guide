@@ -97,3 +97,7 @@ footer a{color:var(--muted)}
 .share a{text-decoration:none;font-weight:700;border-radius:999px;padding:5px 14px;color:#fff;background:#111;border:1px solid rgba(255,255,255,.25)}
 .share a+a{background:#06C755;border-color:#06C755}
 .share a:hover{filter:brightness(1.15)}
+/* 作品の公式PVサムネイル (build_pages.py の thumb) */
+img.th{display:block;aspect-ratio:16/9;height:auto;object-fit:cover;background:#000}
+.related img.th{width:100%;border-radius:6px;margin-bottom:6px}
+.best img.th{width:96px;border-radius:6px;flex:none}
