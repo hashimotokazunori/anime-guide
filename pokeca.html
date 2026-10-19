@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ポケカ デッキ構築（スタンダード対応・ルール自動チェック）｜アニメの窓口</title>
+<meta name="description" content="ポケモンカードのデッキをブラウザで組めるツール。カード名・ワザ・効果で検索、60枚・4枚制限・ACE SPECを自動チェック。保存・URL共有・リストのコピーもできます。">
+<link rel="canonical" href="https://hashimotokazunori.github.io/anime-guide/pokeca.html">
+<meta property="og:title" content="ポケカ デッキ構築（スタンダード対応・ルール自動チェック）｜アニメの窓口"><meta property="og:description" content="ポケモンカードのデッキをブラウザで組めるツール。カード名・ワザ・効果で検索、60枚・4枚制限・ACE SPECを自動チェック。保存・URL共有・リストのコピーもできます。"><meta property="og:type" content="website"><meta property="og:url" content="https://hashimotokazunori.github.io/anime-guide/pokeca.html">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=M+PLUS+Rounded+1c:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="assets/page.css?v=3">
+<link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/icon-192.png"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:image" content="https://hashimotokazunori.github.io/anime-guide/assets/og.png"><meta property="og:site_name" content="アニメの窓口"><meta name="twitter:card" content="summary_large_image">
+<style>.pk{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;align-items:start}
+@media (max-width:860px){.pk{grid-template-columns:1fr}}
+.pktabs{display:none;gap:6px;margin:0 0 10px;position:sticky;top:0;z-index:6;background:var(--night);padding:6px 0}
+@media (max-width:860px){.pktabs{display:flex}.pk[data-view=search] .pkdeck,.pk[data-view=deck] .pksearch{display:none}}
+.pktabs button{flex:1;font:inherit;font-weight:700;font-size:14px;color:var(--ink);background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;padding:7px 0;cursor:pointer}
+.pktabs button[aria-pressed=true]{background:var(--pink);border-color:var(--pink);color:#fff}
+.pkf{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
+.pkf input[type=search],.pkf select{font:inherit;font-size:14px;color:var(--ink);background:#170D2A;border:1px solid var(--line);border-radius:8px;padding:6px 10px;min-width:0}
+.pkf input[type=search]{flex:1 1 100%}
+.pkf select{flex:1 1 30%}
+.pkcount{font-size:12px;color:var(--muted);margin:0 0 6px}
+.pklist{display:grid;gap:6px}
+.pkc{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:8px 10px}
+.pkc .row{display:flex;align-items:center;gap:8px}
+.pkc .nm{flex:1;min-width:0;font-weight:700;font-size:14px;overflow-wrap:anywhere;cursor:pointer}
+.pkc .nm small{font-weight:400;font-size:11px;color:var(--muted);margin-left:6px}
+.pkc .nm small.rg{display:inline-block;margin-left:4px;border:1px solid rgba(255,255,255,.25);border-radius:4px;padding:0 4px}
+.ty{flex:none;width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#111}
+.ty.Grass{background:#5BC85B}.ty.Fire{background:#FF7A45}.ty.Water{background:#4AA8FF}.ty.Lightning{background:#FFD23F}.ty.Psychic{background:#C77DFF}
+.ty.Fighting{background:#D9823B}.ty.Darkness{background:#5E6A7A;color:#fff}.ty.Metal{background:#A9B4C2}.ty.Dragon{background:#C9A227}.ty.Colorless{background:#E8E3D8}
+.ty.T{background:#FFB21E}.ty.E{background:#7FE0C2}
+.qty{flex:none;display:flex;align-items:center;gap:4px}
+.qty button{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--ink);font-size:16px;line-height:1;cursor:pointer}
+.qty button.add{background:var(--pink);border-color:var(--pink);color:#fff}
+.qty b{min-width:18px;text-align:center;font-variant-numeric:tabular-nums}
+.pkc .det{font-size:12px;color:#E3D6EE;margin:6px 0 0;padding:6px 0 0;border-top:1px solid rgba(255,255,255,.08);line-height:1.6}
+.pkc .det p{margin:0 0 4px}
+.pkc .det b{color:#fff}
+.pkc .det .cost{color:var(--muted)}
+.pkc .det a{font-size:11px}
+.pkmore{display:block;margin:10px auto 0;font:inherit;font-weight:700;color:#fff;background:var(--pink);border:0;border-radius:999px;padding:7px 26px;cursor:pointer}
+.pkdeck{position:sticky;top:8px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
+@media (max-width:860px){.pkdeck{position:static}}
+.pkdeck input#dname{width:100%;font:inherit;font-weight:700;font-size:15px;color:var(--ink);background:#170D2A;border:1px solid var(--line);border-radius:8px;padding:6px 10px}
+.pktotal{display:flex;align-items:baseline;gap:8px;margin:10px 0 4px}
+.pktotal b{font-family:var(--display);font-size:30px;font-weight:400}
+.pktotal b.ok{color:var(--ok)}
+.pktotal span{color:var(--muted);font-size:13px}
+.pkbar{display:flex;height:8px;border-radius:99px;overflow:hidden;background:rgba(255,255,255,.08);margin:0 0 6px}
+.pkbar i{display:block}
+.pkbar .P{background:var(--pink)}.pkbar .T{background:var(--gold)}.pkbar .E{background:#7FE0C2}
+.pksum{display:flex;gap:10px;font-size:12px;color:var(--muted);margin:0 0 8px}
+.pkwarn{list-style:none;margin:0 0 8px;padding:0;font-size:12px}
+.pkwarn li{padding:4px 8px;border-radius:6px;margin:0 0 4px;background:rgba(255,80,80,.12);color:#FFB3B3}
+.pkwarn li.good{background:rgba(91,227,168,.12);color:var(--ok)}
+.pkdl h4{font-size:12px;color:var(--muted);margin:10px 0 4px;font-weight:700}
+.pkdl ul{list-style:none;margin:0;padding:0;max-height:none}
+.pkdl li{display:flex;align-items:center;gap:6px;font-size:13px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.pkdl li .dn{flex:1;min-width:0;overflow-wrap:anywhere}
+.pkdl li .qty button{width:24px;height:24px;font-size:14px}
+.pkbtns{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:12px 0 0}
+.pkbtns button{font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:8px;padding:7px 0;cursor:pointer}
+.pkbtns button.main{background:var(--pink);border-color:var(--pink);color:#fff}
+.pksaved{margin:10px 0 0;font-size:12px}
+.pksaved li{display:flex;gap:6px;align-items:center;padding:3px 0}
+.pksaved li a{flex:1;cursor:pointer}
+.pksaved li button{font-size:11px;color:var(--muted);background:none;border:1px solid rgba(255,255,255,.15);border-radius:6px;cursor:pointer}
+.pktoast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#fff;color:#1A0E2E;font-weight:700;font-size:13px;padding:8px 16px;border-radius:999px;z-index:20}
+</style>
+</head>
+<body data-rakuten="589c5f8e.ab4d569f.589c5f8f.b5b814de" data-pv="2026-10-20">
+<div class="wrap">
+<div class="top"><a class="brand" href="">アニメの<b>窓口</b></a><nav class="topnav" aria-label="サイト内メニュー"><a href="">トップ</a><a href="anime/">作品一覧</a><a href="services.html">サービス比較</a><a href="ranking.html">ランキング</a><a href="manga.html">漫画</a><a href="anisong.html">アニソン</a><a href="pokeca.html" aria-current="page">ポケカ</a><a href="news.html">お知らせ</a><a href="conan/">コナン特集</a></nav></div>
+<h1>ポケカ デッキ構築</h1>
+<p class="lead">スタンダードレギュレーションで使えるポケモンカード2,160種類から、デッキを組めます。60枚・同じ名前は4枚まで・ACE SPECは1枚まで、などのルールを自動でチェックします。デッキはこのブラウザに保存でき、URLで友だちに共有できます。</p>
+<div class="pktabs"><button type="button" data-view="search" aria-pressed="true">カードを探す</button><button type="button" data-view="deck" id="ptab-deck" aria-pressed="false">デッキ（0）</button></div>
+<div class="pk" data-view="search">
+<section class="pksearch" aria-label="カードを探す">
+<div class="pkf" role="search">
+<input type="search" id="pq" placeholder="カード名・ワザ・効果で探す（例：ハイパーボール、ドロー）" aria-label="カード名・ワザ・効果で探す">
+<select id="pcat" aria-label="カードの種類"><option value="">すべての種類</option><option value="P">ポケモン</option><option value="T:Item">グッズ</option><option value="T:Supporter">サポート</option><option value="T:Tool">ポケモンのどうぐ</option><option value="T:Stadium">スタジアム</option><option value="E">エネルギー</option></select>
+<select id="pty" aria-label="タイプ"><option value="">すべてのタイプ</option><option value="Grass">草タイプ</option><option value="Fire">炎タイプ</option><option value="Water">水タイプ</option><option value="Lightning">雷タイプ</option><option value="Psychic">超タイプ</option><option value="Fighting">闘タイプ</option><option value="Darkness">悪タイプ</option><option value="Metal">鋼タイプ</option><option value="Dragon">竜タイプ</option><option value="Colorless">無色タイプ</option></select>
+<select id="prg" aria-label="レギュレーション"><option value="">すべてのマーク</option></select>
+</div>
+<p class="pkcount" id="pcount">読み込み中…</p>
+<div class="pklist" id="plist"></div>
+<button type="button" class="pkmore" id="pmore" hidden>もっと見る</button>
+<p class="notes">カード名を押すと、ワザや効果の文章が開きます。</p>
+</section>
+<aside class="pkdeck" aria-label="デッキ">
+<input type="text" id="dname" placeholder="デッキ名（例：リザードンex）" aria-label="デッキ名" maxlength="40">
+<div class="pktotal"><b id="ptotal">0</b><span>/ 60枚</span></div>
+<div class="pkbar" id="pbar"></div>
+<div class="pksum" id="psum"></div>
+<ul class="pkwarn" id="pwarn"></ul>
+<div class="pkdl" id="pdl"></div>
+<div class="pkbtns"><button type="button" class="main" id="psave">保存する</button><button type="button" id="pshare">共有URLをコピー</button>
+<button type="button" id="ptext">リストをコピー</button><button type="button" id="pclear">空にする</button></div>
+<div class="pksaved pkdl" id="psaved"></div>
+</aside>
+</div>
+<p class="notes">カードのデータは <a href="https://tcgdex.dev/" target="_blank" rel="noopener">TCGdex</a>（MITライセンス）の日本語データ（2026-10-20 時点）を使っています。「スタンダードで使える」の判定もTCGdexのデータによるもので、公式の発表とずれる場合があります。大会に出るときは、ポケモンカードゲーム公式サイトのレギュレーションを確認してください。カードの名称・テキストの権利は株式会社ポケモンなどの権利者に帰属します。当サイトは非公式のファンツールです。</p>
+<footer>アニメの窓口は、アニメの配信状況をまとめて比べられる非公式のガイドです。作品の名称・画像の権利は各権利者に帰属します。作品の画像は、各作品の公式YouTubeチャンネルが公開しているPVのサムネイルです。<div><a href="privacy.html">プライバシーポリシー・広告について</a></div></footer><script src="config.js?v=8"></script><script src="monetize.js?v=4"></script><script src="analytics.js?v=3"></script>
+</body>
+</html>
+<script>/* ポケカ デッキ構築: site/data/pokeca.json (TCGdex のデータ) を読み込んで、カード検索とデッキ作成をする。
+   デッキはこのブラウザにだけ保存する。共有は URL の # 以降にデッキを入れて渡す (サーバーには何も送らない)。 */
+(() => {
+  const $ = s => document.querySelector(s);
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const norm = s => String(s || "").normalize("NFKC").toLowerCase().replace(/\s+/g, "");
+  const TYPE = { Grass: "草", Fire: "炎", Water: "水", Lightning: "雷", Psychic: "超", Fighting: "闘", Darkness: "悪", Metal: "鋼", Dragon: "竜", Colorless: "無" };
+  const TYPE_ORDER = Object.keys(TYPE);
+  const STAGE = { Basic: "たね", Stage1: "1進化", Stage2: "2進化" };
+  const TT = { Item: "グッズ", Supporter: "サポート", Stadium: "スタジアム", Tool: "ポケモンのどうぐ", "Technical Machine": "わざマシン" };
+  const CAT_ORDER = { P: 0, T: 1, E: 2 };
+  const RAKUTEN = document.body.dataset.rakuten || "";
+  const PER = 50;
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+  };
+
+  let cards = [], byId = {}, list = [], shown = 0, sets = {};
+  let deck = new Map(), deckName = "";
+
+  const isBasicEnergy = c => c.c === "E" && c.et === "Normal";
+  const isAceSpec = c => !!c.ace;
+  const isRadiant = c => c.n.startsWith("かがやく");
+  const label = c => c.c === "P" ? (STAGE[c.st] || c.st || "ポケモン") : c.c === "T" ? (TT[c.tt] || "トレーナーズ") : (isBasicEnergy(c) ? "基本エネルギー" : "特殊エネルギー");
+  const typeDot = c => c.c === "P" ? `<span class="ty ${esc((c.ty || [])[0] || "Colorless")}" title="${esc(TYPE[(c.ty || [])[0]] || "")}">${esc(TYPE[(c.ty || [])[0]] || "")}</span>`
+    : `<span class="ty ${c.c}">${c.c === "T" ? "T" : "E"}</span>`;
+  const clean = s => String(s || "").replace(/&copy;[\s\S]*$/, "").trim();
+  const rakuten = c => {
+    const u = "https://search.rakuten.co.jp/search/mall/" + encodeURIComponent("ポケモンカード " + c.n) + "/";
+    return RAKUTEN ? `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN}/?pc=${encodeURIComponent(u)}&m=${encodeURIComponent(u)}` : u;
+  };
+
+  function detail(c) {
+    const p = [];
+    if (c.c === "P") {
+      p.push(`<p>${esc(label(c))}${c.ev ? `（${esc(c.ev)}から進化）` : ""}　HP ${esc(c.hp ?? "—")}　弱点 ${esc((c.wk || []).map(t => TYPE[t] || t).join("・") || "なし")}　にげる ${esc(c.rt ?? 0)}</p>`);
+      (c.ab || []).forEach(([n, ef]) => p.push(`<p><b>特性「${esc(n)}」</b> ${esc(ef)}</p>`));
+      (c.at || []).forEach(([n, cost, dmg, ef]) => p.push(`<p><b>${esc(n)}</b> <span class="cost">[${esc(cost.map(t => TYPE[t] || t).join(""))}]</span> ${esc(dmg)}${ef ? "<br>" + esc(ef) : ""}</p>`));
+    } else {
+      p.push(`<p><b>${esc(label(c))}</b>　${esc(clean(c.ef))}</p>`);
+    }
+    const set = sets[c.set] ? `${sets[c.set].n} ${c.no}` : c.id;
+    const more = (c.pr || []).length ? `（ほかに ${c.pr.length} 種類の絵柄・レアリティ）` : "";
+    p.push(`<p class="cost">収録：${esc(set)} ${more}　<a href="${esc(rakuten(c))}" target="_blank" rel="sponsored noopener">楽天で探す ↗</a></p>`);
+    return p.join("");
+  }
+
+  function cardHTML(c) {
+    const n = deck.get(c.id) || 0;
+    const sub = c.c === "P" ? `${label(c)} HP${c.hp ?? ""}` : label(c);
+    return `<div class="pkc" data-id="${esc(c.id)}"><div class="row">${typeDot(c)}<span class="nm" data-act="det">${esc(c.n)}<small>${esc(sub)}</small>${c.rg ? `<small class="rg">${esc(c.rg)}</small>` : ""}</span>`
+      + `<span class="qty"><button type="button" data-act="minus" aria-label="${esc(c.n)}を1枚減らす">−</button><b>${n || ""}</b><button type="button" class="add" data-act="plus" aria-label="${esc(c.n)}を1枚入れる">＋</button></span></div></div>`;
+  }
+
+  // ---- 検索 ----
+  function apply() {
+    const q = norm($("#pq").value), cat = $("#pcat").value, ty = $("#pty").value, rg = $("#prg").value;
+    list = cards.filter(c => {
+      if (cat) {
+        if (cat === "P" && c.c !== "P") return false;
+        if (cat.startsWith("T:") && !(c.c === "T" && c.tt === cat.slice(2))) return false;
+        if (cat === "E" && c.c !== "E") return false;
+      }
+      if (ty && !(c.c === "P" && (c.ty || []).includes(ty))) return false;
+      if (rg && c.rg !== rg) return false;
+      if (q) {
+        const text = norm([c.n, c.ev, ...(c.ab || []).flat(), ...(c.at || []).map(a => a[0] + a[3]), c.ef].join(" "));
+        if (!text.includes(q)) return false;
+      }
+      return true;
+    });
+    // 名前に入っているカードを先に、効果文だけに入っているカードを後に並べる
+    if (q) list.sort((a, b) => (norm(b.n).includes(q) ? 1 : 0) - (norm(a.n).includes(q) ? 1 : 0) || (norm(a.n) === q ? -1 : norm(b.n) === q ? 1 : 0));
+    render(true);
+  }
+  function render(reset) {
+    if (reset) { shown = 0; $("#plist").innerHTML = ""; }
+    const next = list.slice(shown, shown + PER);
+    $("#plist").insertAdjacentHTML("beforeend", next.map(cardHTML).join(""));
+    shown += next.length;
+    $("#pcount").textContent = `${list.length.toLocaleString()} 種類`;
+    $("#pmore").hidden = shown >= list.length;
+  }
+
+  // ---- デッキ ----
+  const nameCount = name => [...deck].reduce((s, [id, n]) => s + (byId[id] && byId[id].n === name ? n : 0), 0);
+  function change(id, d) {
+    const c = byId[id];
+    if (!c) return;
+    const cur = deck.get(id) || 0;
+    if (d > 0) {
+      if (total() >= 60) return toast("デッキは60枚までです");
+      if (!isBasicEnergy(c) && nameCount(c.n) >= 4) return toast(`「${c.n}」は4枚までです`);
+    }
+    const n = Math.max(0, cur + d);
+    if (n) deck.set(id, n); else deck.delete(id);
+    updateDeck();
+    document.querySelectorAll(`.pkc[data-id="${CSS.escape(id)}"] .qty b`).forEach(b => { b.textContent = n || ""; });
+  }
+  const total = () => [...deck.values()].reduce((a, b) => a + b, 0);
+
+  function checks() {
+    const out = [];
+    const t = total();
+    if (t < 60) out.push(`あと ${60 - t} 枚で60枚です`);
+    if (t > 60) out.push(`${t - 60} 枚多いです（デッキはちょうど60枚）`);
+    const items = [...deck].map(([id, n]) => [byId[id], n]).filter(([c]) => c);
+    if (!items.some(([c]) => c.c === "P" && c.st === "Basic")) out.push("たねポケモンが1枚も入っていません");
+    const names = {};
+    items.forEach(([c, n]) => { if (!isBasicEnergy(c)) names[c.n] = (names[c.n] || 0) + n; });
+    Object.entries(names).filter(([, n]) => n > 4).forEach(([nm, n]) => out.push(`「${nm}」が${n}枚入っています（同じ名前は4枚まで）`));
+    const ace = items.filter(([c]) => isAceSpec(c)).reduce((s, [, n]) => s + n, 0);
+    if (ace > 1) out.push(`ACE SPEC が${ace}枚入っています（デッキに1枚まで）`);
+    const rad = items.filter(([c]) => isRadiant(c)).reduce((s, [, n]) => s + n, 0);
+    if (rad > 1) out.push(`かがやくポケモンが${rad}枚入っています（デッキに1枚まで）`);
+    return out;
+  }
+
+  function updateDeck() {
+    const items = [...deck].map(([id, n]) => [byId[id], n]).filter(([c]) => c)
+      .sort(([a], [b]) => CAT_ORDER[a.c] - CAT_ORDER[b.c] || (a.c === "T" ? (a.tt || "").localeCompare(b.tt || "") : 0) || a.n.localeCompare(b.n, "ja"));
+    const t = total();
+    const by = { P: 0, T: 0, E: 0 };
+    items.forEach(([c, n]) => { by[c.c] = (by[c.c] || 0) + n; });
+    $("#ptotal").textContent = t;
+    $("#ptotal").className = t === 60 ? "ok" : "";
+    $("#pbar").innerHTML = ["P", "T", "E"].map(k => `<i class="${k}" style="width:${(by[k] / 60) * 100}%"></i>`).join("");
+    $("#psum").innerHTML = `<span>ポケモン ${by.P}</span><span>トレーナーズ ${by.T}</span><span>エネルギー ${by.E}</span>`;
+    const w = checks();
+    $("#pwarn").innerHTML = w.length ? w.map(x => `<li>${esc(x)}</li>`).join("") : `<li class="good">デッキのルールを満たしています</li>`;
+    const group = (k, title) => {
+      const g = items.filter(([c]) => c.c === k);
+      if (!g.length) return "";
+      return `<h4>${title}（${g.reduce((s, [, n]) => s + n, 0)}）</h4><ul>` + g.map(([c, n]) =>
+        `<li data-id="${esc(c.id)}">${typeDot(c)}<span class="dn">${esc(c.n)}</span><span class="qty"><button type="button" data-act="minus" aria-label="1枚減らす">−</button><b>${n}</b><button type="button" class="add" data-act="plus" aria-label="1枚増やす">＋</button></span></li>`).join("") + "</ul>";
+    };
+    $("#pdl").innerHTML = items.length ? group("P", "ポケモン") + group("T", "トレーナーズ") + group("E", "エネルギー")
+      : `<p class="pkcount">左の一覧の「＋」でカードを入れてください。</p>`;
+    $("#ptab-deck").textContent = `デッキ（${t}）`;
+    store.set("pokeca-current", { name: deckName, cards: [...deck] });
+  }
+
+  // ---- 保存・共有・書き出し ----
+  function toast(msg) {
+    const el = document.createElement("div");
+    el.className = "pktoast"; el.textContent = msg; el.setAttribute("role", "status");
+    document.body.append(el); setTimeout(() => el.remove(), 2200);
+  }
+  const encodeDeck = () => [...deck].map(([id, n]) => `${id}~${n}`).join(",");
+  function loadDeck(name, entries) {
+    deck = new Map(entries.filter(([id, n]) => byId[id] && n > 0));
+    deckName = name || "";
+    $("#dname").value = deckName;
+    updateDeck(); render(true);
+  }
+  function shareURL() {
+    const p = new URLSearchParams({ n: deckName || "", d: encodeDeck() });
+    return location.href.split("#")[0] + "#" + p.toString();
+  }
+  function copy(text, msg) {
+    (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(() => toast(msg), () => { window.prompt("コピーしてください", text); });
+  }
+  function asText() {
+    const items = [...deck].map(([id, n]) => [byId[id], n]).filter(([c]) => c);
+    const sec = (k, title) => {
+      const g = items.filter(([c]) => c.c === k);
+      return g.length ? `■${title}（${g.reduce((s, [, n]) => s + n, 0)}）\n` + g.map(([c, n]) => `${n} ${c.n}（${sets[c.set] ? sets[c.set].n : ""} ${c.no}）`).join("\n") : "";
+    };
+    return [`${deckName || "デッキ"}（${total()}枚）`, sec("P", "ポケモン"), sec("T", "トレーナーズ"), sec("E", "エネルギー")].filter(Boolean).join("\n\n");
+  }
+  function renderSaved() {
+    const saved = store.get("pokeca-saved", []);
+    $("#psaved").innerHTML = saved.length ? `<h4>保存したデッキ</h4><ul>` + saved.map((s, i) =>
+      `<li><a data-i="${i}" data-act="load">${esc(s.name || "名前なし")}（${s.cards.reduce((a, [, n]) => a + n, 0)}枚）</a><button type="button" data-i="${i}" data-act="del">削除</button></li>`).join("") + "</ul>" : "";
+  }
+
+  // ---- 画面のつなぎこみ ----
+  function bind() {
+    ["#pq", "#pcat", "#pty", "#prg"].forEach(s => $(s).addEventListener("input", apply));
+    $("#pmore").addEventListener("click", () => render(false));
+    $("#plist").addEventListener("click", ev => {
+      const act = ev.target.closest("[data-act]");
+      const box = ev.target.closest(".pkc");
+      if (!act || !box) return;
+      const id = box.dataset.id;
+      if (act.dataset.act === "plus") change(id, 1);
+      else if (act.dataset.act === "minus") change(id, -1);
+      else if (act.dataset.act === "det") {
+        const d = box.querySelector(".det");
+        if (d) d.remove(); else box.insertAdjacentHTML("beforeend", `<div class="det">${detail(byId[id])}</div>`);
+      }
+    });
+    $("#pdl").addEventListener("click", ev => {
+      const act = ev.target.closest("[data-act]"), li = ev.target.closest("li[data-id]");
+      if (act && li) change(li.dataset.id, act.dataset.act === "plus" ? 1 : -1);
+    });
+    $("#dname").addEventListener("input", () => { deckName = $("#dname").value; updateDeck(); });
+    $("#psave").addEventListener("click", () => {
+      if (!total()) return toast("デッキが空です");
+      const saved = store.get("pokeca-saved", []).filter(s => s.name !== (deckName || "名前なし"));
+      saved.unshift({ name: deckName || "名前なし", cards: [...deck], t: Date.now() });
+      store.set("pokeca-saved", saved.slice(0, 30));
+      renderSaved(); toast("このブラウザに保存しました");
+    });
+    $("#pshare").addEventListener("click", () => total() ? copy(shareURL(), "共有用のURLをコピーしました") : toast("デッキが空です"));
+    $("#ptext").addEventListener("click", () => total() ? copy(asText(), "デッキリストをコピーしました") : toast("デッキが空です"));
+    $("#pclear").addEventListener("click", () => { if (total() && confirm("デッキを空にしますか？")) loadDeck("", []); });
+    $("#psaved").addEventListener("click", ev => {
+      const a = ev.target.closest("[data-act]");
+      if (!a) return;
+      const saved = store.get("pokeca-saved", []);
+      const s = saved[+a.dataset.i];
+      if (!s) return;
+      if (a.dataset.act === "load") { loadDeck(s.name, s.cards); toast(`「${s.name}」を開きました`); }
+      if (a.dataset.act === "del" && confirm(`「${s.name}」を削除しますか？`)) { saved.splice(+a.dataset.i, 1); store.set("pokeca-saved", saved); renderSaved(); }
+    });
+    document.querySelectorAll(".pktabs button").forEach(b => b.addEventListener("click", () => {
+      $(".pk").dataset.view = b.dataset.view;
+      document.querySelectorAll(".pktabs button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    }));
+  }
+
+  fetch(`data/pokeca.json?v=${encodeURIComponent(document.body.dataset.pv || "1")}`).then(r => r.json()).then(d => {
+    sets = d.sets || {};
+    cards = (d.cards || []).sort((a, b) => CAT_ORDER[a.c] - CAT_ORDER[b.c]
+      || (a.c === "P" ? TYPE_ORDER.indexOf((a.ty || [])[0]) - TYPE_ORDER.indexOf((b.ty || [])[0]) : (a.tt || a.et || "").localeCompare(b.tt || b.et || ""))
+      || a.n.localeCompare(b.n, "ja"));
+    cards.forEach(c => { byId[c.id] = c; (c.pr || []).forEach(([id]) => { byId[id] = byId[id] || c; }); });
+    const rgs = [...new Set(cards.map(c => c.rg).filter(Boolean))].sort();
+    $("#prg").insertAdjacentHTML("beforeend", rgs.map(r => `<option value="${esc(r)}">レギュレーション ${esc(r)}</option>`).join(""));
+    bind();
+    const h = new URLSearchParams(location.hash.slice(1));
+    if (h.get("d")) {
+      loadDeck(h.get("n") || "共有されたデッキ", h.get("d").split(",").map(x => { const [id, n] = x.split("~"); return [id, +n || 0]; }));
+      toast("共有されたデッキを開きました");
+    } else {
+      const cur = store.get("pokeca-current", null);
+      if (cur) loadDeck(cur.name, cur.cards); else updateDeck();
+    }
+    renderSaved();
+    apply();
+  }).catch(() => { $("#pcount").textContent = "カードのデータを読み込めませんでした。時間をおいて開き直してください。"; });
+})();
+</script>
