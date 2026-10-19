@@ -56,6 +56,8 @@ window.SITE_CONFIG = {
   lookerEmbed: "https://datastudio.google.com/embed/reporting/6a43096b-16f3-4ce8-ad3f-3e7c7c542db2/page/E4bBG",
   // Google Search Console の所有権確認用 (HTMLタグの content の値)。python build_pages.py で各ページに入る
   searchConsole: "",
+  // Google アナリティクス経由など、タグ以外の方法で所有権を確認済みなら true (管理人ページの表示用)
+  searchConsoleVerified: true,
 
   // 公式YouTube予告編の埋め込み (trailers.json) を使うか
   trailers: true,
