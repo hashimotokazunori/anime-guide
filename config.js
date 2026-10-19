@@ -30,7 +30,7 @@ window.SITE_CONFIG = {
       disney: "",
       danime: "",
       dmm: "",
-      abema: "",
+      abema: "https://px.a8.net/svt/ejp?a8mat=4BEL1F+4NATRM+4EKC+5YJRM",  // A8.net ABEMAプレミアム (2026-10-20 提携)
     },
   },
 
