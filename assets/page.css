@@ -209,3 +209,5 @@ tr.yes{background:rgba(91,227,168,.05)}
 .cando li b{display:block;font-size:16px;color:#fff;margin-bottom:2px}
 .cando li b::before{content:counter(c);display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:50%;background:var(--pink);color:#fff;font-size:13px;margin-right:8px;vertical-align:1px}
 @media (max-width:760px){.cando{grid-template-columns:1fr}}
+/* お店比較ページへのボタン (作品ページ・アニソン) */
+.shopcta{display:flex;flex-direction:column;align-items:flex-start;gap:4px;margin:14px 0 0}.shopcta span{font-size:13px;font-weight:800;color:var(--gold);letter-spacing:.04em}
