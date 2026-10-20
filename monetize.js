@@ -106,10 +106,12 @@
 
   /* ---- Google AdSense ---- */
   if (!client) return;
-  const s = document.createElement("script");
-  s.async = true; s.crossOrigin = "anonymous";
-  s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${client}`;
-  document.head.append(s);
+  if (!document.querySelector('script[src*="adsbygoogle.js"]')) {
+    const s = document.createElement("script");
+    s.async = true; s.crossOrigin = "anonymous";
+    s.src = `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${client}`;
+    document.head.append(s);
+  }
 
   function adUnit(slot, cls) {
     if (!slot) return null;

@@ -52,7 +52,7 @@ window.SITE_CONFIG = {
   // ---- Google AdSense -------------------------------------------------------------
   // 審査に通ったら、パブリッシャーID (ca-pub-から始まる) と広告ユニットのIDを入れる。
   ads: {
-    adsenseClient: "",      // 例: "ca-pub-1234567890123456"
+    adsenseClient: "ca-pub-8509241257297550",
     slots: {
       top: "",              // タブの下 (ページ上部)
       list: "",             // おすすめ作品の一覧の途中
@@ -75,7 +75,7 @@ window.SITE_CONFIG = {
   searchConsoleVerified: true,
 
   // データの間違いの報告先 (Googleフォームなどの URL)。空なら GitHub の Issue に案内する (python build_pages.py で反映)
-  reportForm: "",
+  reportForm: "https://docs.google.com/forms/d/e/1FAIpQLScBQdyGr2Sbqzm01aDdfg8xbwptkjpbXUwN9m0UrLd_5FLP3g/viewform",
 
   // 公式YouTube予告編の埋め込み (trailers.json) を使うか
   trailers: true,
