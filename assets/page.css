@@ -49,7 +49,11 @@ tr.yes td:first-child{font-weight:700}
 .st.ok{color:var(--ok)}
 .st.no{color:rgba(255,255,255,.35);font-weight:500}
 .st.q{color:var(--gold);font-weight:500}
-.sv{font-size:12px;font-weight:700;line-height:1;padding:4px 6px;border-radius:3px;color:#fff;white-space:nowrap;display:inline-block}
+.sv{font-size:12px;font-weight:700;line-height:1;padding:3px 7px 3px 3px;border-radius:999px;color:#fff;white-space:nowrap;display:inline-flex;align-items:center;gap:.35em;vertical-align:middle}
+/* サービスのマーク: 公式ロゴではなく、当サイトで作った頭文字のマーク (公式ロゴは提携先の配布素材が使えるようになったら差し替える) */
+.sv::before{content:var(--mk,"");display:inline-flex;align-items:center;justify-content:center;flex:none;width:1.5em;height:1.5em;border-radius:50%;background:#fff;color:var(--mkc,#222);font:800 .78em/1 var(--round);letter-spacing:-.06em}
+.sv.netflix{--mk:"N";--mkc:#D90812}.sv.prime{--mk:"P";--mkc:#0A8FD0}.sv.unext{--mk:"U";--mkc:#1A1A1A}.sv.hulu{--mk:"H";--mkc:#14A35A}
+.sv.disney{--mk:"D+";--mkc:#0E2A7A}.sv.danime{--mk:"d";--mkc:#E8640A}.sv.dmm{--mk:"TV";--mkc:#2E5BD8}.sv.abema{--mk:"A";--mkc:#2F7D10}
 .sv.netflix{background:#D90812}.sv.prime{background:#0A8FD0}.sv.unext{background:#3A3A3A;border:1px solid #888}.sv.danime{background:#E8640A}
 .sv.dmm{background:#2E5BD8}.sv.disney{background:#0E2A7A}.sv.hulu{background:#14A35A}.sv.abema{background:#4A4A4A;border:1px solid #9AE34A}
 .go{display:inline-block;text-decoration:none;font-weight:700;font-size:13px;border:1px solid var(--pink);color:var(--pink-soft);border-radius:999px;padding:4px 14px;white-space:nowrap}
@@ -164,7 +168,7 @@ h2{clear:both}
 .digest p{margin:0}
 .digest .dl{font-size:12px;font-weight:800;letter-spacing:.12em;color:var(--gold)}
 .digest .dm{font-size:19px;font-weight:700;line-height:1.5;margin:4px 0 8px}
-.digest .dm .sv{font-size:15px;vertical-align:2px}
+.digest .dm .sv{font-size:15px;padding-right:10px}
 .digest .ds{font-size:14px;color:#E3D6EE}
 .digest .act{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .cta{display:inline-block;text-decoration:none;font-weight:800;font-size:15px;color:#fff;background:var(--pink);border-radius:999px;padding:9px 20px}
