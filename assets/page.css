@@ -104,3 +104,6 @@ img.th{display:block;aspect-ratio:16/9;height:auto;object-fit:cover;background:#
 /* グッズ・CD を探すお店のボタン */
 .shopbtns{display:flex;flex-wrap:wrap;gap:8px}
 .shopbtns .go{font-size:13px;padding:6px 14px}
+/* 作品ページのキャスト一覧 */
+.list.cast li span{flex:none;color:var(--muted);font-size:12px;margin-right:6px}
+.list.cast li{justify-content:flex-start}
