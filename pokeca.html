@@ -152,6 +152,8 @@
   const typeDot = c => c.c === "P" ? `<span class="ty ${esc((c.ty || [])[0] || "Colorless")}" title="${esc(TYPE[(c.ty || [])[0]] || "")}">${esc(TYPE[(c.ty || [])[0]] || "")}</span>`
     : `<span class="ty ${c.c}">${c.c === "T" ? "T" : "E"}</span>`;
   const clean = s => String(s || "").replace(/&copy;[\s\S]*$/, "").trim();
+  // ポケモンカード公式サイトのカード検索 (公式はテキストリンクを求めているので、画像は使わず文字のリンクにする)
+  const official = c => "https://www.pokemon-card.com/card-search/index.php?keyword=" + encodeURIComponent(c.n);
   const rakuten = c => {
     const u = "https://search.rakuten.co.jp/search/mall/" + encodeURIComponent("ポケモンカード " + c.n) + "/";
     return RAKUTEN ? `https://hb.afl.rakuten.co.jp/hgc/${RAKUTEN}/?pc=${encodeURIComponent(u)}&m=${encodeURIComponent(u)}` : u;
@@ -170,7 +172,7 @@
     const pk = setsOf(c).map(id => PACKS[id] && PACKS[id].img ? `<img class="pkimg" src="${esc(PACKS[id].img)}" alt="${esc((sets[id] || {}).n || "")}のパッケージ" loading="lazy" width="64" height="64">` : "").filter(Boolean)[0] || "";
     if (pk) p.push(pk);
     const more = (c.pr || []).length ? `（ほかに ${c.pr.length} 種類の絵柄・レアリティ）` : "";
-    p.push(`<p class="cost">収録：${esc(set)} ${more}　<a href="${esc(rakuten(c))}" target="_blank" rel="sponsored noopener">楽天で探す ↗</a></p>`);
+    p.push(`<p class="cost">収録：${esc(set)} ${more}</p><p class="cost"><a href="${esc(official(c))}" target="_blank" rel="noopener">公式で画像を見る ↗</a>　<a href="${esc(rakuten(c))}" target="_blank" rel="sponsored noopener">楽天で探す ↗</a></p>`);
     return p.join("");
   }
 
