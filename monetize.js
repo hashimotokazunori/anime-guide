@@ -29,6 +29,7 @@
     amiami:   { name: "あみあみ", top: "https://www.amiami.jp/", search: "https://slist.amiami.jp/top/search/list?s_keywords={q}" },
     animate:  { name: "アニメイト", top: "https://www.animate-onlineshop.jp/", search: "https://www.animate-onlineshop.jp/products/list.php?smt={q}" },
     hmv:      { name: "HMV", top: "https://www.hmv.co.jp/", search: "https://www.hmv.co.jp/search/keyword_{q}/" },
+    discas:   { name: "TSUTAYA DISCAS", top: "https://www.discas.net/" },
     toretoku: { name: "トレトク", top: "https://www.toretoku.jp/", search: "https://www.toretoku.jp/item?keyword={q}" },
     cardmax:  { name: "CARDMAX", top: "https://www.cardmax.jp/" },
     beehonpo: { name: "Bee本舗", top: "https://www.bee-honpo.com/" },

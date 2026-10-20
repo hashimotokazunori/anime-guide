@@ -46,6 +46,7 @@ window.SITE_CONFIG = {
       animate:  { link: "", goods: "" },   // アニメイト (審査中)
       cardmax:  { link: "", goods: "" },   // CARDMAX (審査中)
       hmv:      { link: "", goods: "" },   // HMV&BOOKS online (リンクシェア。未登録)
+      discas:   { link: "" },   // TSUTAYA DISCAS 宅配DVDレンタル (A8 審査中。通ったら広告リンクを入れる)
     },
   },
 
