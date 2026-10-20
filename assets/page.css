@@ -108,3 +108,8 @@ img.th{display:block;aspect-ratio:16/9;height:auto;object-fit:cover;background:#
 .list.cast li span{flex:none;color:var(--muted);font-size:12px;margin-right:6px}
 .list.cast li{justify-content:flex-start}
 .rules{margin:0;padding-left:1.2em;color:#E3D6EE;font-size:14px;line-height:1.9}
+/* 作品ページのパッケージ画像 (楽天ブックス) */
+.pkg{float:right;width:min(220px,42%);margin:0 0 12px 16px;text-align:center}
+.pkg img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:#fff;border-radius:10px}
+.pkg figcaption{font-size:11px;color:var(--muted);line-height:1.5;margin-top:4px;overflow-wrap:anywhere}
+h2{clear:both}
