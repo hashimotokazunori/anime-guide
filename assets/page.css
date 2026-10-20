@@ -107,3 +107,4 @@ img.th{display:block;aspect-ratio:16/9;height:auto;object-fit:cover;background:#
 /* 作品ページのキャスト一覧 */
 .list.cast li span{flex:none;color:var(--muted);font-size:12px;margin-right:6px}
 .list.cast li{justify-content:flex-start}
+.rules{margin:0;padding-left:1.2em;color:#E3D6EE;font-size:14px;line-height:1.9}

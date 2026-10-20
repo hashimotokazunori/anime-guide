@@ -74,6 +74,9 @@ window.SITE_CONFIG = {
   // Google アナリティクス経由など、タグ以外の方法で所有権を確認済みなら true (管理人ページの表示用)
   searchConsoleVerified: true,
 
+  // データの間違いの報告先 (Googleフォームなどの URL)。空なら GitHub の Issue に案内する (python build_pages.py で反映)
+  reportForm: "",
+
   // 公式YouTube予告編の埋め込み (trailers.json) を使うか
   trailers: true,
 };
