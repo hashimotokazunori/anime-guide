@@ -8,7 +8,7 @@
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  if (location.hostname === 'anime-madoguchi.com') gtag('config', 'G-RW67PMC3PM'); // 手元の確認は数えない
+  if (location.hostname === 'anime-madoguchi.com' && (function(){try{return localStorage.getItem('no_count')!=='1'}catch(e){return true}})()) gtag('config', 'G-RW67PMC3PM'); // 手元の確認は数えない
 </script>
 
 <meta charset="utf-8">

@@ -3,6 +3,7 @@
   const id = ((window.SITE_CONFIG || {}).analytics || {}).ga4 || "";
   if (!/^G-[A-Z0-9]+$/.test(id)) return;
   if (location.hostname !== "anime-madoguchi.com") return; // 手元の確認 (localhost など) は数えない
+  try { if (localStorage.getItem("no_count") === "1") return; } catch (e) {} // 運営者の端末は数えない (nocount.html で設定)
   if (typeof window.gtag === "function") return; // ページに直接タグが書かれている場合 (トップページ) は二重に計測しない
   const s = document.createElement("script");
   s.async = true;
