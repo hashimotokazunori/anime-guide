@@ -46,7 +46,8 @@ window.SITE_CONFIG = {
       animate:  { link: "", goods: "" },   // アニメイト (審査中)
       cardmax:  { link: "", goods: "" },   // CARDMAX (審査中)
       hmv:      { link: "", goods: "" },   // HMV&BOOKS online (リンクシェア。未登録)
-      discas:   { link: "" },   // TSUTAYA DISCAS 宅配DVDレンタル (A8 審査中。通ったら広告リンクを入れる)
+      discas:   { link: "" },
+      mangazenkan: { link: "https://px.a8.net/svt/ejp?a8mat=4BELTJ+6TW1MA+1892+631SY" },   // 漫画全巻ドットコム (2026-10-21 提携・購入3.5%)   // TSUTAYA DISCAS 宅配DVDレンタル (A8 審査中。通ったら広告リンクを入れる)
     },
   },
 
