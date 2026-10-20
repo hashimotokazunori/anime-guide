@@ -21,6 +21,37 @@
     if (anchor) anchor.after(note); else document.body.prepend(note);
   }
 
+  /* ---- グッズ・CD・トレカのお店へのリンク ----
+     <a data-shop="お店" data-q="検索する言葉"> を、お店の検索結果へのリンクにする。広告リンク (config.js の affiliate.shops) があればそれを使う。
+     画面をあとから作るページ (ポケカなど) のために window.shopLink(お店, 言葉) も用意する。 */
+  const SHOPS = {
+    gamers:   { name: "ゲーマーズ", top: "https://www.gamers.co.jp/", search: "https://www.gamers.co.jp/products/list.php?mode=search&smt={q}" },
+    amiami:   { name: "あみあみ", top: "https://www.amiami.jp/", search: "https://slist.amiami.jp/top/search/list?s_keywords={q}" },
+    animate:  { name: "アニメイト", top: "https://www.animate-onlineshop.jp/", search: "https://www.animate-onlineshop.jp/products/list.php?smt={q}" },
+    hmv:      { name: "HMV", top: "https://www.hmv.co.jp/", search: "https://www.hmv.co.jp/search/keyword_{q}/" },
+    toretoku: { name: "トレトク", top: "https://www.toretoku.jp/", search: "https://www.toretoku.jp/item?keyword={q}" },
+    cardmax:  { name: "CARDMAX", top: "https://www.cardmax.jp/" },
+    beehonpo: { name: "Bee本舗", top: "https://www.bee-honpo.com/" },
+    furuichi: { name: "ふるいち トレカ買取", top: "https://furuichi.com/" },
+  };
+  const SHOP_AFF = (CFG.affiliate || {}).shops || {};
+  const okURL = u => /^https:\/\//.test(u || "");
+  function shopLink(shop, q) {
+    const def = SHOPS[shop];
+    if (!def) return null;
+    const aff = SHOP_AFF[shop] || {};
+    const dest = q && def.search ? def.search.replace("{q}", encodeURIComponent(q)) : def.top;
+    if (okURL(aff.goods)) return { href: `${aff.goods}&a8ejpredirect=${encodeURIComponent(dest)}`, ad: true, name: def.name };
+    if (okURL(aff.link) && (!q || !def.search)) return { href: aff.link, ad: true, name: def.name };
+    return { href: dest, ad: false, name: def.name };
+  }
+  window.shopLink = shopLink;
+  document.querySelectorAll("a[data-shop]").forEach(a => {
+    const l = shopLink(a.dataset.shop, a.dataset.q || "");
+    if (!l) return;
+    a.href = l.href; a.target = "_blank"; a.rel = l.ad ? "sponsored noopener" : "noopener";
+  });
+
   /* ---- 作品ページ・比較ページの「公式サイト」ボタン: 広告リンクがあれば差し替える ---- */
   document.querySelectorAll("[data-aff-svc]").forEach(a => {
     const svc = a.dataset.affSvc;

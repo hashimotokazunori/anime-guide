@@ -35,6 +35,18 @@ window.SITE_CONFIG = {
       rakutenmusic: "https://px.a8.net/svt/ejp?a8mat=4BEL1F+9CDXKI+5WLM+5YJRM",  // A8.net 楽天ミュージック (2026-10-20 提携)
       printgakufu: "",  // A8.net ぷりんと楽譜 (審査中)
     },
+    // グッズ・CD・トレカのお店 (A8.net)。link = 通常の広告リンク (お店のトップへ)、goods = 商品リンク用 (検索結果など、お店の中の好きなページへ飛ばせる)
+    // 空のお店は、広告ではない普通のリンク (お店の検索結果) になる。審査が通ったらここに入れる
+    shops: {
+      gamers:   { link: "https://px.a8.net/svt/ejp?a8mat=4BEL1K+CAYIUQ+4AHY+5YRHE", goods: "https://px.a8.net/svt/ejp?a8mat=4BEL1K+CAYIUQ+4AHY+BW0YB" },  // ゲーマーズ (2026-10-20 提携)
+      toretoku: { link: "https://px.a8.net/svt/ejp?a8mat=4BEL1K+C506SY+2QOI+1BN3TU", goods: "https://px.a8.net/svt/ejp?a8mat=4BEL1K+C506SY+2QOI+1HKDAR" },  // トレトク (2026-10-20 提携)
+      beehonpo: { link: "https://px.a8.net/svt/ejp?a8mat=4BEL1K+C5LMEQ+5NJ8+5YJRM" },   // Bee本舗 (2026-10-20 提携)
+      furuichi: { link: "https://px.a8.net/svt/ejp?a8mat=4BEL1K+C4ER76+5W1M+BWVTE" },   // ふるいち トレカ買取 (2026-10-20 提携)
+      amiami:   { link: "", goods: "" },   // あみあみ (審査中・ポケモンカードは成果の対象外)
+      animate:  { link: "", goods: "" },   // アニメイト (審査中)
+      cardmax:  { link: "", goods: "" },   // CARDMAX (審査中)
+      hmv:      { link: "", goods: "" },   // HMV&BOOKS online (リンクシェア。未登録)
+    },
   },
 
   // ---- Google AdSense -------------------------------------------------------------

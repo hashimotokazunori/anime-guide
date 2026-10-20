@@ -101,3 +101,6 @@ footer a{color:var(--muted)}
 img.th{display:block;aspect-ratio:16/9;height:auto;object-fit:cover;background:#000}
 .related img.th{width:100%;border-radius:6px;margin-bottom:6px}
 .best img.th{width:96px;border-radius:6px;flex:none}
+/* グッズ・CD を探すお店のボタン */
+.shopbtns{display:flex;flex-wrap:wrap;gap:8px}
+.shopbtns .go{font-size:13px;padding:6px 14px}
