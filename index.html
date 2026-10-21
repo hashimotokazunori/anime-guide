@@ -8,7 +8,7 @@
 <link rel="canonical" href="https://anime-madoguchi.com/">
 <meta property="og:title" content="アニメの窓口｜配信・声優・アニソン・漫画をまとめて調べるアニメデータベース"><meta property="og:description" content="アニメ4,587作品が、Netflix・U-NEXT・dアニメストアなどどの配信サービスで見放題かを比較。声優2,267人・アニソン歌手・制作会社・漫画・ポケカまで、まとめて調べられるアニメデータベース。"><meta property="og:type" content="website"><meta property="og:url" content="https://anime-madoguchi.com/">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=M+PLUS+Rounded+1c:wght@500;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap">
-<link rel="stylesheet" href="assets/page.css?v=11">
+<link rel="stylesheet" href="assets/page.css?v=12">
 <link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/png" href="assets/icon-192.png"><link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta property="og:image" content="https://anime-madoguchi.com/assets/og/index.png"><meta property="og:site_name" content="アニメの窓口"><meta name="twitter:card" content="summary_large_image">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8509241257297550" crossorigin="anonymous"></script>
@@ -83,6 +83,43 @@
 .flow b{display:block;font-size:15px}
 .flow small{display:block;font-size:12px;color:var(--muted)}
 @media (max-width:760px){.flow{grid-template-columns:1fr;gap:4px}.flow li{display:grid;grid-template-columns:52px 1fr;text-align:left;column-gap:12px;padding:10px 12px}.flow .fi{grid-row:span 2;margin:0}.flow li.far{display:none}}
+/* 切り口: 弁当箱レイアウト */
+.cuts.bento{display:grid;gap:12px;grid-template-columns:1fr}
+.bento>div{display:grid;gap:12px}
+.bento-big{grid-template-columns:repeat(3,1fr)}
+.bento-ban{grid-template-columns:repeat(2,1fr)}
+.bento-mid,.bento-sm{grid-template-columns:repeat(4,1fr)}
+.cuts.bento a{position:relative;overflow:hidden}
+.cuts .big{padding:0;min-height:170px;display:flex;align-items:flex-end;border:1px solid rgba(255,178,30,.45)}
+.cuts .big .bgi{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;transition:transform .3s,opacity .3s}
+.cuts .big::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 20%,rgba(19,16,30,.95))}
+.cuts .big:hover .bgi{transform:scale(1.05);opacity:.75}
+.cuts .big .in{position:relative;z-index:1;padding:14px 16px}
+.cuts .big .ic{width:26px;height:26px;color:var(--gold)}
+.cuts .big b{font-size:19px}
+.cuts .big small{color:#e6dcef}
+.cuts .ban{display:flex;align-items:center;gap:14px;padding:14px 18px;min-height:96px}
+.cuts .ban span{flex:1;min-width:0}
+.cuts .ban b{font-size:18px;margin:0 0 4px}
+.cuts .ban em{font-style:normal;font-weight:800;font-size:13px;border-radius:999px;padding:6px 14px;white-space:nowrap}
+.cuts .ban.gold{background:linear-gradient(120deg,rgba(255,178,30,.22),rgba(255,178,30,.05));border-color:rgba(255,178,30,.6)}
+.cuts .ban.gold .ic{width:44px;height:44px;color:var(--gold)}
+.cuts .ban.gold em{background:var(--gold);color:#1d1530}
+.cuts .ban.pink{background:linear-gradient(120deg,rgba(255,62,165,.25),rgba(126,217,87,.08));border-color:rgba(255,62,165,.6);padding-left:8px}
+.cuts .ban .zun{height:92px;width:auto;margin:-6px 0 -18px;align-self:flex-end}
+.cuts .ban.pink em{background:var(--pink);color:#fff}
+.bento-mid a .ic{color:var(--gold)}
+.bento-sm a{padding:10px 12px!important;display:flex!important;align-items:center;gap:10px}
+.bento-sm a .ic{width:22px!important;height:22px!important;flex:none}
+.bento-sm a b{margin:0!important;font-size:14px!important}
+.bento-sm a small{margin-left:auto;white-space:nowrap}
+@media(max-width:760px){
+.bento-big,.bento-ban{grid-template-columns:1fr}
+.cuts .big{min-height:130px}
+.bento-mid,.bento-sm{grid-template-columns:repeat(2,1fr)}
+.bento-sm a{flex-wrap:wrap}.bento-sm a small{margin-left:0;width:100%}
+.cuts .ban b{font-size:16px}.cuts .ban em{padding:5px 10px}
+}
 .chgs{list-style:none;margin:0 0 8px;padding:0;display:grid;gap:6px}.chgs li{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;background:var(--panel);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:8px 12px}.chgs a{color:var(--ink);font-weight:700;text-decoration:none}.chgs a:hover{color:var(--pink-soft)}.chg{font-size:12px;font-weight:800;border-radius:999px;padding:1px 8px}.chg.start{background:rgba(91,227,168,.16);color:var(--ok)}.chg.end{background:rgba(255,255,255,.08);color:var(--muted)}</style>
 </head>
 <body data-sv="9c29b679bb">
@@ -114,7 +151,7 @@
 <p class="notes">観たい作品が独占なら、そのサービスを選ぶのが近道です。</p></div>
 </div>
 <h2>いろいろな切り口で探す</h2>
-<nav class="cuts" aria-label="切り口"><a href="anime/"><i class="ic ic-tv" aria-hidden="true"></i><b>作品から探す</b><small>4,587作品</small></a><a href="season/202610.html"><i class="ic ic-cal" aria-hidden="true"></i><b>2026年秋アニメ</b><small>86作品の配信一覧</small></a><a href="va/"><i class="ic ic-mic" aria-hidden="true"></i><b>声優から探す</b><small>2,267人</small></a><a href="studio/"><i class="ic ic-building" aria-hidden="true"></i><b>制作会社から探す</b><small>368社</small></a><a href="anisong.html"><i class="ic ic-music" aria-hidden="true"></i><b>アニソン</b><small>17,858曲</small></a><a href="artist/"><i class="ic ic-star" aria-hidden="true"></i><b>アニソン歌手</b><small>2,407組</small></a><a href="manga.html"><i class="ic ic-book" aria-hidden="true"></i><b>漫画・漫画アプリ</b><small>約5,000作品</small></a><a href="pokeca.html"><i class="ic ic-cards" aria-hidden="true"></i><b>ポケカ デッキ構築</b><small>8,178種類</small></a><a href="services.html"><i class="ic ic-yen" aria-hidden="true"></i><b>配信サービス比較</b><small>料金・無料体験</small></a><a href="quiz.html"><i class="ic ic-star" aria-hidden="true"></i><b>ずんだもんのアニメクイズ</b><small>4択・10問</small></a><a href="explore.html"><i class="ic ic-trophy" aria-hidden="true"></i><b>おすすめ名作</b><small>気分・ジャンルで探す</small></a></nav>
+<nav class="cuts bento" aria-label="切り口"><div class="bento-big"><a class="big" href="season/202610.html"><img class="bgi" src="https://i.ytimg.com/vi/9rProUQlD-I/mqdefault.jpg" alt="" loading="lazy" width="320" height="180"><span class="in"><i class="ic ic-cal" aria-hidden="true"></i><b>2026年秋アニメ</b><small>放送中 86作品の配信先</small></span></a><a class="big" href="schedule.html"><img class="bgi" src="https://i.ytimg.com/vi/SSePdGrgYLA/mqdefault.jpg" alt="" loading="lazy" width="320" height="180"><span class="in"><i class="ic ic-clock" aria-hidden="true"></i><b>曜日別スケジュール</b><small>今日はどれが放送？</small></span></a><a class="big" href="ranking.html"><img class="bgi" src="https://i.ytimg.com/vi/SRy2TZ3iAjY/mqdefault.jpg" alt="" loading="lazy" width="320" height="180"><span class="in"><i class="ic ic-trophy" aria-hidden="true"></i><b>人気ランキング</b><small>みんなが観ている作品</small></span></a></div><div class="bento-ban"><a class="ban gold" href="services.html"><i class="ic ic-yen" aria-hidden="true"></i><span><b>サブスク料金比較</b><small>8サービスの月額・無料体験をまとめてチェック</small></span><em>比べる ›</em></a><a class="ban pink" href="quiz.html"><img class="zun" src="assets/zunda/host.webp" alt="" width="120" height="160" loading="lazy"><span><b>ずんだもんのアニメクイズ</b><small>4択・10問。何問わかるのだ？</small></span><em>挑戦する ›</em></a></div><div class="bento-mid"><a class="" href="va/"><i class="ic ic-mic" aria-hidden="true"></i><b>声優から探す</b><small>2,267人</small></a><a class="" href="studio/"><i class="ic ic-building" aria-hidden="true"></i><b>制作会社から探す</b><small>368社</small></a><a class="" href="anisong.html"><i class="ic ic-music" aria-hidden="true"></i><b>アニソン</b><small>17,858曲</small></a><a class="" href="artist/"><i class="ic ic-spark" aria-hidden="true"></i><b>アニソン歌手</b><small>2,407組</small></a></div><div class="bento-sm"><a class="" href="anime/"><i class="ic ic-tv" aria-hidden="true"></i><b>作品から探す</b><small>4,587作品</small></a><a class="" href="explore.html"><i class="ic ic-film" aria-hidden="true"></i><b>おすすめ名作</b><small>気分・ジャンル</small></a><a class="" href="manga.html"><i class="ic ic-book" aria-hidden="true"></i><b>漫画・漫画アプリ</b><small>約5,000作品</small></a><a class="" href="pokeca.html"><i class="ic ic-cards" aria-hidden="true"></i><b>ポケカ</b><small>8,178種類</small></a></div></nav>
 <h2>特集</h2>
 <div class="feat">
 <div class="panel"><h3>アニメの続きは原作の何巻から？</h3><p>アニメの最終話のあと、漫画を何巻から読めばいいかをまとめています（出典つき）。</p><ul><li><a href="anime/042afdc47b.html">葬送のフリーレン</a></li><li><a href="anime/087b693a60.html">チェンソーマン</a></li><li><a href="anime/c25ee872f6.html">鋼の錬金術師 FULLMETAL ALCHEMIST</a></li><li><a href="anime/e7a3299ab1.html">進撃の巨人</a></li></ul></div>

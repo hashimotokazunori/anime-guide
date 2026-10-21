@@ -188,6 +188,21 @@ a.pglink:hover{color:var(--pink-soft)}
 .arow a{flex:none;font-size:11px;font-weight:700;color:var(--pink-soft);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:2px 9px;white-space:nowrap}
 .arow a:hover{background:rgba(255,62,165,.18)}
 .arow .star{flex:none;font-size:10px;font-weight:800;background:var(--gold2);color:#fff;border-radius:3px;padding:1px 5px}
+/* シーズン別一覧: PVサムネが上・タイトル・時期と「配信を探す」の縦長カード */
+.alist{grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.arow{display:grid;grid-template-columns:1fr auto;grid-template-areas:"pv pv" "st st" "t t" "s go";align-content:start;gap:6px 8px;padding:0 0 10px;overflow:hidden;border-radius:12px;transition:transform .15s,border-color .15s}
+.arow:hover{transform:translateY(-3px);border-color:var(--pink)}
+.arow>*{margin:0 12px}
+.arow a.mini,.arow::before{grid-area:pv;margin:0;width:100%;border:0;border-radius:0;padding:0;aspect-ratio:16/9}
+.arow a.mini:hover{background:none}
+.arow:not(:has(a.mini))::before{content:"";display:block;background:linear-gradient(135deg,rgba(255,62,165,.28),rgba(255,178,30,.18)),repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0 8px,transparent 8px 16px)}
+.arow .star{grid-area:st;justify-self:start;margin-top:4px}
+.arow .at{grid-area:t;font-size:14px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.arow .at a{all:unset;cursor:pointer;color:var(--ink)}
+.arow .at a:hover{color:var(--pink-soft);text-decoration:underline}
+.arow .as{grid-area:s;align-self:center}
+.arow>a:last-child{grid-area:go;justify-self:end}
+@media(max-width:560px){.alist{grid-template-columns:repeat(2,1fr);gap:10px}.arow>*{margin:0 9px}.arow .at{font-size:13px}.arow>a:last-child{padding:2px 7px}}
 .more{display:block;margin:16px auto 0;background:transparent;cursor:pointer}
 .asof a{color:var(--pink-soft)}
 .empty{grid-column:1/-1;text-align:center;padding:48px 16px;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:12px}
