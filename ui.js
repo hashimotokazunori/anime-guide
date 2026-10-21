@@ -49,6 +49,39 @@
     });
   }));
 
+  // よく使うサブスク: 選んだサービスのマークを金色の枠で目立たせ、作品ページでは観られるかをひと言で出す
+  const FAVKEY = "madoguchi-favs";
+  let favs = [];
+  try { favs = JSON.parse(localStorage.getItem(FAVKEY) || "[]") || []; } catch (e) { favs = []; }
+  const NAMES = {};
+  document.querySelectorAll(".favpick button").forEach(b => { NAMES[b.dataset.k] = b.textContent.trim(); });
+  const applyFavs = () => {
+    document.querySelectorAll(".sv").forEach(el => {
+      const k = [...el.classList].find(c => NAMES[c]);
+      el.classList.toggle("fav", !!k && favs.includes(k));
+    });
+    document.querySelectorAll(".favpick button").forEach(b => b.setAttribute("aria-pressed", String(favs.includes(b.dataset.k))));
+    const dg = document.querySelector(".digest");
+    dg?.querySelector(".favhit")?.remove();
+    if (dg && favs.length) {
+      const ok = [...document.querySelectorAll("tr.yes .sv")].map(el => [...el.classList].find(c => NAMES[c])).filter(k => k && favs.includes(k));
+      const p = document.createElement("p");
+      p.className = "favhit";
+      p.textContent = ok.length ? `★ あなたのサブスク（${ok.map(k => NAMES[k]).join("・")}）で見放題です` : "あなたのサブスクでは、見放題が見つかっていません";
+      if (!ok.length) p.style.color = "var(--muted)";
+      dg.append(p);
+    }
+  };
+  document.querySelectorAll(".favpick button").forEach(b => b.addEventListener("click", () => {
+    const k = b.dataset.k;
+    favs = favs.includes(k) ? favs.filter(x => x !== k) : [...favs, k];
+    try { localStorage.setItem(FAVKEY, JSON.stringify(favs)); } catch (e) {}
+    applyFavs();
+  }));
+  applyFavs();
+  new MutationObserver(() => { if (favs.length) document.querySelectorAll(".sv:not(.fav)").forEach(el => { const k = [...el.classList].find(c => NAMES[c]); if (k && favs.includes(k)) el.classList.add("fav"); }); })
+    .observe(document.body, { childList: true, subtree: true });
+
   // 並び替え: <div class="sortbar" data-for="#id"> の button[data-sort] (n=配信が多い順 / t=50音順 / y=新しい順)
   document.querySelectorAll(".sortbar").forEach(bar => {
     const list = document.querySelector(bar.dataset.for);
