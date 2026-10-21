@@ -257,3 +257,6 @@ tr.yes{background:rgba(91,227,168,.05)}
 
 /* トップの検索窓の虫めがね */
 .qwrap{--i:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E")}
+/* スマホ表示: 長いURLで横にはみ出さない・列の多い表(サービス比較)の列が細くなりすぎない */
+.notes a{overflow-wrap:anywhere}
+table:has(>thead>tr>th:nth-child(9)) td{min-width:8.5em}
