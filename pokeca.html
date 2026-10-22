@@ -15,7 +15,7 @@
 <style>.pk{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:16px;align-items:start}
 @media (max-width:860px){.pk{grid-template-columns:1fr}}
 .pktabs{display:none;gap:6px;margin:0 0 10px;position:sticky;top:0;z-index:6;background:var(--night);padding:6px 0}
-@media (max-width:860px){.pktabs{display:flex}.pk[data-view=search] .pkdeck,.pk[data-view=deck] .pksearch{display:none}}
+
 .pktabs button{flex:1;font:inherit;font-weight:700;font-size:14px;color:var(--ink);background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;padding:7px 0;cursor:pointer}
 .pktabs button[aria-pressed=true]{background:var(--pink);border-color:var(--pink);color:#fff}
 .pkf{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px}
@@ -44,7 +44,7 @@
 .pkc .det a{font-size:11px}
 .pkmore{display:block;margin:10px auto 0;font:inherit;font-weight:700;color:#fff;background:var(--pink);border:0;border-radius:999px;padding:7px 26px;cursor:pointer}
 .pkdeck{position:sticky;top:8px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:12px}
-@media (max-width:860px){.pkdeck{position:static}}
+
 .pkdeck input#dname{width:100%;font:inherit;font-weight:700;font-size:15px;color:var(--ink);background:#170D2A;border:1px solid var(--line);border-radius:8px;padding:6px 10px}
 .pktotal{display:flex;align-items:baseline;gap:8px;margin:10px 0 4px}
 .pktotal b{font-family:var(--display);font-size:30px;font-weight:400}
@@ -128,6 +128,55 @@
 .pkc .cimg span{font-size:9px;font-weight:800;color:#fff;background:#bf0000;border-radius:3px;padding:0 4px;line-height:1.4}
 .pkc .cimg:hover img{border-color:var(--pink)}
 .pknote{margin:0 0 8px;font-size:12px;line-height:1.6;color:var(--muted)}
+/* ---- 組みやすく (検索欄の固定・種類のチップ・行を詰める・スマホは下の帯とデッキのパネル) ---- */
+.pkf{display:block;margin:0 0 8px}
+.pkfs{position:sticky;top:0;z-index:6;background:var(--night);padding:6px 0 4px;margin:0 -2px;box-shadow:0 6px 10px -8px rgba(0,0,0,.6)}
+.pkfs input[type=search]{display:block;width:100%;font:inherit;font-size:16px;color:var(--ink);background:#170D2A;border:1px solid var(--pink);border-radius:10px;padding:8px 12px}
+.pkchips{display:flex;gap:6px;overflow-x:auto;padding:6px 0 2px;scrollbar-width:none}
+.pkchips::-webkit-scrollbar{display:none}
+.pkchips button{flex:none;font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:5px 12px;cursor:pointer}
+.pkchips button[aria-pressed=true]{background:var(--pink);border-color:var(--pink);color:#fff}
+.pkfo{display:flex;gap:6px;overflow-x:auto;padding:4px 0 2px;scrollbar-width:none}
+.pkfo::-webkit-scrollbar{display:none}
+.pkfo select{flex:none;max-width:170px;font:inherit;font-size:13px;color:var(--ink);background:#170D2A;border:1px solid var(--line);border-radius:999px;padding:5px 10px}
+.pkfo select#psort{border-color:var(--gold);color:var(--gold);font-weight:700}
+/* 一覧の行を詰める (1画面に5〜6枚) */
+.pkc{padding:6px 8px}
+.pkc .row{gap:6px}
+.pkc .cimg img{width:36px;height:50px;border-radius:4px}
+.pkc .nm{font-size:13px;line-height:1.35}
+.pkc .nm em.mv{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pkc .nm em.mv .cy{display:inline;margin-right:6px;font-size:12px}
+.qty button{width:32px;height:32px}
+.pkshead,.pkdock,.pkscrim{display:none}
+@media (max-width:860px){
+  .pktabs{display:none}
+  .pkdeck{position:fixed;left:0;right:0;bottom:0;z-index:95;max-height:86vh;overflow:auto;overscroll-behavior:contain;border-radius:18px 18px 0 0;padding:0 14px calc(18px + env(safe-area-inset-bottom,0px));transform:translateY(105%);transition:transform .25s ease;visibility:hidden}
+  .pkdeck.open{transform:none;visibility:visible}
+  .pkshead{display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:2;background:var(--panel);padding:12px 0 8px;margin:0 0 6px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .pkshead::before{content:"";position:absolute;left:50%;top:5px;width:40px;height:4px;margin-left:-20px;border-radius:99px;background:rgba(255,255,255,.25)}
+  .pkshead b{font-size:16px}
+  .pkshead button{font:inherit;font-size:13px;font-weight:700;color:var(--ink);background:rgba(255,255,255,.08);border:1px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer}
+  .pkscrim:not([hidden]){display:block;position:fixed;inset:0;z-index:94;background:rgba(0,0,0,.55)}
+  .pkdock:not([hidden]){display:block;position:fixed;left:10px;right:10px;bottom:calc(74px + env(safe-area-inset-bottom,0px));z-index:79}
+  .pkdock button{display:flex;align-items:center;gap:8px;width:100%;font:inherit;color:#fff;background:rgba(36,20,58,.96);border:1px solid var(--pink);border-radius:14px;padding:8px 12px;box-shadow:0 6px 18px rgba(0,0,0,.45);cursor:pointer;text-align:left}
+  .pkdock .n{font-size:12px;color:var(--muted);white-space:nowrap}
+  .pkdock .n b{font-family:var(--display);font-weight:400;font-size:22px;color:#fff;margin-right:1px;display:inline-block}
+  .pkdock .n.ok b{color:var(--ok)}
+  .pkdock .n b.bump{animation:pkbump .35s ease}
+  .pkdock small{flex:1;min-width:0;font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .pkdock em{font-style:normal;font-weight:800;font-size:14px;color:var(--gold);white-space:nowrap}
+  .pkdock i{font-style:normal;font-size:12px;font-weight:700;background:var(--pink);border-radius:999px;padding:4px 10px;white-space:nowrap}
+  .pksearch{padding-bottom:70px}
+  html.pklock,html.pklock body{overflow:hidden}
+}
+@keyframes pkbump{0%{transform:scale(1)}40%{transform:scale(1.35)}100%{transform:scale(1)}}
+.pk>*{min-width:0}
+@media (max-width:860px){.pk{grid-template-columns:minmax(0,1fr)}}
+.pklist{grid-template-columns:minmax(0,1fr)}.pkc{min-width:0}.pkc .nm{overflow:hidden}
+.pkfo{margin:0 0 8px}
+@media (max-width:860px){.pkdeck{top:auto}}
+@media (max-width:860px){.pkdeck,.pkshead{background:#1A0F2E}}
 </style>
 </head>
 <body data-rakuten="589c5f8e.ab4d569f.589c5f8f.b5b814de" data-pa="4f467a63dd" data-pv="33ed14db64" data-ps="6af9289f87" data-psd="2026-10-23">
@@ -144,13 +193,17 @@
 <h2>デッキを組む</h2>
 <div class="pk" data-view="search">
 <section class="pksearch" aria-label="カードを探す">
-<div class="pkf" role="search">
-<select id="pfmt" aria-label="使えるカードの範囲"><option value="std">スタンダードで使えるカード</option><option value="all">すべてのカード（昔のカードも）</option></select>
-<input type="search" id="pq" placeholder="カード名・ワザ・効果で探す（例：ハイパーボール、ドロー）" aria-label="カード名・ワザ・効果で探す">
-<select id="pcat" aria-label="カードの種類"><option value="">すべての種類</option><option value="P">ポケモン</option><option value="PX">ポケモンex</option><option value="T:Item">グッズ</option><option value="T:Supporter">サポート</option><option value="T:Tool">ポケモンのどうぐ</option><option value="T:Stadium">スタジアム</option><option value="E">エネルギー</option></select>
-<select id="pty" aria-label="タイプ"><option value="">すべてのタイプ</option><option value="Grass">草タイプ</option><option value="Fire">炎タイプ</option><option value="Water">水タイプ</option><option value="Lightning">雷タイプ</option><option value="Psychic">超タイプ</option><option value="Fighting">闘タイプ</option><option value="Darkness">悪タイプ</option><option value="Metal">鋼タイプ</option><option value="Dragon">ドラゴンタイプ</option><option value="Fairy">フェアリータイプ</option><option value="Colorless">無色タイプ</option></select>
-<select id="prg" aria-label="レギュレーション"><option value="">すべてのマーク</option></select>
-<select id="pset" aria-label="収録パック"><option value="">すべてのパック</option><option value="M6">ストームエメラルダ</option><option value="M5">アビスアイ</option><option value="M4">ニンジャスピナー</option><option value="M3">ムニキスゼロ</option><option value="MC">スタートデッキ100 バトルコレクション</option><option value="M2a">MEGAドリームex</option><option value="M2">インフェルノX</option><option value="M1L">メガブレイブ</option><option value="M1S">メガシンフォニア</option><option value="SV11B">ブラックボルト</option><option value="SV11W">ホワイトフレア</option><option value="SV10">ロケット団の栄光</option><option value="SV9a">熱風のアリーナ</option><option value="SV9">バトルパートナーズ</option><option value="SV8a">テラスタルフェスex</option><option value="SV8">超電ブレイカー</option><option value="SV7a">楽園ドラゴーナ</option><option value="SV7">ステラミラクル</option><option value="SV6a">ナイトワンダラー</option><option value="SV6">変幻の仮面</option><option value="SV5a">クリムゾンヘイズ</option><option value="SV5K">ワイルドフォース</option><option value="SV5M">サイバージャッジ</option></select>
+<div class="pkfs" role="search">
+<input type="search" id="pq" placeholder="カード名・ワザ・効果で探す（例：ハイパーボール）" aria-label="カード名・ワザ・効果で探す">
+<div class="pkchips" id="pchips" aria-label="カードの種類"><button type="button" data-cat="" aria-pressed="true">すべて</button><button type="button" data-cat="P" aria-pressed="false">ポケモン</button><button type="button" data-cat="PX" aria-pressed="false">ex</button><button type="button" data-cat="T:Item" aria-pressed="false">グッズ</button><button type="button" data-cat="T:Supporter" aria-pressed="false">サポート</button><button type="button" data-cat="T:Tool" aria-pressed="false">どうぐ</button><button type="button" data-cat="T:Stadium" aria-pressed="false">スタジアム</button><button type="button" data-cat="E" aria-pressed="false">エネルギー</button></div>
+</div>
+<div class="pkfo">
+<select id="psort" aria-label="並べ替え"><option value="">おすすめ順</option><option value="cheap">安い順</option><option value="high">高い順</option><option value="new">新しい順</option></select>
+<select id="pfmt" aria-label="使えるカードの範囲"><option value="std">スタンダード</option><option value="all">すべてのカード（昔のカードも）</option></select>
+<select id="pty" aria-label="タイプ"><option value="">タイプ</option><option value="Grass">草タイプ</option><option value="Fire">炎タイプ</option><option value="Water">水タイプ</option><option value="Lightning">雷タイプ</option><option value="Psychic">超タイプ</option><option value="Fighting">闘タイプ</option><option value="Darkness">悪タイプ</option><option value="Metal">鋼タイプ</option><option value="Dragon">ドラゴンタイプ</option><option value="Fairy">フェアリータイプ</option><option value="Colorless">無色タイプ</option></select>
+<select id="prg" aria-label="レギュレーション"><option value="">マーク</option></select>
+<select id="pset" aria-label="収録パック"><option value="">パック</option><option value="M6">ストームエメラルダ</option><option value="M5">アビスアイ</option><option value="M4">ニンジャスピナー</option><option value="M3">ムニキスゼロ</option><option value="MC">スタートデッキ100 バトルコレクション</option><option value="M2a">MEGAドリームex</option><option value="M2">インフェルノX</option><option value="M1L">メガブレイブ</option><option value="M1S">メガシンフォニア</option><option value="SV11B">ブラックボルト</option><option value="SV11W">ホワイトフレア</option><option value="SV10">ロケット団の栄光</option><option value="SV9a">熱風のアリーナ</option><option value="SV9">バトルパートナーズ</option><option value="SV8a">テラスタルフェスex</option><option value="SV8">超電ブレイカー</option><option value="SV7a">楽園ドラゴーナ</option><option value="SV7">ステラミラクル</option><option value="SV6a">ナイトワンダラー</option><option value="SV6">変幻の仮面</option><option value="SV5a">クリムゾンヘイズ</option><option value="SV5K">ワイルドフォース</option><option value="SV5M">サイバージャッジ</option></select>
+<select id="pcat" aria-label="カードの種類" hidden><option value="">すべての種類</option><option value="P">ポケモン</option><option value="PX">ポケモンex</option><option value="T:Item">グッズ</option><option value="T:Supporter">サポート</option><option value="T:Tool">ポケモンのどうぐ</option><option value="T:Stadium">スタジアム</option><option value="E">エネルギー</option></select>
 </div>
 <p class="pkcount" id="pcount">読み込み中…</p>
 <p class="pknote">カードの写真は商品リンクです（楽天市場・Yahoo!ショッピング）。押すとお店の商品ページが開きます。</p>
@@ -158,7 +211,8 @@
 <button type="button" class="pkmore" id="pmore" hidden>もっと見る</button>
 <p class="notes">カード名を押すと、ワザや効果の文章が開きます。</p>
 </section>
-<aside class="pkdeck" aria-label="デッキ">
+<aside class="pkdeck" id="pdeck" aria-label="デッキ">
+<div class="pkshead"><b>デッキ</b><button type="button" id="pclose">閉じる ✕</button></div>
 <input type="text" id="dname" placeholder="デッキ名（例：リザードンex）" aria-label="デッキ名" maxlength="40">
 <div class="pktotal"><b id="ptotal">0</b><span>/ 60枚</span></div>
 <div class="pkbar" id="pbar"></div>
@@ -177,6 +231,8 @@
 </div>
 </aside>
 </div>
+<div class="pkdock" id="pdock" hidden><button type="button" id="pdockbtn" aria-controls="pdeck"><span class="n"><b id="pdn">0</b>/60枚</span><small id="pdsum"></small><em id="pdcost"></em><i>デッキを見る ▲</i></button></div>
+<div class="pkscrim" id="pscrim" hidden></div>
 <p class="notes">カードのデータは <a href="https://tcgdex.dev/" target="_blank" rel="noopener">TCGdex</a>（MITライセンス）の日本語データ（2026-10-20 時点）を使っています。「スタンダードで使える」の判定もTCGdexのデータによるもので、公式の発表とずれる場合があります。大会に出るときは、ポケモンカードゲーム公式サイトのレギュレーションを確認してください。カードの名称・テキストの権利は株式会社ポケモンなどの権利者に帰属します。当サイトは非公式のファンツールです。</p>
 <footer>アニメの窓口は、アニメの配信状況をまとめて比べられる非公式のガイドです。作品の名称・画像の権利は各権利者に帰属します。作品の画像は、各作品の公式YouTubeチャンネルが公開しているPVのサムネイル、または楽天ブックス・Yahoo!ショッピングの商品画像です。Amazonのアソシエイトとして、当サイトは適格販売により収入を得ています。<div><a href="privacy.html">プライバシーポリシー・広告について</a>　<a href="about.html">データについて・間違いの報告</a>　<a href="privacy.html#contact">運営者情報・お問い合わせ</a>　<a href="https://developers.rakuten.com/" target="_blank" rel="noopener">Supported by Rakuten Developers</a></div></footer><script src="config.js?v=14"></script><script src="monetize.js?v=9"></script><script src="analytics.js?v=4"></script><script src="ui.js?v=2"></script>
 </body>
@@ -275,7 +331,7 @@
     const own = PRICE && PRICE.im && PRICE.im[c.id];
     const im = own || (PRICE && PRICE.ima && PRICE.ima[c.id]);   // その版の写真がなければ、効果がまったく同じ再録カードの写真
     const pic = im ? `<a class="cimg" href="${esc(im[1])}" target="_blank" rel="sponsored noopener" title="お店で見る"><img src="${esc(im[0])}" alt="${esc(c.n)}（お店の商品写真）" loading="lazy" width="48" height="64">${im[2] ? `<img src="${esc(im[2])}" width="1" height="1" alt="" style="position:absolute;width:1px;height:1px;opacity:0">` : ""}</a>` : "";
-    return `<div class="pkc${im ? " hasimg" : ""}" data-id="${esc(c.id)}"><div class="row">${pic}${typeDot(c)}<span class="nm" data-act="det">${esc(c.n)}<small>${esc(sub)}</small>${c.rg ? `<small class="rg">${esc(c.rg)}</small>` : ""}${mode === "all" && !c.std ? `<small class="old">スタンダード外</small>` : ""}${moves ? `<em class="mv">${esc(moves)}</em>` : ""}${(() => { const pr = priceOf(c); return pr ? `<small class="cy">最安 ${yen(pr.p)}${pr.same ? "" : "〜"}</small>` : ""; })()}</span>`
+    return `<div class="pkc${im ? " hasimg" : ""}" data-id="${esc(c.id)}"><div class="row">${pic}${typeDot(c)}<span class="nm" data-act="det">${esc(c.n)}<small>${esc(sub)}</small>${c.rg ? `<small class="rg">${esc(c.rg)}</small>` : ""}${mode === "all" && !c.std ? `<small class="old">スタンダード外</small>` : ""}${(() => { const pr = priceOf(c); return pr || moves ? `<em class="mv">${pr ? `<small class="cy">最安 ${yen(pr.p)}${pr.same ? "" : "〜"}</small>` : ""}${esc(moves)}</em>` : ""; })()}</span>`
       + `<span class="qty"><button type="button" data-act="minus" aria-label="${esc(c.n)}を1枚減らす">−</button><b>${n || ""}</b><button type="button" class="add" data-act="plus" aria-label="${esc(c.n)}を1枚入れる">＋</button></span></div></div>`;
   }
 
@@ -300,6 +356,10 @@
     });
     // 名前に入っているカードを先に、効果文だけに入っているカードを後に並べる
     if (q) list.sort((a, b) => (norm(b.n).includes(q) ? 1 : 0) - (norm(a.n).includes(q) ? 1 : 0) || (norm(a.n) === q ? -1 : norm(b.n) === q ? 1 : 0));
+    // 並べ替え (値段のわからないカードは後ろ)
+    const so = $("#psort").value, pv = c => { const p = priceOf(c); return p ? p.p : null; };
+    if (so === "cheap" || so === "high") list.sort((a, b) => { const x = pv(a), y = pv(b); return x == null ? (y == null ? 0 : 1) : y == null ? -1 : so === "cheap" ? x - y : y - x; });
+    if (so === "new") list.sort((a, b) => (b.rg || "").localeCompare(a.rg || ""));
     render(true);
   }
   function render(reset) {
@@ -374,8 +434,14 @@
         `<li data-id="${esc(c.id)}">${typeDot(c)}<span class="dn">${esc(c.n)}${(() => { const pr = isBasicEnergy(c) ? null : priceOf(c); return pr ? `<small class="cy">${yen(pr.p)}×${n}＝${yen(pr.p * n)}</small>` : ""; })()}</span>${isBasicEnergy(c) ? "" : `<span class="buy">${shopA("toretoku", c.n, "買う")}</span>`}<span class="qty"><button type="button" data-act="minus" aria-label="1枚減らす">−</button><b>${n}</b><button type="button" class="add" data-act="plus" aria-label="1枚増やす">＋</button></span></li>`).join("") + "</ul>";
     };
     $("#pdl").innerHTML = items.length ? group("P", "ポケモン") + group("T", "トレーナーズ") + group("E", "エネルギー")
-      : `<p class="pkcount">左の一覧の「＋」でカードを入れてください。</p>`;
+      : `<p class="pkcount">カードの一覧の「＋」でカードを入れてください。</p>`;
     $("#ptab-deck").textContent = `デッキ（${t}）`;
+    const dn = $("#pdn"), before = +dn.textContent;
+    dn.textContent = t;
+    dn.parentNode.className = "n" + (t === 60 ? " ok" : "");
+    if (t !== before) { dn.classList.remove("bump"); void dn.offsetWidth; dn.classList.add("bump"); }
+    $("#pdsum").textContent = `ポケモン${by.P} トレーナーズ${by.T} エネ${by.E}`;
+    $("#pdcost").textContent = PRICE && items.length ? `約${yen(deckCost)}` : "";
     store.set("pokeca-current", { name: deckName, cards: [...deck] });
   }
 
@@ -413,9 +479,33 @@
       `<li><a data-i="${i}" data-act="load">${esc(s.name || "名前なし")}（${s.cards.reduce((a, [, n]) => a + n, 0)}枚）</a><button type="button" data-i="${i}" data-act="del">削除</button></li>`).join("") + "</ul>" : "";
   }
 
+  // スマホのデッキのパネルを開く・閉じる (PC ではデッキは右にいつも出ているので何もしない)
+  const isPhone = () => matchMedia("(max-width:860px)").matches;
+  function sheet(open) {
+    if (open && !isPhone()) return;
+    $("#pdeck").classList.toggle("open", open);
+    $("#pscrim").hidden = !open;
+    document.documentElement.classList.toggle("pklock", open);
+  }
+
   // ---- 画面のつなぎこみ ----
   function bind() {
-    ["#pq", "#pcat", "#pty", "#prg", "#pset"].forEach(s => $(s).addEventListener("input", apply));
+    ["#pq", "#pcat", "#pty", "#prg", "#pset", "#psort"].forEach(s => $(s).addEventListener("input", apply));
+    $("#pchips").addEventListener("click", ev => {
+      const b = ev.target.closest("button[data-cat]");
+      if (!b) return;
+      $("#pcat").value = b.dataset.cat;
+      document.querySelectorAll("#pchips button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+      apply();
+    });
+    // スマホ: 画面の下に「枚数・値段」の帯をいつも出し、押すとデッキが下から開く (一覧とデッキを行き来しなくてよい)
+    const dock = $("#pdock");
+    if ("IntersectionObserver" in window) new IntersectionObserver(es => { dock.hidden = !es[0].isIntersecting; }, { rootMargin: "0px 0px -40% 0px" }).observe($(".pk"));
+    else dock.hidden = false;
+    $("#pdockbtn").addEventListener("click", () => sheet(true));
+    $("#pclose").addEventListener("click", () => sheet(false));
+    $("#pscrim").addEventListener("click", () => sheet(false));
+    document.addEventListener("keydown", ev => { if (ev.key === "Escape") sheet(false); });
     document.querySelectorAll(".pkpack").forEach(b => b.addEventListener("click", () => {
       const on = $("#pset").value === b.dataset.set;
       $("#pset").value = on ? "" : b.dataset.set;
@@ -554,9 +644,8 @@
       const entries = p.get("d").split(",").map(x => { const [id, n] = x.split("~"); return [id, +n || 0]; });
       const go = () => {
         loadDeck(p.get("n") || "共有されたデッキ", entries); renderSaved(); apply();
-        $(".pk").dataset.view = "deck";
-        document.querySelectorAll(".pktabs button").forEach(x => x.setAttribute("aria-pressed", String(x.dataset.view === "deck")));
         $(".pk").scrollIntoView({ behavior: "smooth" });
+        sheet(true);
         toast(`「${p.get("n") || "共有されたデッキ"}」を開きました`);
       };
       if (mode !== "all" && entries.some(([id]) => !byId[id])) switchMode("all").then(go);
