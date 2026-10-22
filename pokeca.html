@@ -122,6 +122,11 @@
 .pkc .cy,.pkdeck .cy,#pdl .cy{display:block;font-size:11px;font-weight:700;color:var(--gold);font-style:normal}
 .pkcost{margin:8px 0 0;font-size:14px;line-height:1.6}.pkcost b{color:var(--gold);font-size:18px}
 .pkcost small{display:block;font-size:11px;color:var(--muted)}
+/* 一覧のお店の写真 */
+.pkc .cimg{position:relative;flex:none;display:flex;flex-direction:column;align-items:center;gap:2px;text-decoration:none;margin-right:2px}
+.pkc .cimg img{width:48px;height:64px;object-fit:contain;background:#fff;border-radius:6px;border:1px solid rgba(255,178,30,.4)}
+.pkc .cimg span{font-size:9px;font-weight:800;color:#fff;background:#bf0000;border-radius:3px;padding:0 4px;line-height:1.4}
+.pkc .cimg:hover img{border-color:var(--pink)}
 </style>
 </head>
 <body data-rakuten="589c5f8e.ab4d569f.589c5f8f.b5b814de" data-pa="4f467a63dd" data-pv="33ed14db64" data-ps="9d05a703fc" data-psd="2026-10-22">
@@ -264,7 +269,10 @@
     // 同じ名前のカードを見分けられるよう、ポケモンは特性とワザの名前も並べる
     const moves = c.c === "P" ? [...(c.ab || []).map(a => "特性 " + a[0]), ...(c.at || []).map(a => a[0])].join("・") : "";
     const sub = c.c === "P" ? `${label(c)} HP${c.hp ?? ""}` : label(c);
-    return `<div class="pkc" data-id="${esc(c.id)}"><div class="row">${typeDot(c)}<span class="nm" data-act="det">${esc(c.n)}<small>${esc(sub)}</small>${c.rg ? `<small class="rg">${esc(c.rg)}</small>` : ""}${mode === "all" && !c.std ? `<small class="old">スタンダード外</small>` : ""}${moves ? `<em class="mv">${esc(moves)}</em>` : ""}${(() => { const pr = priceOf(c); return pr ? `<small class="cy">最安 ${yen(pr.p)}${pr.same ? "" : "〜"}</small>` : ""; })()}</span>`
+    // お店の写真 (押すとお店の商品ページ)。楽天・Yahoo! の規約どおり、写真は商品ページへのリンクと一緒にだけ出す
+    const im = PRICE && PRICE.im && PRICE.im[c.id];
+    const pic = im ? `<a class="cimg" href="${esc(im[1])}" target="_blank" rel="sponsored noopener" title="お店で見る"><img src="${esc(im[0])}" alt="${esc(c.n)}（お店の商品写真）" loading="lazy" width="48" height="64">${im[2] ? `<img src="${esc(im[2])}" width="1" height="1" alt="" style="position:absolute;width:1px;height:1px;opacity:0">` : ""}<span>${im[3] === "yahoo" ? "Yahoo!" : "楽天"}</span></a>` : "";
+    return `<div class="pkc${im ? " hasimg" : ""}" data-id="${esc(c.id)}"><div class="row">${pic}${typeDot(c)}<span class="nm" data-act="det">${esc(c.n)}<small>${esc(sub)}</small>${c.rg ? `<small class="rg">${esc(c.rg)}</small>` : ""}${mode === "all" && !c.std ? `<small class="old">スタンダード外</small>` : ""}${moves ? `<em class="mv">${esc(moves)}</em>` : ""}${(() => { const pr = priceOf(c); return pr ? `<small class="cy">最安 ${yen(pr.p)}${pr.same ? "" : "〜"}</small>` : ""; })()}</span>`
       + `<span class="qty"><button type="button" data-act="minus" aria-label="${esc(c.n)}を1枚減らす">−</button><b>${n || ""}</b><button type="button" class="add" data-act="plus" aria-label="${esc(c.n)}を1枚入れる">＋</button></span></div></div>`;
   }
 
