@@ -16,7 +16,7 @@ window.SITE_CONFIG = {
 
   // ---- Amazonアソシエイト ----------------------------------------------------------
   // トラッキングID (例: "animemadoguchi-22")。入れると作品ページに「Amazonで探す」リンクが出る (python build_pages.py で反映)
-  amazonTag: "",
+  amazonTag: "animenomadogu-22",
 
   // ---- バリューコマース LinkSwitch ----------------------------------------------
   // Yahoo!ショッピング・紀伊國屋・honto・レコチョクなど対応店へのリンクを、自動でアフィリエイトリンクに変える。
