@@ -7,10 +7,19 @@
   const client = /^ca-pub-\d+$/.test(ADS.adsenseClient || "") ? ADS.adsenseClient : "";
   const slots = ADS.slots || {};
   const rakutenOn = !!(CFG.rakuten && CFG.rakuten.affiliateId);
-  const anyAff = Object.keys(AFF).length > 0;
+  const anyAff = Object.keys(AFF).length > 0 || /^\d+$/.test(CFG.linkswitchPid || "");
 
   // このスクリプトの置き場所 = サイトのいちばん上 (サブフォルダのページからでも正しいリンクを作るため)
   const ROOT = (document.currentScript && document.currentScript.src || location.href).replace(/monetize\.js.*$/, "");
+
+  /* ---- バリューコマース LinkSwitch (対応店へのリンクを自動でアフィリエイトリンクに) ---- */
+  if (/^\d+$/.test(CFG.linkswitchPid || "") && !document.querySelector('script[src*="vcdal.js"]')) {
+    window.vc_pid = CFG.linkswitchPid;
+    const ls = document.createElement("script");
+    ls.src = "https://aml.valuecommerce.com/vcdal.js";
+    ls.async = true;
+    document.head.appendChild(ls);
+  }
 
   /* ---- PR表記 (広告やアフィリエイトを使うときはページ上部に必ず出す) ---- */
   if (anyAff || rakutenOn || client) {
