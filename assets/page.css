@@ -306,3 +306,19 @@ table:has(>thead>tr>th:nth-child(9)) td{min-width:8.5em}
 .ypn a{text-decoration:none;font-weight:800;color:var(--ink);background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:999px;padding:6px 16px}
 .ypn a:hover{border-color:var(--pink)}
 @media(max-width:640px){.ydy{grid-template-columns:repeat(2,1fr)}.ydh{height:72px}.ydt b{font-size:24px}}
+/* 作品ページ → カードゲームのページへの入口 */
+.tcgbox{display:flex;flex-direction:column;gap:4px;margin:18px 0;padding:14px 18px;border-radius:14px;text-decoration:none;color:inherit;background:linear-gradient(135deg,rgba(255,79,163,.16),rgba(255,200,61,.14));border:1px solid rgba(255,200,61,.45)}
+.tcgbox b{font-size:17px;color:var(--gold,#ffc83d)}
+.tcgbox span{font-size:13px;opacity:.85}
+.tcgbox:hover{border-color:var(--gold,#ffc83d)}
+/* 総点検の直し: シリーズ名が長くてもはみ出さない／表は横にスクロール／入力欄は16px（iPhoneで拡大されない） */
+.dd.series{max-width:100%}
+.dd.series>summary{max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dd.series>div{max-width:calc(100vw - 32px)}
+table.dsn-t:not(.dsn-cmp){display:block;overflow-x:auto;min-width:0!important;max-width:100%}
+.tblhint{display:none;margin:4px 0 0;font-size:12px;color:var(--muted)}
+@media (max-width:640px){
+  input[type=search],input[type=text],select{font-size:16px}
+  .tblhint{display:block}
+  .tblwrap th:first-child,.tblwrap td:first-child{position:sticky;left:0;z-index:1;background:var(--panel)}
+}

@@ -13,9 +13,10 @@
   /* 公式PVのサムネイル (YouTubeが動画ごとに公開している画像) をポスターに使う。
      画像は再生ボタンを兼ね、押すとその動画を開く。 */
   function ytThumb(id, img) {
-    img.src = `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
-    // 高画質版が無い動画は 120x90 の代替画像が返るので、中画質版に切り替える
-    const fallback = () => { img.src = `https://i.ytimg.com/vi/${id}/mqdefault.jpg`; };
+    // カードの大きさには中画質（320x180）で足りる。高画質（1280x720）を24枚読むと約2MBになるので使わない
+    img.src = `https://i.ytimg.com/vi/${id}/mqdefault.jpg`;
+    // 画像が無い動画は 120x90 の代替画像が返るので、標準の画像に切り替える
+    const fallback = () => { img.src = `https://i.ytimg.com/vi/${id}/hqdefault.jpg`; };
     img.addEventListener("load", () => { if (img.naturalWidth <= 120) fallback(); }, { once: true });
     img.addEventListener("error", fallback, { once: true });
   }
