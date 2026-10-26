@@ -53,7 +53,27 @@ window.SITE_CONFIG = {
       hmv:      { link: "", goods: "" },   // HMV&BOOKS online (リンクシェア。未登録)
       discas:   { link: "" },
       mangazenkan: { link: "https://px.a8.net/svt/ejp?a8mat=4BELTJ+6TW1MA+1892+631SY" },   // 漫画全巻ドットコム (2026-10-21 提携・購入3.5%)   // TSUTAYA DISCAS 宅配DVDレンタル (A8 審査中。通ったら広告リンクを入れる)
+      // ---- 電子書籍ストア (作品ページの「原作マンガを読む」。審査が通ったら link / goods に広告リンクを入れる) ----
+      // ブックライブ・honto はバリューコマースの LinkSwitch が普通のリンクを自動で広告リンクにするので、ここは空のままでよい
+      booklive:   { link: "", goods: "" },   // ブックライブ (バリューコマース 2138296 提携待ち → LinkSwitch で自動)
+      dmmbooks:   { link: "", goods: "" },   // DMMブックス (A8.net s00000000842023 審査中)
+      bookwalker: { link: "" },              // BOOK☆WALKER 読み放題 (A8.net s00000027609002 審査中。広告のリンク先は bookwalker.jp/ex/feature/subscription/ の中だけ)
+      ebookjapan: { link: "", goods: "" },   // ebookjapan (提携先のASPが未定)
+      honto:      { link: "", goods: "" },   // honto (バリューコマース 2036517 提携済み → LinkSwitch で自動)
+      ameba:      { link: "" },              // Amebaマンガ (A8.net s00000022237001 審査中。キャラクター画像は使わない)
+      cmoa:       { link: "", goods: "" },   // コミックシーモア (2026-10 サービス停止中・提携先のASPが未定。作品ページには出していない)
+      renta:      { link: "", goods: "" },   // Renta! (2026-10 サービス停止中・バリューコマース 2047507 提携待ち。作品ページには出していない)
     },
+  },
+
+  // ---- LINE公式アカウント ---------------------------------------------------------
+  // 友だち追加のURL (https://lin.ee/... など)。入れると「見放題に加わった・終わったアニメ」のページに「LINEで受け取る」ボタンが出る
+  line: {
+    friendUrl: "",
+  },
+  // メールのお知らせの登録ページのURL (Substack・Brevo などの登録フォーム)。入れると同じページに「メールで受け取る」ボタンが出る
+  mail: {
+    signupUrl: "",
   },
 
   // ---- Google AdSense -------------------------------------------------------------

@@ -44,6 +44,15 @@
     cardmax:  { name: "CARDMAX", top: "https://www.cardmax.jp/" },
     beehonpo: { name: "Bee本舗", top: "https://www.bee-honpo.com/" },
     furuichi: { name: "ふるいち トレカ買取", top: "https://furuichi.com/" },
+    // 電子書籍ストア (作品ページの「原作マンガを読む」)。adTop: 広告リンクがお店のトップ用しかないとき、検索結果より広告リンクを優先する
+    booklive:   { name: "ブックライブ", top: "https://booklive.jp/", search: "https://booklive.jp/search/keyword?keyword={q}" },
+    dmmbooks:   { name: "DMMブックス", top: "https://book.dmm.com/", search: "https://book.dmm.com/search/?searchstr={q}" },
+    bookwalker: { name: "BOOK☆WALKER", top: "https://bookwalker.jp/", search: "https://bookwalker.jp/search/?word={q}", adTop: true },
+    ebookjapan: { name: "ebookjapan", top: "https://ebookjapan.yahoo.co.jp/", search: "https://ebookjapan.yahoo.co.jp/search/?keyword={q}" },
+    honto:      { name: "honto", top: "https://honto.jp/ebook.html", search: "https://honto.jp/ebook/search_10{q}.html" },
+    ameba:      { name: "Amebaマンガ", top: "https://dokusho-ojikan.jp/", adTop: true },
+    cmoa:       { name: "コミックシーモア", top: "https://www.cmoa.jp/", search: "https://www.cmoa.jp/search/result/?header_word={q}" },
+    renta:      { name: "Renta!", top: "https://renta.papy.co.jp/", search: "https://renta.papy.co.jp/renta/sc/frm/search?word={q}" },
   };
   const SHOP_AFF = (CFG.affiliate || {}).shops || {};
   const okURL = u => /^https:\/\//.test(u || "");
@@ -53,7 +62,7 @@
     const aff = SHOP_AFF[shop] || {};
     const dest = q && def.search ? def.search.replace("{q}", encodeURIComponent(q)) : def.top;
     if (okURL(aff.goods)) return { href: `${aff.goods}&a8ejpredirect=${encodeURIComponent(dest)}`, ad: true, name: def.name };
-    if (okURL(aff.link) && (!q || !def.search)) return { href: aff.link, ad: true, name: def.name };
+    if (okURL(aff.link) && (!q || !def.search || def.adTop)) return { href: aff.link, ad: true, name: def.name };
     return { href: dest, ad: false, name: def.name };
   }
   window.shopLink = shopLink;
