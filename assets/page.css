@@ -452,3 +452,15 @@ table.dsn-t:not(.dsn-cmp){display:block;overflow-x:auto;min-width:0!important;ma
   .mltbl tbody th{min-width:120px;max-width:150px}
   .mltoast{white-space:normal;width:max-content;max-width:calc(100vw - 32px);border-radius:14px}
 }
+/* 配信サービスの公式アイコン (fetch_app_icons.py で取得。苦情があったらその行を消すと頭文字に戻る) */
+.sv.netflix::before{content:"";background:#fff url(appicon/610f6418b2.png) center/80% no-repeat}
+.sv.prime::before{content:"";background:#fff url(appicon/bc66ab84dc.png) center/80% no-repeat}
+.sv.unext::before{content:"";background:#fff url(appicon/4392f66780.png) center/80% no-repeat}
+.sv.hulu::before{content:"";background:#fff url(appicon/1dc7bdcc8e.png) center/80% no-repeat}
+.sv.disney::before{content:"";background:#fff url(appicon/e31f801307.png) center/80% no-repeat}
+.sv.danime::before{content:"";background:#fff url(appicon/b7ed588ab3.png) center/80% no-repeat}
+.sv.dmm::before{content:"";background:#fff url(appicon/d44e514a55.png) center/80% no-repeat}
+.sv.abema::before{content:"";background:#fff url(appicon/0207d971c9.png) center/80% no-repeat}
+/* バッジはアイコン＋文字だけにする (各社の色の背景は使わない) */
+.sv{background:none!important;border:none!important;color:var(--ink);padding:3px 4px 3px 0}
+.sv::before{width:3em;height:3em}
