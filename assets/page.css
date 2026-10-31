@@ -464,3 +464,9 @@ table.dsn-t:not(.dsn-cmp){display:block;overflow-x:auto;min-width:0!important;ma
 /* バッジはアイコン＋文字だけにする (各社の色の背景は使わない) */
 .sv{background:none!important;border:none!important;color:var(--ink);padding:3px 4px 3px 0}
 .sv::before{width:3em;height:3em}
+/* 配信状況の確度 (stream_status.py の台帳から)。終了を確認・確認から日が経った注意・最終確認日 */
+.st.end{color:#ff8a8a;background:rgba(255,120,120,.08);border:1px solid rgba(255,120,120,.35);font-weight:600}
+.st.q{white-space:nowrap}
+.stw{display:block;margin-top:4px;font-size:11.5px;line-height:1.5;color:var(--gold);font-weight:500}
+td.ck{font-size:12.5px;color:var(--muted);white-space:nowrap}
+td.ck .ckl{display:block;font-size:11.5px;color:var(--muted);text-decoration:underline}
