@@ -207,7 +207,7 @@
           return id ? `<div class="mlrow">${a}<button type="button" class="mladd" data-ml-id="${id}" data-ml-t="${esc(x.n)}"></button></div>` : a;
         }).join("") + "</div>";
     }).join("");
-    out.innerHTML = html || `<p class="qnone">「${esc(q)}」に当てはまるものが見つかりませんでした。</p>`;
+    out.innerHTML = html || `<p class="qnone">「${esc(q)}」に当てはまるものが見つかりませんでした。作品名の一部だけで探すか、<a href="ranking.html">人気ランキング</a>・<a href="anime/">作品一覧</a>から探せます。</p>`;
     out.hidden = false;
   }
 
