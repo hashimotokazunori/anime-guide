@@ -101,6 +101,7 @@
     shown += next.length;
     $("#mcount").textContent = `${(partial ? TOP.n : list.length).toLocaleString()} 作品`;
     $("#mmore").hidden = !partial && shown >= list.length;
+    if (!partial && !list.length) $("#mlist").innerHTML = '<p class="mnone" style="color:var(--muted);padding:8px">条件に合う作品が見つかりませんでした。絞り込みをゆるめるか、<a href="ranking.html">人気ランキング</a>・<a href="anime/index.html">アニメ一覧</a>をご覧ください。</p>';
   }
 
   const SORT = {
