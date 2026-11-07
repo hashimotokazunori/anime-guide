@@ -118,10 +118,10 @@
     if (best) {
       const one = best.set.length === 1;
       const cov = need.length;
-      ans = `<div class="mlans"><p class="mlk">あなたのリストなら</p>`
+      ans = `<div class="mlans"><p class="mlk">確認できた範囲で、あなたのリストなら</p>`
         + `<div class="mllogos">${best.set.map(svChip).join(`<span class="mlplus">＋</span>`)}</div>`
         + `<p class="mlprice">${one ? "月額" : `${best.set.length}つ合わせて 月額`}<b>${best.sum.toLocaleString()}</b>円</p>`
-        + `<p class="mlcovt">${items.length}作品中 <b>${cov}作品</b>が見放題${cov < items.length ? `<small>（${items.length - cov}作品はどこも見放題なし）</small>` : ""}</p>`
+        + `<p class="mlcovt">${items.length}作品中 <b>${cov}作品</b>が見放題${cov < items.length ? `<small>（${items.length - cov}作品は見放題を確認できず）</small>` : ""}</p>`
         + `<div class="mlcov" role="img" aria-label="${items.length}作品中${cov}作品"><i style="width:${Math.round(cov * 100 / items.length)}%"></i></div>`;
       if (one) {
         const k = best.set[0];
@@ -137,13 +137,15 @@
             + svLink(k, hasTrial(k) ? "無料で試す" : "公式サイト") + `<p class="mlsw">${mine.map(x => esc(x.t)).join("、")}</p></li>`;
         }).join("") + `</ol><p class="mltip">💡 1か月ずつ順番に契約すれば、同時に払うのは1つ分だけです。</p>`;
       }
+      const unk = items.filter(x => !x.gone && x.q.length).length;
+      if (unk) ans += `<p class="mlunk">${unk}作品は、まだ確かめられていないサービスがあります。もっと安い組み合わせがあるかもしれません。</p>`;
       ans += `<p class="mlfine"><span class="pr">PR</span> 料金は${esc(D.asof)}時点の最安プラン（税込）、配信は${esc(D.vasof)}時点。無料体験は期間が終わると自動で有料になります。</p></div>`;
       if (!one && single) {
         const k = single.k;
         ans += `<div class="mlalt1"><p class="mlk">1つだけにするなら</p><div class="mlalt1r">${svChip(k)}<span>月額 ${yen(D.svc[k].m)}・${need.length}作品中 <b>${single.n}作品</b></span></div>${svLink(k, goLabel(k))}</div>`;
       }
     } else {
-      ans = `<div class="mlans none"><p class="mlk">あなたのリストなら</p><p class="mlnone1">いま見放題で観られるサービスが見つかりませんでした</p><p class="mlsub">レンタル・購入なら観られることがあります。各作品のページから探せます。</p></div>`;
+      ans = `<div class="mlans none"><p class="mlk">あなたのリストなら</p><p class="mlnone1">見放題を確認できたサービスがありません</p><p class="mlsub">未確認のサービスで見放題の可能性はあります。レンタル・購入なら観られることもあります。各作品のページから探せます。</p></div>`;
     }
     side.innerHTML = ans;
 
@@ -154,7 +156,7 @@
       + `<div class="mlhead"><h2>リスト <small>${items.length}作品</small></h2>`
       + (sh ? "" : `<div class="mlhbtns"><button type="button" id="mlsharebtn">共有</button><button type="button" id="mlclear">空にする</button></div>`) + `</div>`
       + `<ul class="mlitems">` + items.map(x => `<li><a class="mlth" href="anime/${esc(x.id)}.html" tabindex="-1" aria-hidden="true">${thumb(x)}</a>`
-        + `<div class="mlinfo"><a class="mlt" href="anime/${esc(x.id)}.html">${esc(x.t)}</a><div class="mlsv">${chips(x)}</div></div>`
+        + `<div class="mlinfo"><a class="mlt" href="anime/${esc(x.id)}.html">${esc(x.t)}</a><div class="mlsv">${chips(x)}</div>${x.gone ? "" : `<p class="mlchk">${SVKEYS().length}サービス中 ${SVKEYS().length - x.q.length}サービス確認済み</p>`}</div>`
         + (sh ? "" : `<button type="button" class="mldel" data-ml-id="${esc(x.id)}" data-ml-t="${esc(x.t)}"></button>`) + `</li>`).join("") + `</ul>`
       + (sh ? "" : `<p class="mlsave">リストはこの端末のブラウザにだけ保存されます。機種変更に備えるなら「共有」のURLをメモしておくと、あとで開いて戻せます。</p>`);
 
