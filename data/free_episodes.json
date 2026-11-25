@@ -1,6 +1,36 @@
 {
-"generated": "2026-11-20",
+"generated": "2026-11-24",
 "videos": [
+{
+"id": "0TI4CFp7jDQ",
+"t": "【公式アニメ】聖闘士星矢　第77話「巨星の涙！ヒルダのために死す」第78話「牙むく！北の狼フェンリル」",
+"w": "聖闘士星矢",
+"ch": "ジャンプチャンネル",
+"chid": "UC47AYUs8AVU1QsT5LhpXjaw",
+"pub": "2026-11-22",
+"min": 48,
+"pid": "8ff53d0d2b"
+},
+{
+"id": "9JRzMOMnHXM",
+"t": "TVアニメ「らんま1/2」第3期 第25話ウォッチパーティーアーカイブ音声（2026.10.03開催）",
+"w": "らんま1/2",
+"ch": "MAPPA CHANNEL",
+"chid": "UCjfAEJZdfbIjVHdo5yODfyQ",
+"pub": "2026-11-21",
+"min": 42,
+"pid": "3db81683eb"
+},
+{
+"id": "H734Lq5EZEM",
+"t": "【第141話】 未練を断つ斧 【BEYBLADE X】 ベイキングダム編",
+"w": "BEYBLADE X ベイキングダム編",
+"ch": "ベイチューブ | BEYBLADE Channel",
+"chid": "UCuG_D_8QZmHTfbJfsz8-J_A",
+"pub": "2026-11-20",
+"min": 25,
+"pid": "77699e428c"
+},
 {
 "id": "bz9XC7F0JeM",
 "t": "【公式】こちら葛飾区亀有公園前派出所　 第110話「浅草物語」期間限定配信",
@@ -132,6 +162,16 @@
 "pid": "f86d949e99"
 },
 {
+"id": "QB8iov5XoQk",
+"t": "【公式】アニメ「ポケットモンスター」第158話 「熱いハートは飛び火して」-期間限定配信-",
+"w": "ポケットモンスター",
+"ch": "テレ東アニメKids",
+"chid": "UCuhWqrSSm2WgXaq5cs6o0LA",
+"pub": "2026-11-20",
+"min": 25,
+"pid": "af949e304c"
+},
+{
 "id": "oJ8V5cYbEzc",
 "t": "アニメ『ニンジャラ』第242話[1週間限定配信2026年11月27日11時59分まで]",
 "w": "ニンジャラ",
@@ -142,6 +182,26 @@
 "pid": "f14c610b07"
 },
 {
+"id": "hDbz0Y-NV9M",
+"t": "【公式】アニメ「ポケットモンスター」第158話「熱いハートは飛び火して」（見逃し配信）",
+"w": "ポケットモンスター",
+"ch": "ポケモン公式YouTubeチャンネル",
+"chid": "UC_SI1j1d8vJo_rYMV5o_dRg",
+"pub": "2026-11-20",
+"min": 25,
+"pid": "af949e304c"
+},
+{
+"id": "xeJCw5nw6BY",
+"t": "【公式】アニメ「ポケットモンスター」第１５８話「熱いハートは飛び火して」-期間限定配信-",
+"w": "ポケットモンスター",
+"ch": "コロコロチャンネル【公式】",
+"chid": "UCKtxF3ufOkuJohTeKyNbYrQ",
+"pub": "2026-11-20",
+"min": 25,
+"pid": "af949e304c"
+},
+{
 "id": "w7b7GnTOl6o",
 "t": "【公式】「クッキングパパ」エピソード76「秋の日は夫婦でデート」期間限定本編配信",
 "w": "クッキングパパ",
@@ -149,6 +209,16 @@
 "chid": "UC9iC5kXiHNJCCDjEi1lD3UA",
 "pub": "2026-11-19",
 "min": 23,
+"pid": ""
+},
+{
+"id": "8ZOUIv91ars",
+"t": "アニメ『Duel Masters LOST 〜断罪の少年〜』第4話",
+"w": "Duel Masters LOST 〜断罪の少年〜",
+"ch": "デュエチューブ-DM公式-",
+"chid": "UCGm5NSZFeb7q54h52bvX80g",
+"pub": "2026-11-19",
+"min": 24,
 "pid": ""
 },
 {
@@ -402,6 +472,16 @@
 "pid": "296a34dc56"
 },
 {
+"id": "AyvOPkeHxU8",
+"t": "【２週間限定】「超魔神英雄伝ワタル」第17話〔サンチャン〕",
+"w": "超魔神英雄伝ワタル",
+"ch": "サンライズ  SUNRISE Official ",
+"chid": "UCmDLyFjSutfb1MK7F6cMVSA",
+"pub": "2026-11-13",
+"min": 25,
+"pid": "45b1d8745d"
+},
+{
 "id": "8PZbR5tGAoU",
 "t": "【第140話】 変革 【BEYBLADE X】 ベイキングダム編",
 "w": "BEYBLADE X ベイキングダム編",
@@ -542,16 +622,6 @@
 "pid": "546ce74f8c"
 },
 {
-"id": "fax8hhMdcaE",
-"t": "【公式】アニメ「ポケットモンスター」第157話 「華麗に登場！ダンディH！！」-期間限定配信-",
-"w": "ポケットモンスター",
-"ch": "テレ東アニメKids",
-"chid": "UCuhWqrSSm2WgXaq5cs6o0LA",
-"pub": "2026-11-13",
-"min": 25,
-"pid": "af949e304c"
-},
-{
 "id": "GTCSIkYK-o8",
 "t": "アニメ『ニンジャラ』第241話[1週間限定配信2026年11月20日11時59分まで]",
 "w": "ニンジャラ",
@@ -642,6 +712,16 @@
 "pid": "6cbf3e1c4f"
 },
 {
+"id": "fLzToJdlavo",
+"t": "【２週間限定】「伝説巨神イデオン」第29話〔サンチャン〕",
+"w": "伝説巨神イデオン",
+"ch": "サンライズ  SUNRISE Official ",
+"chid": "UCmDLyFjSutfb1MK7F6cMVSA",
+"pub": "2026-11-09",
+"min": 25,
+"pid": "6a445e2400"
+},
+{
 "id": "YNRFa4uNnmc",
 "t": "【２週間限定】「超魔神英雄伝ワタル」第16話〔サンチャン〕",
 "w": "超魔神英雄伝ワタル",
@@ -650,6 +730,26 @@
 "pub": "2026-11-09",
 "min": 25,
 "pid": "45b1d8745d"
+},
+{
+"id": "NFJTQY_1tNY",
+"t": "【公式アニメ】わがまま☆フェアリー ミルモでポン！　第49話「感動の松竹ファイト！でしゅ」第50話「昔のミルモをたおせ！」",
+"w": "感動の松竹ファイト！でしゅ",
+"ch": "ShoProアニメチャンネル",
+"chid": "UC-cXutYzvqARF5wNKx1KCNA",
+"pub": "2026-11-09",
+"min": 49,
+"pid": ""
+},
+{
+"id": "kIyfAL708s4",
+"t": "【公式アニメ】爆走兄弟レッツ&ゴー!!　第51話「栄光の表彰台！！勝利のミニ四駆」",
+"w": "栄光の表彰台！！勝利のミニ四駆",
+"ch": "ShoProアニメチャンネル",
+"chid": "UC-cXutYzvqARF5wNKx1KCNA",
+"pub": "2026-11-09",
+"min": 24,
+"pid": ""
 },
 {
 "id": "98TrNVHsTS4",
@@ -770,136 +870,6 @@
 "pub": "2026-11-08",
 "min": 24,
 "pid": "05cbed5e16"
-},
-{
-"id": "QpD1PSi-Eog",
-"t": "【公式アニメ】聖闘士星矢　第73話「集え友よ！アテナのもとに」第74話「極北の敵！伝説の神闘士」",
-"w": "聖闘士星矢",
-"ch": "ジャンプチャンネル",
-"chid": "UC47AYUs8AVU1QsT5LhpXjaw",
-"pub": "2026-11-08",
-"min": 48,
-"pid": "8ff53d0d2b"
-},
-{
-"id": "-OsryIyuyoU",
-"t": "【幻想魔伝最遊記】第41話「Collage 静かなる波紋」｜期間限定・一挙配信｜テレ東アニメAllUp【公式】",
-"w": "幻想魔伝最遊記",
-"ch": "テレ東アニメ",
-"chid": "UC0OXPEQRKArB_EVyFMwDbAQ",
-"pub": "2026-11-07",
-"min": 23,
-"pid": ""
-},
-{
-"id": "1gwX3ifjiVA",
-"t": "【幻想魔伝最遊記】第43話「Tears 虚像の街」｜期間限定・一挙配信｜テレ東アニメAllUp【公式】",
-"w": "幻想魔伝最遊記",
-"ch": "テレ東アニメ",
-"chid": "UC0OXPEQRKArB_EVyFMwDbAQ",
-"pub": "2026-11-07",
-"min": 23,
-"pid": ""
-},
-{
-"id": "4VQbl_cq9xI",
-"t": "【幻想魔伝最遊記】第46話「Chaos 揺らぐ大地」｜期間限定・一挙配信｜テレ東アニメAllUp【公式】",
-"w": "幻想魔伝最遊記",
-"ch": "テレ東アニメ",
-"chid": "UC0OXPEQRKArB_EVyFMwDbAQ",
-"pub": "2026-11-07",
-"min": 23,
-"pid": ""
-},
-{
-"id": "5ZdTuhCITbk",
-"t": "【幻想魔伝最遊記】第45話「Glorious Days 夜明け前」｜期間限定・一挙配信｜テレ東アニメAllUp【公式】",
-"w": "DAYS",
-"ch": "テレ東アニメ",
-"chid": "UC0OXPEQRKArB_EVyFMwDbAQ",
-"pub": "2026-11-07",
-"min": 23,
-"pid": "55284f7808"
-},
-{
-"id": "EjAB9bcf3LI",
-"t": "【幻想魔伝最遊記】第40話「Twilight 不機嫌な太陽」｜期間限定・一挙配信｜テレ東アニメAllUp【公式】",
-"w": "幻想魔伝最遊記",
-"ch": "テレ東アニメ",
-"chid": "UC0OXPEQRKArB_EVyFMwDbAQ",
-"pub": "2026-11-07",
-"min": 23,
-"pid": ""
-},
-{
-"id": "Z_JqBtS-6Uc",
-"t": "【幻想魔伝最遊記】第50話「Alone 西へ」｜期間限定・一挙配信｜テレ東アニメAllUp【公式】",
-"w": "幻想魔伝最遊記",
-"ch": "テレ東アニメ",
-"chid": "UC0OXPEQRKArB_EVyFMwDbAQ",
-"pub": "2026-11-07",
-"min": 22,
-"pid": ""
-},
-{
-"id": "dzi7WR7sLvk",
-"t": "【幻想魔伝最遊記】第47話「Guilty or Not Guilty 戒罪」｜期間限定・一挙配信｜テレ東アニメAllUp【公式】",
-"w": "幻想魔伝最遊記",
-"ch": "テレ東アニメ",
-"chid": "UC0OXPEQRKArB_EVyFMwDbAQ",
-"pub": "2026-11-07",
-"min": 23,
-"pid": ""
-},
-{
-"id": "gTuRpVE6QZM",
-"t": "【幻想魔伝最遊記】第48話「Absolutely Heaven 自由への扉」｜期間限定・一挙配信｜テレ東アニメAllUp【公式】",
-"w": "幻想魔伝最遊記",
-"ch": "テレ東アニメ",
-"chid": "UC0OXPEQRKArB_EVyFMwDbAQ",
-"pub": "2026-11-07",
-"min": 23,
-"pid": ""
-},
-{
-"id": "lL7rTaVEaOA",
-"t": "【幻想魔伝最遊記】第42話「Festival 忘れえぬ風景」｜期間限定・一挙配信｜テレ東アニメAllUp【公式】",
-"w": "幻想魔伝最遊記",
-"ch": "テレ東アニメ",
-"chid": "UC0OXPEQRKArB_EVyFMwDbAQ",
-"pub": "2026-11-07",
-"min": 23,
-"pid": ""
-},
-{
-"id": "nj03aAo0EZE",
-"t": "【幻想魔伝最遊記】第44話「Plunderer 経文強奪」｜期間限定・一挙配信｜テレ東アニメAllUp【公式】",
-"w": "幻想魔伝最遊記",
-"ch": "テレ東アニメ",
-"chid": "UC0OXPEQRKArB_EVyFMwDbAQ",
-"pub": "2026-11-07",
-"min": 23,
-"pid": ""
-},
-{
-"id": "wZzpP7dr8n4",
-"t": "【幻想魔伝最遊記】第39話「Misty Rain 雨」｜期間限定・一挙配信｜テレ東アニメAllUp【公式】",
-"w": "幻想魔伝最遊記",
-"ch": "テレ東アニメ",
-"chid": "UC0OXPEQRKArB_EVyFMwDbAQ",
-"pub": "2026-11-07",
-"min": 23,
-"pid": ""
-},
-{
-"id": "zYXAC41N-GI",
-"t": "【幻想魔伝最遊記】第49話「Missing Desire 輝く楽園」｜期間限定・一挙配信｜テレ東アニメAllUp【公式】",
-"w": "幻想魔伝最遊記",
-"ch": "テレ東アニメ",
-"chid": "UC0OXPEQRKArB_EVyFMwDbAQ",
-"pub": "2026-11-07",
-"min": 23,
-"pid": ""
 },
 {
 "id": "1-iOK-Csl8k",
@@ -1092,6 +1062,16 @@
 "pid": "eb27b15d62"
 },
 {
+"id": "tDYqZ3dNrGU",
+"t": "【公式】多数欠  第17話【期間限定無料配信】",
+"w": "多数欠",
+"ch": "VAP Official",
+"chid": "UCazjJ6udlwl6cP_om1zqTQQ",
+"pub": "2026-11-04",
+"min": 23,
+"pid": "296a34dc56"
+},
+{
 "id": "J5iNQTmDIhk",
 "t": "【公式】多数欠  第16話【期間限定無料配信】",
 "w": "多数欠",
@@ -1150,16 +1130,6 @@
 "pub": "2026-10-30",
 "min": 25,
 "pid": "6a445e2400"
-},
-{
-"id": "amgtF3xUe6o",
-"t": "【２週間限定】「超魔神英雄伝ワタル」第15話〔サンチャン〕",
-"w": "超魔神英雄伝ワタル",
-"ch": "サンライズ  SUNRISE Official ",
-"chid": "UCmDLyFjSutfb1MK7F6cMVSA",
-"pub": "2026-10-30",
-"min": 25,
-"pid": "45b1d8745d"
 },
 {
 "id": "x7Mc4DjV-YY",
@@ -1232,16 +1202,6 @@
 "pid": "6cbf3e1c4f"
 },
 {
-"id": "VDyW4J0x8KI",
-"t": "【２週間限定】「伝説巨神イデオン」第27話〔サンチャン〕",
-"w": "伝説巨神イデオン",
-"ch": "サンライズ  SUNRISE Official ",
-"chid": "UCmDLyFjSutfb1MK7F6cMVSA",
-"pub": "2026-10-26",
-"min": 25,
-"pid": "6a445e2400"
-},
-{
 "id": "iyusAkd85Kk",
 "t": "【第137話】 ベイキングダム 【BEYBLADE X】 ベイキングダム編",
 "w": "BEYBLADE X ベイキングダム編",
@@ -1250,26 +1210,6 @@
 "pub": "2026-10-23",
 "min": 25,
 "pid": "77699e428c"
-},
-{
-"id": "83CPGg8lBdQ",
-"t": "【公式】ちびまる子ちゃん 第1期「永沢君ちの火事見舞い」の巻　期間限定本編配信",
-"w": "ちびまる子ちゃん",
-"ch": "アニメタイムズ公式 / Anime Times Official",
-"chid": "UC9iC5kXiHNJCCDjEi1lD3UA",
-"pub": "2026-10-23",
-"min": 24,
-"pid": "a09665f8d7"
-},
-{
-"id": "XH9br1_usgA",
-"t": "【公式】「クッキングパパ」エピソード117「田中流！カツ丼の食べ方」期間限定本編配信",
-"w": "クッキングパパ",
-"ch": "アニメタイムズ公式 / Anime Times Official",
-"chid": "UC9iC5kXiHNJCCDjEi1lD3UA",
-"pub": "2026-10-22",
-"min": 23,
-"pid": ""
 },
 {
 "id": "dVhNJA-AfpA",
@@ -1392,26 +1332,6 @@
 "pid": ""
 },
 {
-"id": "XwrVHol6MdE",
-"t": "【公式アニメ】わがまま☆フェアリー ミルモでポン！　第45話「オトチョコでラブパニ？」第46話「ニュース3人娘♡」",
-"w": "オトチョコでラブパニ？",
-"ch": "ShoProアニメチャンネル",
-"chid": "UC-cXutYzvqARF5wNKx1KCNA",
-"pub": "2026-10-08",
-"min": 49,
-"pid": ""
-},
-{
-"id": "jA_9YLKE6E0",
-"t": "【公式アニメ】爆走兄弟レッツ&ゴー!!　第47話「火花散るラストチャンス！」第48話「SGJC開幕！！波乱のスタート」",
-"w": "火花散るラストチャンス！",
-"ch": "ShoProアニメチャンネル",
-"chid": "UC-cXutYzvqARF5wNKx1KCNA",
-"pub": "2026-10-08",
-"min": 47,
-"pid": ""
-},
-{
 "id": "EteRQRvN4bo",
 "t": "【公式アニメ】わがまま☆フェアリー ミルモでポン！　第43話「またまた、キンタだす！」第44話「がんばれ！ フェアリーズ」",
 "w": "またまた、キンタだす！",
@@ -1442,46 +1362,6 @@
 "pid": "6717e4c01a"
 },
 {
-"id": "oSGNrCXNAEc",
-"t": "【公式】多数欠  第11話【期間限定無料配信】",
-"w": "多数欠",
-"ch": "VAP Official",
-"chid": "UCazjJ6udlwl6cP_om1zqTQQ",
-"pub": "2026-10-06",
-"min": 23,
-"pid": "296a34dc56"
-},
-{
-"id": "V0GUASOPJx4",
-"t": "【公式】多数欠  第10話【期間限定無料配信】",
-"w": "多数欠",
-"ch": "VAP Official",
-"chid": "UCazjJ6udlwl6cP_om1zqTQQ",
-"pub": "2026-10-06",
-"min": 23,
-"pid": "296a34dc56"
-},
-{
-"id": "xRP0xppOfXU",
-"t": "【公式】多数欠  第9話【期間限定無料配信】",
-"w": "多数欠",
-"ch": "VAP Official",
-"chid": "UCazjJ6udlwl6cP_om1zqTQQ",
-"pub": "2026-10-06",
-"min": 23,
-"pid": "296a34dc56"
-},
-{
-"id": "ciuEVAv41QU",
-"t": "【公式】多数欠  第8話【期間限定無料配信】",
-"w": "多数欠",
-"ch": "VAP Official",
-"chid": "UCazjJ6udlwl6cP_om1zqTQQ",
-"pub": "2026-10-06",
-"min": 23,
-"pid": "296a34dc56"
-},
-{
 "id": "PxtkaLMkCKo",
 "t": "【第13話 フル】「#アニメ野生のラスボスが現れた！」期間限定で無料公開中！",
 "w": "野生のラスボスが現れた！",
@@ -1500,16 +1380,6 @@
 "pub": "2026-10-04",
 "min": 24,
 "pid": "066f68bf97"
-},
-{
-"id": "mxr3h7MhFNA",
-"t": "【もっと！】第76話〜第78話「この家は、わたしの城！」ほか | 新あたしンち",
-"w": "新あたしンち",
-"ch": "【アニメ】あたしンち公式チャンネル",
-"chid": "UCkwJXqFl-9VVvK9udYCFjMw",
-"pub": "2026-10-01",
-"min": 24,
-"pid": "a9ff995692"
 },
 {
 "id": "w0u1iAXdxnA",
@@ -1550,26 +1420,6 @@
 "pub": "2026-09-25",
 "min": 24,
 "pid": ""
-},
-{
-"id": "1dCyQK11u_c",
-"t": "「みほ、華麗なる変身！」第1話 | 魔法のステージファンシーララ | スタジオぴえろ【公式】",
-"w": "魔法のステージ ファンシーララ",
-"ch": "スタジオぴえろ【公式】",
-"chid": "UC0U2GG9WNndvt1wK41l9iqg",
-"pub": "2026-09-23",
-"min": 25,
-"pid": "766c5821e0"
-},
-{
-"id": "jsSxYS9zuAA",
-"t": "【期間限定本編配信】ブラッククローバー 2nd Season 放送直前SP 世界を巻き込み「限界を、斬り開け。」",
-"w": "ブラッククローバー 2nd Season",
-"ch": "テレ東アニメ",
-"chid": "UC0OXPEQRKArB_EVyFMwDbAQ",
-"pub": "2026-09-22",
-"min": 24,
-"pid": "17d1901b53"
 }
 ]
 }
